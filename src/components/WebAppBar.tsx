@@ -1,4 +1,6 @@
-import { Box, SxProps, Toolbar, Typography } from "@mui/material";
+import { Box, IconButton, Menu, MenuItem, SxProps, Toolbar, Typography } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
+import React from "react";
 
 export interface WebAppBarLink {
     title: string,
@@ -11,6 +13,17 @@ export default function WebAppBar(props: {
     translucent?: boolean,
     links: WebAppBarLink[]
 }) {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const linksMenuOpen = Boolean(anchorEl);
+
+    const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
     return (
         <Box sx={{
             ...props.sx,
@@ -38,7 +51,7 @@ export default function WebAppBar(props: {
                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                     {
                         props.links.map((link) => (
-                            <Typography sx={{
+                            <Typography key={`${link.title}::${link.anchor}`} sx={{
                                 fontSize: '1rem',
                                 fontWeight: 600,
                                 marginLeft: '15px',
@@ -48,6 +61,32 @@ export default function WebAppBar(props: {
                         ))
                     }
                 </Box>
+
+                { /* Hamburger Button, Show only on Mobile */}
+                <IconButton
+                    onClick={handleMenuClick}
+                    sx={{
+                        color: 'inherit',
+                        display: { xs: 'flex', md: 'none' }
+                    }}
+                ><MenuIcon sx={{ fontSize: '1.8rem' }} /></IconButton>
+
+                { /* Define Menu Component */}
+                <Menu
+                    open={linksMenuOpen}
+                    anchorEl={anchorEl}
+                    onClose={handleMenuClose}
+                    slotProps={{ paper: { sx: { minWidth: '150px' } } }}
+                >
+                    {
+                        props.links.map((link) => (
+                            <MenuItem
+                                key={`${link.title}::${link.anchor}`}
+                                onClick={handleMenuClose}
+                            >{link.title}</MenuItem>
+                        ))
+                    }
+                </Menu>
             </Toolbar>
         </Box>
     );

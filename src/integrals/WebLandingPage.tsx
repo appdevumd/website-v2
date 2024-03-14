@@ -4,7 +4,7 @@ import WebEventsBar, { WebEvent } from "../components/WebEventsBar";
 import WebAppBar, { WebAppBarLink } from "../components/WebAppBar";
 
 export default function WebLandingPage() {
-    const [liveEvents, setLiveEvents] = React.useState<WebEvent[]>([]);
+    const [liveEvents, setLiveEvents] = React.useState<WebEvent[]>([{ title: "General Body Meeting, 3/25 8pm @ Iribe" }]);
     const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
 
     /* Define WebAppBar Links */
@@ -41,7 +41,7 @@ export default function WebLandingPage() {
             <WebAppBar links={webAppBarLinks} fullWidth />
 
             <Box>
-                <Typography sx={{ fontSize: '20rem' }}>Hello</Typography>
+                <Typography sx={{ fontSize: '5rem' }}>Hello</Typography>
             </Box>
 
             { /* Translucent App Bar, Last Element, On Top of All */}
