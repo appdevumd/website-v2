@@ -1,9 +1,15 @@
 import { Box, SxProps, Toolbar, Typography } from "@mui/material";
 
+export interface WebAppBarLink {
+    title: string,
+    anchor: string
+};
+
 export default function WebAppBar(props: {
     sx?: SxProps,
     fullWidth?: boolean,
-    translucent?: boolean
+    translucent?: boolean,
+    links: WebAppBarLink[]
 }) {
     return (
         <Box sx={{
@@ -26,7 +32,22 @@ export default function WebAppBar(props: {
                 userSelect: 'none',
             }}>
                 <img src="/logo256.png" style={{ maxHeight: '65%', margin: '10px 0px 10px 0px' }} />
-                <Typography sx={{ fontSize: '1.3rem', fontWeight: "bold", marginLeft: '15px' }}>App Dev Club</Typography>
+                <Typography sx={{ flexGrow: 1, fontSize: '1.3rem', fontWeight: "bold", marginLeft: '15px' }}>App Dev Club</Typography>
+
+                { /* Links, Hide In Mobile. Provide Dropdown Instead */}
+                <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    {
+                        props.links.map((link) => (
+                            <Typography sx={{
+                                fontSize: '1rem',
+                                fontWeight: 600,
+                                marginLeft: '15px',
+                                marginRight: '10px'
+                            }}
+                            >{link.title}</Typography>
+                        ))
+                    }
+                </Box>
             </Toolbar>
         </Box>
     );

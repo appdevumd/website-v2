@@ -1,11 +1,21 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import WebEventsBar, { WebEvent } from "../components/WebEventsBar";
-import WebAppBar from "../components/WebAppBar";
+import WebAppBar, { WebAppBarLink } from "../components/WebAppBar";
 
 export default function WebLandingPage() {
     const [liveEvents, setLiveEvents] = React.useState<WebEvent[]>([]);
     const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
+
+    /* Define WebAppBar Links */
+    const webAppBarLinks: WebAppBarLink[] = [
+        { title: "About", anchor: "" },
+        { title: "Sponsors", anchor: "" },
+        { title: "Projects", anchor: "" },
+        { title: "Our Team", anchor: "" },
+        { title: "Highlights", anchor: "" },
+        { title: "Contact Us", anchor: "" },
+    ];
 
     React.useEffect(() => {
         /* Detect Webpage Scroll */
@@ -27,15 +37,23 @@ export default function WebLandingPage() {
                     <WebEventsBar events={liveEvents} />
             }
 
-            { /* Translucent App Bar */}
-            <WebAppBar translucent={true} sx={{ position: 'fixed', top: `${translucentAppBarTop}px`, left: '0px' }} />
-
             { /* Fixed App Bar */}
-            <WebAppBar fullWidth />
+            <WebAppBar links={webAppBarLinks} fullWidth />
 
             <Box>
                 <Typography sx={{ fontSize: '20rem' }}>Hello</Typography>
             </Box>
+
+            { /* Translucent App Bar, Last Element, On Top of All */}
+            <WebAppBar
+                links={webAppBarLinks}
+                translucent={true}
+                sx={{
+                    position: 'fixed',
+                    top: `${translucentAppBarTop}px`,
+                    left: '0px'
+                }}
+            />
         </Box>
     );
 }
