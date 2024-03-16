@@ -1,6 +1,7 @@
-import { Box, IconButton, Menu, MenuItem, SxProps, Toolbar, Typography } from "@mui/material";
+import { Box, Drawer, IconButton, Link, Menu, MenuItem, SxProps, Toolbar, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import React from "react";
+import { Close } from "@mui/icons-material";
 
 export interface WebAppBarLink {
     title: string,
@@ -14,15 +15,7 @@ export default function WebAppBar(props: {
     links: WebAppBarLink[]
 }) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const linksMenuOpen = Boolean(anchorEl);
-
-    const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
+    const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
 
     return (
         <Box sx={{
@@ -51,42 +44,63 @@ export default function WebAppBar(props: {
                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                     {
                         props.links.map((link) => (
-                            <Typography key={`${link.title}::${link.anchor}`} sx={{
+                            <Link underline="hover" key={`${link.title}::${link.anchor}`} sx={{
                                 fontSize: '1rem',
                                 fontWeight: 600,
                                 marginLeft: '15px',
-                                marginRight: '10px'
+                                marginRight: '10px',
+                                color: 'inherit',
+                                ":hover": {
+                                    cursor: 'pointer'
+                                }
                             }}
-                            >{link.title}</Typography>
+                            >{link.title}</Link>
                         ))
                     }
                 </Box>
 
                 { /* Hamburger Button, Show only on Mobile */}
                 <IconButton
-                    onClick={handleMenuClick}
+                    onClick={() => { setDrawerOpen(true) }}
                     sx={{
                         color: 'inherit',
                         display: { xs: 'flex', md: 'none' }
                     }}
                 ><MenuIcon sx={{ fontSize: '1.8rem' }} /></IconButton>
 
-                { /* Define Menu Component */}
-                <Menu
-                    open={linksMenuOpen}
-                    anchorEl={anchorEl}
-                    onClose={handleMenuClose}
-                    slotProps={{ paper: { sx: { minWidth: '150px' } } }}
+                { /* Define Navigation Bar */}
+                <Drawer
+                    anchor="right"
+                    open={drawerOpen}
+                    onClose={() => { setDrawerOpen(false); }}
+                    PaperProps={{
+                        sx: {
+                            width: '180px',
+                            bgcolor: 'background.default',
+                            padding: '25px',
+                            backgroundImage: 'unset'
+                        }
+                    }}
                 >
+                    <IconButton onClick={() => { setDrawerOpen(false) }} sx={{
+                        alignSelf: 'end',
+                        maxWidth: '40px',
+                        marginBottom: '10px'
+                    }}><Close /></IconButton>
                     {
                         props.links.map((link) => (
-                            <MenuItem
-                                key={`${link.title}::${link.anchor}`}
-                                onClick={handleMenuClose}
-                            >{link.title}</MenuItem>
+                            <Link
+                                underline="hover"
+                                color="inherit"
+                                sx={{
+                                    fontSize: '1.3rem',
+                                    marginTop: '7px',
+                                    marginBottom: '7px'
+                                }}
+                            >{link.title}</Link>
                         ))
                     }
-                </Menu>
+                </Drawer>
             </Toolbar>
         </Box>
     );
