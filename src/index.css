@@ -9,11 +9,34 @@
 }
 
 @supports (font-variation-settings: normal) {
-  :root { font-family: InterVariable, sans-serif; }
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
 }
 
 body {
   width: 100%;
   height: 100%;
   margin: 0px;
+}
+
+/* Custom Scrollbar */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #2e3b5d #14213d;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #14213d;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #2e3b5d;
+  border: 3px solid #2e3b5d;
 }
