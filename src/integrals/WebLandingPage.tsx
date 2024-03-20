@@ -1,7 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import WebEventsBar, { WebEvent } from "../components/WebEventsBar";
 import WebAppBar, { WebAppBarLink } from "../components/WebAppBar";
+import LandingProjectCard from "../components/LandingProjectCard";
 
 export default function WebLandingPage() {
     const [liveEvents, setLiveEvents] = React.useState<WebEvent[]>([{ title: "General Body Meeting, 3/25 8pm @ Iribe" }]);
@@ -40,8 +41,15 @@ export default function WebLandingPage() {
             { /* Fixed App Bar */}
             <WebAppBar links={webAppBarLinks} fullWidth />
 
-            <Box>
-                <Typography sx={{ fontSize: '5rem' }}>Hello</Typography>
+            <Box sx={{ padding: '50px', height: '480px' }}>
+                <LandingProjectCard project={{
+                    id: "1234567",
+                    name: "Space Safety Visualizer",
+                    organization: "Amazon",
+                    description: "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
+                    members: ["1234567", "12345678"],
+                    cover: "null",
+                }} />
             </Box>
 
             { /* Translucent App Bar, Last Element, On Top of All */}
@@ -49,6 +57,7 @@ export default function WebLandingPage() {
                 links={webAppBarLinks}
                 translucent={true}
                 sx={{
+                    zIndex: 2,
                     position: 'fixed',
                     top: `${translucentAppBarTop}px`,
                     left: '0px'
