@@ -28,7 +28,7 @@ export default function WebAppBar(props: {
             <Toolbar sx={{
                 background: (props.translucent) ? 'rgba(67,86,127, 0.5)' : 'transparent',
                 backdropFilter: (props.translucent) ? 'blur(20px)' : 'unset',
-                margin: '25px 0px 25px 0px',
+                margin: '25px 0px 0px 0px',
                 borderRadius: '41px',
                 paddingLeft: '40px !important',
                 paddingRight: '40px !important',
