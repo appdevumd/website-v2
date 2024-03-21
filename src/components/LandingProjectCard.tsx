@@ -16,7 +16,7 @@ export default function LandingProjectCard(props: { project: LandingProject }) {
     const handleCardClick = (project: LandingProject) => navigate(`/project/${project.id}`)
     
     return (
-        <Atropos onClick={() => { handleCardClick(props.project) }} style={{ minWidth: '50vw', height: '480px', cursor: 'pointer' }}>
+        <Atropos highlight={false} onClick={() => { handleCardClick(props.project) }} style={{ minWidth: '50vw', height: '480px', cursor: 'pointer' }}>
             <Paper sx={{ borderRadius: '35px', padding: '30px', display: 'flex', gap: '15px', color: '#000000', bgcolor: "#ffffff", width: '100%', height: '100%' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                     <Typography sx={{ fontSize: '1.5rem', fontWeight: 700 }}>{props.project.name}</Typography>

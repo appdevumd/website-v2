@@ -3,6 +3,7 @@ import AppThemeController from './middleware/AppThemeController'
 import WebLandingPage from './integrals/WebLandingPage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import WebProjectsPage from './integrals/WebProjectsPage'
+import 'atropos/css'
 
 function App() {
   return (

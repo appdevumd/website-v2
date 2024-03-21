@@ -30,7 +30,7 @@ export default function WebLandingPage() {
             /* Set App Bar to Translucent Mode if Scroll is Over 100 */
             setTranslucentAppBarTop(Math.min(scrollY - 120, 0));
             setProjectsContainerPosition((scrollY > 2000) ? 'unset' : 'fixed')
-            
+
             if (projectsContainer.current) {
                 let container = projectsContainer.current;
                 let progress = (1 - ((2000 - scrollY) / 2000));
@@ -53,39 +53,39 @@ export default function WebLandingPage() {
 
             <Box sx={{ height: '2000px' }}></Box>
             <Box ref={projectsContainer} sx={{
-                    display: 'flex',
-                    gap: '30px',
-                    padding: '50px',
-                    maxWidth: '100%',
-                    overflowX: 'hidden',
-                    position: projectsContainerPosition,
-                    top: '120px',
-                }}>
-                    <LandingProjectCard project={{
-                        id: "1234567",
-                        name: "Space Safety Visualizer",
-                        organization: "Amazon",
-                        description: "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-                        members: ["1234567", "12345678"],
-                        cover: "null",
-                    }} />
-                    <LandingProjectCard project={{
-                        id: "1234567",
-                        name: "Space Safety Visualizer",
-                        organization: "Amazon",
-                        description: "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-                        members: ["1234567", "12345678"],
-                        cover: "null",
-                    }} />
-                    <LandingProjectCard project={{
-                        id: "1234567",
-                        name: "Space Safety Visualizer",
-                        organization: "Amazon",
-                        description: "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-                        members: ["1234567", "12345678"],
-                        cover: "null",
-                    }} />
-                </Box>
+                display: 'flex',
+                gap: '30px',
+                padding: '50px',
+                maxWidth: '100%',
+                overflowX: 'hidden',
+                position: projectsContainerPosition,
+                top: '120px',
+            }}>
+                <LandingProjectCard project={{
+                    id: "1234567",
+                    name: "Space Safety Visualizer",
+                    organization: "Amazon",
+                    description: "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
+                    members: ["1234567", "12345678"],
+                    cover: "null",
+                }} />
+                <LandingProjectCard project={{
+                    id: "1234567",
+                    name: "Space Safety Visualizer",
+                    organization: "Amazon",
+                    description: "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
+                    members: ["1234567", "12345678"],
+                    cover: "null",
+                }} />
+                <LandingProjectCard project={{
+                    id: "1234567",
+                    name: "Space Safety Visualizer",
+                    organization: "Amazon",
+                    description: "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
+                    members: ["1234567", "12345678"],
+                    cover: "null",
+                }} />
+            </Box>
 
             { /* Translucent App Bar, Last Element, On Top of All */}
             <WebAppBar
