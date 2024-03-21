@@ -47,7 +47,7 @@ export default function WebEventsBar(props: { events: WebEvent[] }) {
                 }
             </Box>
             <IconButton 
-                onClick={() => { setEventsVisible(false) }}
+                onClick={handleEventsClose}
                 sx={{ 
                     color: 'inherit', 
                     width: '25px', 

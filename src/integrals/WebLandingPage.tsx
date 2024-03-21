@@ -3,7 +3,6 @@ import React from "react";
 import WebEventsBar, { WebEvent } from "../components/WebEventsBar";
 import WebAppBar, { WebAppBarLink } from "../components/WebAppBar";
 import LandingProjectCard from "../components/LandingProjectCard";
-import { Parallax } from "react-scroll-parallax";
 
 export default function WebLandingPage() {
     const projectsContainer = React.useRef<HTMLDivElement>();

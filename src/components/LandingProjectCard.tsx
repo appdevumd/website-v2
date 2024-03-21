@@ -1,5 +1,6 @@
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import Atropos from "atropos/react";
+import { useNavigate } from "react-router-dom";
 
 export interface LandingProject {
     id: String,
@@ -11,9 +12,8 @@ export interface LandingProject {
 };
 
 export default function LandingProjectCard(props: { project: LandingProject }) {
-    const handleCardClick = (project: LandingProject) => {
-        console.log(`Clicked: ${project.id}`)
-    }
+    const navigate = useNavigate();
+    const handleCardClick = (project: LandingProject) => navigate(`/project/${project.id}`)
     
     return (
         <Atropos onClick={() => { handleCardClick(props.project) }} style={{ minWidth: '50vw', height: '480px', cursor: 'pointer' }}>
