@@ -31,7 +31,7 @@ describe('FixedWebAppBar', () => {
   });
 });
 
-describe('FixedWebAppBar', () => {
+describe('TranslucentWebAppBar', () => {
   beforeEach(() => {
     render(
       <TranslucentWebAppBar

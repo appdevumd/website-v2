@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import * as LandingTitlePageStories from "./LandingTitlePage.stories";
 import { composeStories } from "@storybook/react";
 
-const { Default: LandingTitlePage } = composeStories(LandingTitlePageStories)
+const { Default: LandingTitlePage } = composeStories(LandingTitlePageStories);
 
 describe('Landing Title Page', () => {
   beforeEach(() => {
