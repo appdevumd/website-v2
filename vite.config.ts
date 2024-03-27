@@ -9,4 +9,9 @@ export default defineConfig({
   server: {
     port: 3000
   },
+  test: {
+    // add jsdom to vite
+    environment: 'jsdom',
+    setupFiles: './tests/setup.tsx',
+  },
 });
