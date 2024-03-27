@@ -39,7 +39,7 @@ Without this barrel export we would have to do
 import <Component> from './LandingProjectCard/LandingProjectCard.tsx';
 ```
 
-With the barrel we can export by doing
+With the barrel we can import by doing
 ```javascript
 import <Component> from './LandingProjectCard';
 ```
