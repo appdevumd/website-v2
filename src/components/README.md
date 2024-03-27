@@ -236,7 +236,7 @@ With Vitest, we have some important functions:
 
 `describe` basically creates a test suite, `beforeEach` describes behavior before every test in the test suite, `it` defines a test within that test suite, and `expect` is a way to make assertions
 
-These are great, but we need to actually have access to the dom to test it, which is where `jsdom` and `React Testing Library` comes into play
+These are great, but we need to actually have access to the DOM to test it, which is where `jsdom` and `React Testing Library` comes into play
 
 `jsdom` is something that I already configured, but its a way to simulate the dom in nodejs, if I am not wrong
 
@@ -253,3 +253,13 @@ Some pretty useful functions are:
   - `screen.queryByAltText`
   - `screen.getByAltText`
 - etc.
+
+To run tests with `vitest`, simply do `npm test`
+
+To run tests with `storybook`, simply do `npm run test-storybook`
+
+I am pretty certain the main difference between these two tests is that `vitest` runs with `jsdom` while `storybook` runs with `playwright`, which is a headless web browser, if I remember correctly.
+
+The tests for `storybook` can also be run on the `storybook` UI, if I remember correctly.
+
+I think that's most of the things I wanted to go over. I wrote this all basically in one sitting so let me know if I forgot something or mispoke about something.
