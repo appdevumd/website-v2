@@ -151,7 +151,7 @@ const meta: Meta<typeof LandingProjectCard> = {
   tags: ['autodocs'],
 };
 ```
-Here we provide the metadata for the story. I'll explain some of the fields here:
+Here we provide the metadata for the stories. I'll explain some of the fields here:
 
 - `component` This is just the component that the story uses
 - `decorators` If you are familiar with Python decorators, this is basically the same thing. In this case I basically wrapped the target component with a `BrowserRouter` component in order to be able to use the `useNavigate` hook
