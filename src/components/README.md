@@ -5,7 +5,7 @@ To define a structured way to create, test, and document components.
 
 ### Example Component Folder
 
-Here is an example component folder for the LandingProjectCard component:
+Here is an example component folder for the `LandingProjectCard` component:
 
 ```
 .
