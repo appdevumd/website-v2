@@ -7,12 +7,12 @@ const baseTheme = createTheme({
             primary: '#FFFFFF',
         },
         background: {
-            default: "#14213D"
+            default: "#14213D",
         }
     },
     typography: {
-        fontFamily: "Inter, sans-serif"
-    }
+        fontFamily: "Inter, sans-serif",
+    },
 });
 
 export default { baseTheme };
