@@ -1,10 +1,11 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import WebEventsBar from "../components/WebEventsBar";
 import { WebEvent } from "../components/WebEventsBar/interfaces";
 import WebAppBar from "../components/WebAppBar";
 import { WebAppBarLink } from "../components/WebAppBar/interfaces";
 import LandingProjectCard from "../components/LandingProjectCard";
+import Stats from "../components/Stats";
 
 export default function WebLandingPage() {
   const projectsContainer = React.useRef<HTMLDivElement>();
@@ -34,11 +35,13 @@ export default function WebLandingPage() {
 
       /* Set App Bar to Translucent Mode if Scroll is Over 100 */
       setTranslucentAppBarTop(Math.min(scrollY - 120, 0));
-      setProjectsContainerPosition(scrollY > 2000 ? "unset" : "fixed");
+      setProjectsContainerPosition(
+        scrollY > 2600 || scrollY < 600 ? "unset" : "fixed"
+      );
 
       if (projectsContainer.current) {
         const container = projectsContainer.current;
-        const progress = 1 - (2000 - scrollY) / 2000;
+        const progress = 1 - (2000 - scrollY + 600) / 2000;
         const maxScrollLeft = container.scrollWidth - container.clientWidth;
         container.scrollLeft = (progress + 0.02) * maxScrollLeft;
       }
@@ -55,6 +58,32 @@ export default function WebLandingPage() {
       {/* Fixed App Bar */}
       <WebAppBar links={webAppBarLinks} fullWidth />
 
+      <Typography
+        sx={{
+          flexGrow: 1,
+          fontSize: "60px",
+          fontWeight: "bold",
+          margin: "50px",
+          textAlign: "center",
+        }}
+      >
+        Our motto goes here.
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          flexGrow: 1,
+          flex: 1,
+          flexWrap: "wrap",
+          paddingLeft: 10,
+          paddingRight: 5,
+        }}
+      >
+        <Stats end={500000} title={"Dollars Saved"} prefix={"$"} />
+        <Stats end={150} title={"Members"} />
+        <Stats end={100000} title={"Lines of Code"} />
+      </Box>
       <Box sx={{ height: "2000px" }}></Box>
       <Box
         ref={projectsContainer}
@@ -65,7 +94,7 @@ export default function WebLandingPage() {
           maxWidth: "100%",
           overflowX: "hidden",
           position: projectsContainerPosition,
-          top: "120px",
+          top: window.scrollY > 200 ? "120px" : "720px",
         }}
       >
         <LandingProjectCard
