@@ -41,7 +41,7 @@ export default function WebLandingPage() {
 
       if (projectsContainer.current) {
         const container = projectsContainer.current;
-        const progress = 1 - (2000 - scrollY + 600) / 2000;
+        const progress = 1 - (2000 - scrollY + 700) / 2000;
         const maxScrollLeft = container.scrollWidth - container.clientWidth;
         container.scrollLeft = (progress + 0.02) * maxScrollLeft;
       }
@@ -101,7 +101,14 @@ export default function WebLandingPage() {
             organization: "Amazon",
             description:
               "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-              members: ["Samai Patel", "Ishan Revankar", "Nitish Vobilisetti", "Neil Hajela", "Hadijat Oke", "Nand Vinchhi"],
+            members: [
+              "Samai Patel",
+              "Ishan Revankar",
+              "Nitish Vobilisetti",
+              "Neil Hajela",
+              "Hadijat Oke",
+              "Nand Vinchhi",
+            ],
             cover: "null",
           }}
         />
@@ -112,7 +119,14 @@ export default function WebLandingPage() {
             organization: "Amazon",
             description:
               "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-              members: ["Samai Patel", "Ishan Revankar", "Nitish Vobilisetti", "Neil Hajela", "Hadijat Oke", "Nand Vinchhi"],
+            members: [
+              "Samai Patel",
+              "Ishan Revankar",
+              "Nitish Vobilisetti",
+              "Neil Hajela",
+              "Hadijat Oke",
+              "Nand Vinchhi",
+            ],
             cover: "null",
           }}
         />
@@ -123,7 +137,14 @@ export default function WebLandingPage() {
             organization: "Amazon",
             description:
               "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-              members: ["Samai Patel", "Ishan Revankar", "Nitish Vobilisetti", "Neil Hajela", "Hadijat Oke", "Nand Vinchhi"],
+            members: [
+              "Samai Patel",
+              "Ishan Revankar",
+              "Nitish Vobilisetti",
+              "Neil Hajela",
+              "Hadijat Oke",
+              "Nand Vinchhi",
+            ],
             cover: "null",
           }}
         />
