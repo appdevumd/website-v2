@@ -1,7 +1,8 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Avatar, Box, Chip, Paper, Typography } from "@mui/material";
 import Atropos from "atropos/react";
 import { useNavigate } from "react-router-dom";
 import { LandingProject } from "./interfaces";
+import stringAvatar from "./utils";
 
 function LandingProjectCard(props: { project: LandingProject }) {
   const navigate = useNavigate();
@@ -38,6 +39,9 @@ function LandingProjectCard(props: { project: LandingProject }) {
           <Typography sx={{ marginTop: "10px" }} variant="body1">
             {props.project.description}
           </Typography>
+          <AvatarChips
+            members={props.project.members}
+          />
         </Box>
 
         {/* Image Goes Here */}
@@ -53,6 +57,31 @@ function LandingProjectCard(props: { project: LandingProject }) {
       </Paper>
     </Atropos>
   );
+}
+
+function AvatarChips(props: { members: string[] }) {
+  return (
+    <Box
+      sx={{
+        marginTop: "10px",
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "10px",
+      }}
+      data-atropos-offset="1.5"
+    >
+      {props.members.map(member => (
+        <Chip
+          sx={{
+            color: "black",
+          }}
+          avatar={<Avatar {...stringAvatar(member)} />}
+          label={member}
+          variant="outlined"
+        />
+      ))}
+    </Box>
+  )
 }
 
 export default LandingProjectCard;
