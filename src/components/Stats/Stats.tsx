@@ -4,7 +4,7 @@ import { StatsCounter } from "./interfaces";
 
 const AnimatedTypography = animated(Typography);
 
-function Stats({ end, title, prefix, start }: StatsCounter) {
+function Stats({ end, title, prefix, start, width }: StatsCounter) {
   const { number } = useSpring({
     from: { number: start || 0 },
     number: end,
@@ -17,18 +17,12 @@ function Stats({ end, title, prefix, start }: StatsCounter) {
         display: "inline-block",
         justifyContent: "center",
         flexDirection: "column",
-        border: 1,
-        width: "33%",
+        width: width,
+        marginLeft: 5,
+        marginRight: 5,
       }}
     >
-      <Box
-        sx={{
-          marginRight: 10,
-          left: end == 150 ? "30%" : "",
-          position: "relative",
-          border: 1,
-        }}
-      >
+      <Box>
         <Box
           sx={{
             flexDirection: "row",
@@ -37,13 +31,18 @@ function Stats({ end, title, prefix, start }: StatsCounter) {
             display: "inline-flex",
           }}
         >
-          <Typography sx={{ fontSize: "60px", fontWeight: "bold" }}>
+          <Typography sx={{ fontSize: "80px", fontWeight: "bold" }}>
             {prefix}
           </Typography>
-          <AnimatedTypography sx={{ fontSize: "80px", fontWeight: "bold" }}>
+          <AnimatedTypography
+            sx={{
+              fontSize: "80px",
+              fontWeight: "bold",
+            }}
+          >
             {number.to((n: number) => Math.floor(n).toLocaleString("en-US"))}
           </AnimatedTypography>
-          <Typography sx={{ fontSize: "45px", fontWeight: "bold" }}>
+          <Typography sx={{ fontSize: "60px", fontWeight: "bold" }}>
             +
           </Typography>
         </Box>

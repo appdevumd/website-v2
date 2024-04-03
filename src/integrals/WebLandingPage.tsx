@@ -61,28 +61,25 @@ export default function WebLandingPage() {
       <Typography
         sx={{
           flexGrow: 1,
-          fontSize: "60px",
+          fontSize: 40,
           fontWeight: "bold",
-          margin: "50px",
+          margin: 10,
           textAlign: "center",
         }}
       >
-        Our motto goes here.
+        Empower Code. Inspire Design. Drive Innovation.
       </Typography>
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-evenly",
-          flexGrow: 1,
           flex: 1,
           flexWrap: "wrap",
-          paddingLeft: 10,
-          paddingRight: 5,
         }}
       >
-        <Stats end={500000} title={"Dollars Saved"} prefix={"$"} />
-        <Stats end={150} title={"Members"} />
-        <Stats end={100000} title={"Lines of Code"} />
+        <Stats end={500000} title={"Dollars Saved"} prefix={"$"} width={436} />
+        <Stats end={150} title={"Members"} width={181} />
+        <Stats end={100000} title={"Lines of Code"} width={367} />
       </Box>
       <Box sx={{ height: "2000px" }}></Box>
       <Box
