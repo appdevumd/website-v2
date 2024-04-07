@@ -126,8 +126,9 @@ function WebAppBar(props: {
           >
             <Close />
           </IconButton>
-          {props.links.map((link) => (
+          {props.links.map((link: WebAppBarLink, index: number) => (
             <Link
+              key={index}
               underline="hover"
               color="inherit"
               sx={{
