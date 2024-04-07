@@ -1,9 +1,17 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import * as SponsorshipCardStories from './SponsorshipCard.stories';
 import { composeStories } from '@storybook/react';
 import { render, screen } from '@testing-library/react';
 
 const { Bronze, Gold, Platinum } = composeStories(SponsorshipCardStories);
+
+beforeAll(() => {
+  // Mock useNavigate
+  vi.mock('react-router-dom', async (importOriginal) => ({
+    ...await importOriginal<typeof import('react-router-dom')>(),
+    useNavigate: () => vi.fn(),
+  }));
+});
 
 describe('Bronze', () => {
   beforeEach(() => {

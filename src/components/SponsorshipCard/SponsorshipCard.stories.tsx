@@ -1,9 +1,17 @@
 import { Meta } from "@storybook/react";
 import SponsorshipCard from "./SponsorshipCard";
+import { BrowserRouter } from "react-router-dom";
 
 const meta: Meta<typeof SponsorshipCard> = {
   component: SponsorshipCard,
   title: 'SponsorshipCard',
+  decorators: [
+    (Story) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
   tags: ['autodocs'],
 }
 

@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function SponsorshipCard(props: {
   tier: string;
@@ -22,6 +23,7 @@ function SponsorshipCard(props: {
         borderRadius: "5px",
         boxShadow: "-5px 5px 10px gray",
         color: "black",
+        wordBreak: "break-word", // To avoid overflow
       }}
     >
       <TierTitle
@@ -76,6 +78,8 @@ function TierTitle(props: {
 }
 
 function DetailsButton(props: { tier: string; backgroundColor: string }) {
+  const navigate = useNavigate();
+  
   return (
     <Box
       sx={{
@@ -88,6 +92,7 @@ function DetailsButton(props: { tier: string; backgroundColor: string }) {
         textAlign: "center",
         cursor: "pointer",
       }}
+      onClick={() => navigate(`/tier/${props.tier}`)}
     >
       <Typography>Select {props.tier} Tier →</Typography>
     </Box>
