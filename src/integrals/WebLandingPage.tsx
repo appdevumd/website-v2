@@ -5,6 +5,7 @@ import { WebEvent } from "../components/WebEventsBar/interfaces";
 import WebAppBar from "../components/WebAppBar";
 import { WebAppBarLink } from "../components/WebAppBar/interfaces";
 import LandingProjectCard from "../components/LandingProjectCard";
+import MemberCarousel from "../components/MemberCarousel";
 import Stats from "../components/Stats";
 
 export default function WebLandingPage() {
@@ -149,6 +150,10 @@ export default function WebLandingPage() {
           }}
         />
       </Box>
+      <Box sx={{ height: "700px" }}></Box>
+      <MemberCarousel/>
+      
+      
 
       {/* Translucent App Bar, Last Element, On Top of All */}
       <WebAppBar
