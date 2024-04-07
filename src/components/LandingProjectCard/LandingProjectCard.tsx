@@ -70,11 +70,12 @@ function AvatarChips(props: { members: string[] }) {
       }}
       data-atropos-offset="1.5"
     >
-      {props.members.map(member => (
+      {props.members.map((member: string, index: number) => (
         <Chip
           sx={{
             color: "black",
           }}
+          key={index}
           avatar={<Avatar {...stringAvatar(member)} />}
           label={member}
           variant="outlined"

@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import WebEventsBar from "../components/WebEventsBar";
 import { WebEvent } from "../components/WebEventsBar/interfaces";
@@ -6,6 +6,7 @@ import WebAppBar from "../components/WebAppBar";
 import { WebAppBarLink } from "../components/WebAppBar/interfaces";
 import LandingProjectCard from "../components/LandingProjectCard";
 import MemberCarousel from "../components/MemberCarousel";
+import Stats from "../components/Stats";
 
 export default function WebLandingPage() {
   const projectsContainer = React.useRef<HTMLDivElement>();
@@ -35,11 +36,13 @@ export default function WebLandingPage() {
 
       /* Set App Bar to Translucent Mode if Scroll is Over 100 */
       setTranslucentAppBarTop(Math.min(scrollY - 120, 0));
-      setProjectsContainerPosition(scrollY > 2000 ? "unset" : "fixed");
+      setProjectsContainerPosition(
+        scrollY > 2600 || scrollY < 600 ? "unset" : "fixed"
+      );
 
       if (projectsContainer.current) {
         const container = projectsContainer.current;
-        const progress = 1 - (2000 - scrollY) / 2000;
+        const progress = 1 - (2000 - scrollY + 700) / 2000;
         const maxScrollLeft = container.scrollWidth - container.clientWidth;
         container.scrollLeft = (progress + 0.02) * maxScrollLeft;
       }
@@ -56,6 +59,29 @@ export default function WebLandingPage() {
       {/* Fixed App Bar */}
       <WebAppBar links={webAppBarLinks} fullWidth />
 
+      <Typography
+        sx={{
+          flexGrow: 1,
+          fontSize: 40,
+          fontWeight: "bold",
+          margin: 10,
+          textAlign: "center",
+        }}
+      >
+        Empower Code. Inspire Design. Drive Innovation.
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          flex: 1,
+          flexWrap: "wrap",
+        }}
+      >
+        <Stats end={500000} title={"Dollars Saved"} prefix={"$"} width={436} />
+        <Stats end={150} title={"Members"} width={181} />
+        <Stats end={100000} title={"Lines of Code"} width={367} />
+      </Box>
       <Box sx={{ height: "2000px" }}></Box>
       <Box
         ref={projectsContainer}
@@ -66,7 +92,7 @@ export default function WebLandingPage() {
           maxWidth: "100%",
           overflowX: "hidden",
           position: projectsContainerPosition,
-          top: "120px",
+          top: window.scrollY > 200 ? "120px" : "720px",
         }}
       >
         <LandingProjectCard
@@ -76,7 +102,14 @@ export default function WebLandingPage() {
             organization: "Amazon",
             description:
               "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-              members: ["Samai Patel", "Ishan Revankar", "Nitish Vobilisetti", "Neil Hajela", "Hadijat Oke", "Nand Vinchhi"],
+            members: [
+              "Samai Patel",
+              "Ishan Revankar",
+              "Nitish Vobilisetti",
+              "Neil Hajela",
+              "Hadijat Oke",
+              "Nand Vinchhi",
+            ],
             cover: "null",
           }}
         />
@@ -87,7 +120,14 @@ export default function WebLandingPage() {
             organization: "Amazon",
             description:
               "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-              members: ["Samai Patel", "Ishan Revankar", "Nitish Vobilisetti", "Neil Hajela", "Hadijat Oke", "Nand Vinchhi"],
+            members: [
+              "Samai Patel",
+              "Ishan Revankar",
+              "Nitish Vobilisetti",
+              "Neil Hajela",
+              "Hadijat Oke",
+              "Nand Vinchhi",
+            ],
             cover: "null",
           }}
         />
@@ -98,7 +138,14 @@ export default function WebLandingPage() {
             organization: "Amazon",
             description:
               "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-              members: ["Samai Patel", "Ishan Revankar", "Nitish Vobilisetti", "Neil Hajela", "Hadijat Oke", "Nand Vinchhi"],
+            members: [
+              "Samai Patel",
+              "Ishan Revankar",
+              "Nitish Vobilisetti",
+              "Neil Hajela",
+              "Hadijat Oke",
+              "Nand Vinchhi",
+            ],
             cover: "null",
           }}
         />
