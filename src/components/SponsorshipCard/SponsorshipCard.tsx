@@ -21,6 +21,7 @@ function SponsorshipCard(props: {
         backgroundColor: "white",
         borderRadius: "5px",
         boxShadow: "-5px 5px 10px gray",
+        color: "black",
       }}
     >
       <TierTitle
