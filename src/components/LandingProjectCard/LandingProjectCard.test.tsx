@@ -17,9 +17,7 @@ const projectData = {
 describe('Landing Project Card', () => {
   beforeEach(() => {
     render(
-      <LandingProjectCard
-        project={projectData}
-      />
+      <LandingProjectCard />
     );
     // Mock useNavigate
     vi.mock('react-router-dom', async (importOriginal) => ({
