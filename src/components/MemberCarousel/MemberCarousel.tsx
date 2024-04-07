@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Paper} from '@mui/material';
+import { Paper, Box} from '@mui/material';
 import { EffectCoverflow, Navigation, Pagination, Autoplay} from 'swiper/modules';
 
 
@@ -17,14 +17,14 @@ import member_image_6 from './MemberImages/pexels-clem-onojeghuo-375880.jpg'
 
 function MemberCarousel(){
     return (
-    <Paper
+    <Box
         sx={{
           borderRadius: "35px",
           padding: "30px",
           display: "flex",
           gap: "15px",
           color: "#000000",
-          bgcolor: "#ffffff",
+          bgcolor: "#000000",
           width: "100%",
           height: "100%",
         }}
@@ -57,7 +57,7 @@ function MemberCarousel(){
             <SwiperSlide><img src={member_image_5} alt = "member_image" /></SwiperSlide>
             <SwiperSlide><img src={member_image_6} alt = "member_image" /></SwiperSlide>
         </Swiper>
-    </Paper>
+    </Box>
     );
 };
 
