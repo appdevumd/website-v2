@@ -7,6 +7,9 @@ import { WebAppBarLink } from "../components/WebAppBar/interfaces";
 import LandingProjectCard from "../components/LandingProjectCard";
 import MemberCarousel from "../components/MemberCarousel";
 import Stats from "../components/Stats";
+import { useQuery } from "@tanstack/react-query";
+import ProjectAPI from "../api/projects.api";
+import { LandingProject } from "../components/LandingProjectCard/interfaces";
 import {
   Animator,
   Move,
@@ -16,14 +19,45 @@ import {
   Animation,
 } from "react-scroll-motion";
 
+const LandingProjectCards = React.forwardRef((props: { position: string; }, ref) => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['projects'],
+    queryFn: ProjectAPI.getAll,
+  });
+
+  if (isLoading) {
+    return "Loading...";
+  }
+  
+  if (error) {
+    return error.message;
+  }
+
+  return (
+    <Box
+      ref={ref}
+      sx={{
+        display: "flex",
+        gap: "30px",
+        padding: "50px",
+        maxWidth: "100%",
+        overflowX: "hidden",
+        position: props.position,
+        top: window.scrollY > 200 ? "120px" : "720px",
+      }}
+    >
+      {data.map((project: LandingProject) => <LandingProjectCard key={project._id} project={project}/>)}
+    </Box>
+  );
+});
+
 export default function WebLandingPage() {
   const projectsContainer = React.useRef<HTMLDivElement>();
   const [liveEvents, setLiveEvents] = React.useState<WebEvent[]>([
     { title: "General Body Meeting, 3/25 8pm @ Iribe" },
   ]);
   const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
-  const [projectsContainerPosition, setProjectsContainerPosition] =
-    React.useState<string>("fixed");
+  const [projectsContainerPosition, setProjectsContainerPosition] = React.useState<string>("fixed");
 
   /* Define WebAppBar Links */
   const webAppBarLinks: WebAppBarLink[] = [
@@ -39,7 +73,6 @@ export default function WebLandingPage() {
     /* Detect Webpage Scroll */
     window.addEventListener("scroll", () => {
       /* Use Minimum Scroll Listeners. Performance is Important. */
-      const scrollX = window.scrollX;
       const scrollY = window.scrollY;
 
       /* Set App Bar to Translucent Mode if Scroll is Over 100 */
@@ -116,73 +149,11 @@ export default function WebLandingPage() {
       </ScrollContainer>
 
       <Box sx={{ height: "2000px" }}></Box>
-      <Box
+      <LandingProjectCards
         ref={projectsContainer}
-        sx={{
-          display: "flex",
-          gap: "30px",
-          padding: "50px",
-          maxWidth: "100%",
-          overflowX: "hidden",
-          position: projectsContainerPosition,
-          top: window.scrollY > 200 ? "120px" : "720px",
-        }}
-      >
-        <LandingProjectCard
-          project={{
-            id: "1234567",
-            name: "Space Safety Visualizer",
-            organization: "Amazon",
-            description:
-              "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-            members: [
-              "Samai Patel",
-              "Ishan Revankar",
-              "Nitish Vobilisetti",
-              "Neil Hajela",
-              "Hadijat Oke",
-              "Nand Vinchhi",
-            ],
-            cover: "null",
-          }}
-        />
-        <LandingProjectCard
-          project={{
-            id: "1234567",
-            name: "Space Safety Visualizer",
-            organization: "Amazon",
-            description:
-              "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-            members: [
-              "Samai Patel",
-              "Ishan Revankar",
-              "Nitish Vobilisetti",
-              "Neil Hajela",
-              "Hadijat Oke",
-              "Nand Vinchhi",
-            ],
-            cover: "null",
-          }}
-        />
-        <LandingProjectCard
-          project={{
-            id: "1234567",
-            name: "Space Safety Visualizer",
-            organization: "Amazon",
-            description:
-              "The Fall 2023 Amazon project was a low Earth orbit satellite visualization system. This was designed for Project Kuiper as a way to visualize satellite collision risk to non-technical stakeholders at Amazon.",
-            members: [
-              "Samai Patel",
-              "Ishan Revankar",
-              "Nitish Vobilisetti",
-              "Neil Hajela",
-              "Hadijat Oke",
-              "Nand Vinchhi",
-            ],
-            cover: "null",
-          }}
-        />
-      </Box>
+        position={projectsContainerPosition}
+      />
+      
       <Box sx={{ height: "700px" }}></Box>
       <MemberCarousel />
 
