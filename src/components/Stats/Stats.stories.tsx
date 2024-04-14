@@ -14,7 +14,7 @@ export const DollarsSaved = {
     end: 500000,
     prefix: "$",
     title: "Dollars Saved",
-    width: 436,
+    minWidth: 436,
   },
 };
 
