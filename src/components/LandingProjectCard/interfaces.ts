@@ -1,5 +1,5 @@
 export interface LandingProject {
-  id: string,
+  _id: string,
   name: string,
   organization: string,
   description: string,

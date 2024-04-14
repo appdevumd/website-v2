@@ -7,7 +7,7 @@ import stringAvatar from "./utils";
 function LandingProjectCard(props: { project: LandingProject }) {
   const navigate = useNavigate();
   const handleCardClick = (project: LandingProject) =>
-    navigate(`/project/${project.id}`);
+    navigate(`/project/${project._id}`);
 
   return (
     <Atropos
