@@ -1,0 +1,21 @@
+
+.swiper {
+  width: 100%;
+  position: relative;
+}
+
+.swiper-slide {
+    position: relative;
+    width: 20rem;
+    height: 25rem;
+}
+
+.swiper-slide img {
+    object-fit: cover;
+    width: 20rem;
+    border-radius: 2rem;
+    height: 25rem;
+}
+.swiper-slide-shadow-left,.swiper-slide-shadow-right{
+    display: none;;
+}
