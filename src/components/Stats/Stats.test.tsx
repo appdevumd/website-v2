@@ -12,7 +12,7 @@ describe("Dollars Saved Stats", () => {
         end={StatsStories.DollarsSaved.args.end}
         prefix={StatsStories.DollarsSaved.args.prefix}
         title={StatsStories.DollarsSaved.args.title}
-        width={StatsStories.DollarsSaved.args.width}
+        minWidth={StatsStories.DollarsSaved.args.minWidth}
       />
     );
   });

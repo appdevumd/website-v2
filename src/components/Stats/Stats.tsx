@@ -4,7 +4,7 @@ import { StatsCounter } from "./interfaces";
 
 const AnimatedTypography = animated(Typography);
 
-function Stats({ end, title, prefix, start, width }: StatsCounter) {
+function Stats({ end, title, prefix, start, minWidth }: StatsCounter) {
   const { number } = useSpring({
     from: { number: start || 0 },
     number: end,
@@ -14,39 +14,60 @@ function Stats({ end, title, prefix, start, width }: StatsCounter) {
   return (
     <Box
       sx={{
-        display: "inline-block",
+        display: "flex",
         justifyContent: "center",
         flexDirection: "column",
-        width: width,
-        marginLeft: 5,
-        marginRight: 5,
+        flex: 1,
+        minWidth: minWidth,
       }}
     >
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flex: 1,
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
         <Box
           sx={{
-            flexDirection: "row",
+            display: "flex",
+            flex: 1,
             alignItems: "center",
-            alignSelf: "center",
-            display: "inline-flex",
           }}
         >
-          <Typography sx={{ fontSize: "80px", fontWeight: "bold" }}>
-            {prefix}
-          </Typography>
-          <AnimatedTypography
+          <Box
             sx={{
-              fontSize: "80px",
-              fontWeight: "bold",
+              flexDirection: "row",
+              alignItems: "center",
+              alignSelf: "center",
+              justifyContent: "center",
+              display: "flex",
+              flex: 1,
             }}
           >
-            {number.to((n: number) => Math.floor(n).toLocaleString("en-US"))}
-          </AnimatedTypography>
-          <Typography sx={{ fontSize: "60px", fontWeight: "bold" }}>
-            +
-          </Typography>
+            <Typography
+              sx={{ fontSize: "calc(40px + 2vw)", fontWeight: "bold" }}
+            >
+              {prefix}
+            </Typography>
+
+            <AnimatedTypography
+              sx={{
+                fontSize: "calc(40px + 2vw)",
+                fontWeight: "bold",
+              }}
+            >
+              {number.to((n: number) => Math.floor(n).toLocaleString("en-US"))}
+            </AnimatedTypography>
+            <Typography
+              sx={{ fontSize: "calc(40px + 2vw)", fontWeight: "bold" }}
+            >
+              +
+            </Typography>
+          </Box>
         </Box>
-        <Typography sx={{ fontSize: "20px" }}>{title}</Typography>
+        <Typography sx={{ fontSize: "calc(15px + 0.5vw)" }}>{title}</Typography>
       </Box>
     </Box>
   );
