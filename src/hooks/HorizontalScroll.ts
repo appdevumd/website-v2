@@ -1,5 +1,11 @@
 import React from "react";
 
+/**
+ * Backup plan for horizontal scroll, still not working 100% well
+ * Don't plan on using it, but its here for now
+ * The main issue is that it requires focus on the projects container
+ * Another issue is that it is jittery with a scroll wheel
+ */
 function useHorizontalScroll() {
   const ref = React.useRef<HTMLDivElement>();
 
