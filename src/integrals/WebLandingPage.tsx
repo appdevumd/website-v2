@@ -103,7 +103,6 @@ export default function WebLandingPage() {
       sx={{
         minHeight: "500vh",
         background:
-          // "radial-gradient(49% 81% at 45% 47%, #25175145 0%, #073AFF00 100%),radial-gradient(113% 91% at 17% -2%, #152441FF 1%, #FF000000 99%),radial-gradient(76% 20% at 83% 0%, #6A1D6DFF 1%, #FF000000 99%),radial-gradient(142% 91% at -6% 74%, #090926FF 0%, #1D1E6400 99%),radial-gradient(142% 91% at 111% 84%, #050930FF 0%, #0F1D5FFF 43%, #2228819C 100%),radial-gradient(75% 75% at 50% 50%, #00FFFFFF 0%, #073AFF54 98%)",
           "radial-gradient(40% 21% at 40% 24%, #080C44AB 0%, #26346D00 100%),radial-gradient(113% 91% at 17% -2%, #084788FF 1%, #FF000000 99%),radial-gradient(42% 21% at 84% -5%, #6913A1FF 1%, #FF000000 99%),radial-gradient(142% 91% at 101% 2%, #171139FF 1%, #FF000000 99%),radial-gradient(50% 20% at 109% 98%, #3D386DFF 1%, #FF000000 99%),radial-gradient(120% 65% at 34% 108%, #161838FF 0%, #062182FF 99%)",
         backgroundSize: "100% 100%",
       }}
