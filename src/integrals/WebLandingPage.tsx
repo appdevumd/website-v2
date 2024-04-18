@@ -12,44 +12,47 @@ import ProjectAPI from "../api/projects.api";
 import { LandingProject } from "../components/LandingProjectCard/interfaces";
 import {
   Animator,
-  Move,
   ScrollContainer,
   ScrollPage,
   batch,
   Animation,
 } from "react-scroll-motion";
 
-const LandingProjectCards = React.forwardRef((props: { position: string; }, ref) => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['projects'],
-    queryFn: ProjectAPI.getAll,
-  });
+const LandingProjectCards = React.forwardRef(
+  (props: { position: string }, ref) => {
+    const { data, isLoading, error } = useQuery({
+      queryKey: ["projects"],
+      queryFn: ProjectAPI.getAll,
+    });
 
-  if (isLoading) {
-    return "Loading...";
-  }
-  
-  if (error) {
-    return error.message;
-  }
+    if (isLoading) {
+      return "Loading...";
+    }
 
-  return (
-    <Box
-      ref={ref}
-      sx={{
-        display: "flex",
-        gap: "30px",
-        padding: "50px",
-        maxWidth: "100%",
-        overflowX: "hidden",
-        position: props.position,
-        top: window.scrollY > 200 ? "120px" : "720px",
-      }}
-    >
-      {data.map((project: LandingProject) => <LandingProjectCard key={project._id} project={project}/>)}
-    </Box>
-  );
-});
+    if (error) {
+      return error.message;
+    }
+
+    return (
+      <Box
+        ref={ref}
+        sx={{
+          display: "flex",
+          gap: "30px",
+          padding: "50px",
+          maxWidth: "100%",
+          overflowX: "hidden",
+          position: props.position,
+          top: window.scrollY > 200 ? "120px" : "720px",
+        }}
+      >
+        {data.map((project: LandingProject) => (
+          <LandingProjectCard key={project._id} project={project} />
+        ))}
+      </Box>
+    );
+  }
+);
 
 export default function WebLandingPage() {
   const projectsContainer = React.useRef<HTMLDivElement>();
@@ -57,7 +60,11 @@ export default function WebLandingPage() {
     { title: "General Body Meeting, 3/25 8pm @ Iribe" },
   ]);
   const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
-  const [projectsContainerPosition, setProjectsContainerPosition] = React.useState<string>("fixed");
+  const [projectsContainerPosition, setProjectsContainerPosition] =
+    React.useState<string>("fixed");
+  const [statsContainerPosition, setStatsContainerPosition] = React.useState<
+    "fixed" | "unset"
+  >("fixed");
 
   /* Define WebAppBar Links */
   const webAppBarLinks: WebAppBarLink[] = [
@@ -78,12 +85,13 @@ export default function WebLandingPage() {
       /* Set App Bar to Translucent Mode if Scroll is Over 100 */
       setTranslucentAppBarTop(Math.min(scrollY - 120, 0));
       setProjectsContainerPosition(
-        scrollY > 2600 || scrollY < 400 ? "unset" : "fixed"
+        scrollY > 2600 || scrollY < 800 ? "unset" : "fixed"
       );
+      setStatsContainerPosition(scrollY > 400 ? "unset" : "fixed");
 
       if (projectsContainer.current) {
         const container = projectsContainer.current;
-        const progress = 1 - (2000 - scrollY + 700) / 2000;
+        const progress = 1 - (2000 - scrollY + 900) / 2000;
         const maxScrollLeft = container.scrollWidth - container.clientWidth;
         container.scrollLeft = (progress + 0.02) * maxScrollLeft;
       }
@@ -91,7 +99,14 @@ export default function WebLandingPage() {
   }, []);
 
   return (
-    <Box sx={{ minHeight: "500vh" }}>
+    <Box
+      sx={{
+        minHeight: "500vh",
+        background:
+          "radial-gradient(40% 21% at 40% 24%, #080C44AB 0%, #26346D00 100%),radial-gradient(113% 91% at 17% -2%, #084788FF 1%, #FF000000 99%),radial-gradient(42% 21% at 84% -5%, #6913A1FF 1%, #FF000000 99%),radial-gradient(142% 91% at 101% 2%, #171139FF 1%, #FF000000 99%),radial-gradient(50% 20% at 109% 98%, #3D386DFF 1%, #FF000000 99%),radial-gradient(120% 65% at 34% 108%, #161838FF 0%, #062182FF 99%)",
+        backgroundSize: "100% 100%",
+      }}
+    >
       {
         /* Live Events bar */
         liveEvents.length < 1 ? <></> : <WebEventsBar events={liveEvents} />
@@ -99,23 +114,31 @@ export default function WebLandingPage() {
 
       {/* Fixed App Bar */}
       <WebAppBar links={webAppBarLinks} fullWidth />
-      <ScrollContainer>
-        <ScrollPage>
+      <Box sx={{ height: "500px" }}></Box>
+      <ScrollContainer
+        style={{
+          position: statsContainerPosition,
+          top: "200px",
+          scrollBehavior: "smooth",
+          overflow: "visible",
+        }}
+      >
+        <ScrollPage style={{ overflow: "visible" }}>
           <Animator
             animation={batch(
-              DelayedFadeOut(1, -1, 0.2),
-              DelayedZoomOut(2, 1, 0.2),
-              Move(0, -150)
+              DelayedFadeOut(1, -0.5, 0.2),
+              DelayedZoomOut(3, 1, 0.2),
+              DelayedMoveOut(0, -200, 0.2)
             )}
-            style={{ width: "100%" }}
+            style={{ width: "100%", overflow: "visible" }}
           >
             <Typography
               sx={{
                 flexGrow: 1,
                 fontSize: "4vw",
                 fontWeight: "bold",
-                margin: 5,
-                marginTop: "5vw",
+                marginLeft: 5,
+                marginRight: 5,
                 textAlign: "center",
               }}
             >
@@ -130,7 +153,7 @@ export default function WebLandingPage() {
                 gap: 4,
                 paddingLeft: 5,
                 paddingRight: 5,
-                marginTop: 10,
+                marginTop: "5vw",
                 marginBottom: 10,
                 flexDirection: { xs: "column", md: "row" },
               }}
@@ -148,12 +171,12 @@ export default function WebLandingPage() {
         </ScrollPage>
       </ScrollContainer>
 
-      <Box sx={{ height: "2000px" }}></Box>
+      <Box sx={{ height: "1400px" }}></Box>
       <LandingProjectCards
         ref={projectsContainer}
         position={projectsContainerPosition}
       />
-      
+
       <Box sx={{ height: "700px" }}></Box>
       <MemberCarousel />
 
@@ -197,6 +220,17 @@ const DelayedFadeOut = (
       opacity: (value: number) => {
         value = Math.max(value - delay, 0);
         return from * (1 - value) + to * value;
+      },
+    },
+  },
+});
+
+const DelayedMoveOut = (dx: number, dy: number, delay: number): Animation => ({
+  out: {
+    style: {
+      transform: (value: number) => {
+        value = Math.max(value - delay, 0);
+        return `translate(${0 * (1 - value) + dx * value}px, ${0 * (1 - value) + dy * value}px)`;
       },
     },
   },
