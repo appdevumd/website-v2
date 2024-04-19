@@ -22,13 +22,16 @@
     "@tanstack/react-query": "^5.29.2",
     "atropos": "^2.0.2",
     "axios": "^1.6.8",
+    "framer-motion": "^11.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.1.0",
     "react-router-dom": "^6.22.3",
     "react-scroll-motion": "^0.3.3",
     "react-scroll-parallax": "^3.4.5",
     "react-spring": "^9.7.3",
     "swiper": "^11.1.0",
+    "typicons.font": "^2.1.2",
     "vitest": "^1.4.0"
   },
   "devDependencies": {
