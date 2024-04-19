@@ -85,9 +85,8 @@ export default function WebLandingPage() {
       /* Set App Bar to Translucent Mode if Scroll is Over 100 */
       setTranslucentAppBarTop(Math.min(scrollY - 120, 0));
       setProjectsContainerPosition(
-        scrollY > 2600 || scrollY < 800 ? "unset" : "fixed"
+        scrollY > 2500 || scrollY < 650 ? "unset" : "fixed"
       );
-      setStatsContainerPosition(scrollY > 400 ? "unset" : "fixed");
 
       if (projectsContainer.current) {
         const container = projectsContainer.current;
@@ -114,7 +113,7 @@ export default function WebLandingPage() {
 
       {/* Fixed App Bar */}
       <WebAppBar links={webAppBarLinks} fullWidth />
-      <Box sx={{ height: "500px" }}></Box>
+      <Box sx={{ height: "50px" }}></Box>
       <ScrollContainer
         style={{
           position: statsContainerPosition,
@@ -126,9 +125,9 @@ export default function WebLandingPage() {
         <ScrollPage style={{ overflow: "visible" }}>
           <Animator
             animation={batch(
-              DelayedFadeOut(1, -0.5, 0.2),
-              DelayedZoomOut(3, 1, 0.2),
-              DelayedMoveOut(0, -200, 0.2)
+              DelayedFadeOut(1, -0.5, 0.0),
+              DelayedZoomOut(3, 1, 0),
+              DelayedMoveOut(0, -200, 0)
             )}
             style={{ width: "100%", overflow: "visible" }}
           >
@@ -151,10 +150,8 @@ export default function WebLandingPage() {
                 flex: 1,
                 flexWrap: "wrap",
                 gap: 4,
-                paddingLeft: 5,
-                paddingRight: 5,
                 marginTop: "5vw",
-                marginBottom: 10,
+                marginBottom: "15px",
                 flexDirection: { xs: "column", md: "row" },
               }}
             >
@@ -165,7 +162,7 @@ export default function WebLandingPage() {
                 minWidth={336}
               />
               <Stats end={150} title={"Members"} minWidth={81} />
-              <Stats end={100000} title={"Lines of Code"} minWidth={267} />
+              <Stats end={50000} title={"Lines of Code"} minWidth={267} />
             </Box>
           </Animator>
         </ScrollPage>
