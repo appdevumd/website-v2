@@ -17,6 +17,8 @@ import {
   batch,
   Animation,
 } from "react-scroll-motion";
+import MeetOurSponsorsTitle from "../components/MeetOurSponsorsTitle";
+import SponsorCreditCards from "../components/SponsorCreditCards";
 
 const LandingProjectCards = React.forwardRef(
   (props: { position: string }, ref) => {
@@ -176,6 +178,30 @@ export default function WebLandingPage() {
 
       <Box sx={{ height: "700px" }}></Box>
       <MemberCarousel />
+      <Box sx={{ height: "300px" }}></Box>
+      <MeetOurSponsorsTitle />
+      <Box sx={{ height: "250px" }}></Box>
+      <SponsorCreditCards project={{
+        tier:"Platinum",
+        members:[],
+        logos:""
+      }}
+      />
+      <Box sx={{ height: "300px" }}></Box>
+      <SponsorCreditCards project={{
+        tier:"Gold",
+        members:[],
+        logos:""
+        
+      }}/>
+      <Box sx={{ height: "300px" }}></Box>
+      <SponsorCreditCards project={{
+        tier:"Bronze",
+        members:[],
+        logos:""
+        
+      }}/>
+      <Box sx={{ height: "300px" }}></Box>
 
       {/* Translucent App Bar, Last Element, On Top of All */}
       <WebAppBar
