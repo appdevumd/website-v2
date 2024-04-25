@@ -4,4 +4,5 @@ export interface StatsCounter {
   title: string;
   prefix?: string;
   minWidth: number;
+  alignSelf?: any;
 }
