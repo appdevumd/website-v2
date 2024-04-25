@@ -19,6 +19,7 @@ import {
 } from "react-scroll-motion";
 import MeetOurSponsorsTitle from "../components/MeetOurSponsorsTitle";
 import SponsorCreditCards from "../components/SponsorCreditCards";
+import "./stars.css";
 
 const LandingProjectCards = React.forwardRef(
   (props: { position: string }, ref) => {
@@ -100,121 +101,149 @@ export default function WebLandingPage() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        minHeight: "500vh",
-        background:
-          "radial-gradient(40% 21% at 40% 24%, #080C44AB 0%, #26346D00 100%),radial-gradient(113% 91% at 17% -2%, #084788FF 1%, #FF000000 99%),radial-gradient(42% 21% at 84% -5%, #6913A1FF 1%, #FF000000 99%),radial-gradient(142% 91% at 101% 2%, #171139FF 1%, #FF000000 99%),radial-gradient(50% 20% at 109% 98%, #3D386DFF 1%, #FF000000 99%),radial-gradient(120% 65% at 34% 108%, #161838FF 0%, #062182FF 99%)",
-        backgroundSize: "100% 100%",
-      }}
-    >
-      {
-        /* Live Events bar */
-        liveEvents.length < 1 ? <></> : <WebEventsBar events={liveEvents} />
-      }
-
-      {/* Fixed App Bar */}
-      <WebAppBar links={webAppBarLinks} fullWidth />
-      <Box sx={{ height: "50px" }}></Box>
-      <ScrollContainer
+    <div style={{ position: "relative" }}>
+      <div
         style={{
-          position: statsContainerPosition,
-          top: "200px",
-          scrollBehavior: "smooth",
-          overflow: "visible",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background:
+            "radial-gradient(55% 55% at -3% 104%, #0F114AFF 13%, #07074178 41%, #00000014 76%, #073AFF00 99%),radial-gradient(25% 25% at 62% 54%, #2324A9C4 0%, #073AFF00 100%),radial-gradient(25% 44% at 83% 33%, #434EA3FF 0%, #44579D29 65%, #073AFF00 93%),radial-gradient(49% 81% at 45% 47%, #0891A245 0%, #073AFF00 100%),radial-gradient(113% 91% at 17% -2%, #6122A6FF 1%, #FF000000 99%),radial-gradient(142% 91% at 83% 7%, #0522A9FF 1%, #FF000000 99%),radial-gradient(142% 91% at -6% 74%, #1C2581FF 1%, #FF000000 99%),radial-gradient(142% 91% at 109% 60%, #131B36FF 0%, #205353FF 99%)",
+          opacity: scrollY > 400 ? 0 : 1,
+          transition: "opacity 0.5s ease",
+          backgroundAttachment: "fixed",
+        }}
+      />
+      <Box
+        sx={{
+          minHeight: "500vh",
+          background:
+            "radial-gradient(55% 50% at 48% 52%, #234ACCFF 0%, #234ACCFF 0%, #0B1E55FF 72%, #091038FF 100%)",
+          backgroundSize: "100% 100%",
+          backgroundAttachment: "fixed",
         }}
       >
-        <ScrollPage style={{ overflow: "visible" }}>
-          <Animator
-            animation={batch(
-              DelayedFadeOut(1, -0.5, 0.0),
-              DelayedZoomOut(3, 1, 0),
-              DelayedMoveOut(0, -200, 0)
-            )}
-            style={{ width: "100%", overflow: "visible" }}
-          >
-            <Typography
-              sx={{
-                flexGrow: 1,
-                fontSize: "4vw",
-                fontWeight: "bold",
-                marginLeft: 5,
-                marginRight: 5,
-                textAlign: "center",
-              }}
+        {
+          /* Live Events bar */
+          liveEvents.length < 1 ? <></> : <WebEventsBar events={liveEvents} />
+        }
+
+        {/* Fixed App Bar */}
+        <WebAppBar links={webAppBarLinks} fullWidth />
+        <Box sx={{ height: "50px" }}></Box>
+        <ScrollContainer
+          style={{
+            position: statsContainerPosition,
+            scrollBehavior: "smooth",
+            overflow: "visible",
+          }}
+        >
+          <ScrollPage style={{ overflow: "visible" }}>
+            <Animator
+              animation={batch(
+                DelayedFadeOut(1, -0.5, 0.0),
+                DelayedZoomOut(3, 1, 0),
+                DelayedMoveOut(0, -400, 0)
+              )}
+              style={{ width: "100%", overflow: "visible" }}
             >
-              Empower Code. Inspire Design. Drive Innovation.
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-evenly",
-                flex: 1,
-                flexWrap: "wrap",
-                gap: 4,
-                marginTop: "5vw",
-                marginBottom: "15px",
-                flexDirection: { xs: "column", md: "row" },
-              }}
-            >
-              <Stats
-                end={500000}
-                title={"Dollars Saved"}
-                prefix={"$"}
-                minWidth={336}
-              />
-              <Stats end={150} title={"Members"} minWidth={81} />
-              <Stats end={50000} title={"Lines of Code"} minWidth={267} />
-            </Box>
-          </Animator>
-        </ScrollPage>
-      </ScrollContainer>
+              <div id="stars1"></div>
+              <div id="stars2"></div>
+              <div id="stars3"></div>
+              <Typography
+                sx={{
+                  flexGrow: 1,
+                  fontSize: "4vw",
+                  fontWeight: "bold",
+                  marginLeft: 5,
+                  marginRight: 5,
+                  textAlign: "center",
+                }}
+              >
+                Empower Code. Inspire Design. Drive Innovation.
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flex: 1,
+                  flexWrap: "wrap",
+                  gap: 4,
+                  marginLeft: { md: 8 },
+                  marginRight: { md: 8 },
+                  marginTop: "5vw",
+                  flexDirection: { xs: "column", md: "row" },
+                }}
+              >
+                <Stats
+                  end={500000}
+                  title={"Dollars Saved"}
+                  prefix={"$"}
+                  minWidth={336}
+                  alignSelf={{ xs: "center", md: "flex-start" }}
+                />
+                <Stats end={150} title={"Members"} minWidth={81} />
+                <Stats
+                  end={50000}
+                  title={"Lines of Code"}
+                  minWidth={267}
+                  alignSelf={{ xs: "center", md: "flex-end" }}
+                />
+              </Box>
+            </Animator>
+          </ScrollPage>
+        </ScrollContainer>
 
-      <Box sx={{ height: "1400px" }}></Box>
-      <LandingProjectCards
-        ref={projectsContainer}
-        position={projectsContainerPosition}
-      />
+        <Box sx={{ height: "1400px" }}></Box>
+        <LandingProjectCards
+          ref={projectsContainer}
+          position={projectsContainerPosition}
+        />
 
-      <Box sx={{ height: "700px" }}></Box>
-      <MemberCarousel />
-      <Box sx={{ height: "300px" }}></Box>
-      <MeetOurSponsorsTitle />
-      <Box sx={{ height: "250px" }}></Box>
-      <SponsorCreditCards project={{
-        tier:"Platinum",
-        members:[],
-        logos:""
-      }}
-      />
-      <Box sx={{ height: "300px" }}></Box>
-      <SponsorCreditCards project={{
-        tier:"Gold",
-        members:[],
-        logos:""
-        
-      }}/>
-      <Box sx={{ height: "300px" }}></Box>
-      <SponsorCreditCards project={{
-        tier:"Bronze",
-        members:[],
-        logos:""
-        
-      }}/>
-      <Box sx={{ height: "300px" }}></Box>
+        <Box sx={{ height: "700px" }}></Box>
+        <MemberCarousel />
+        <Box sx={{ height: "300px" }}></Box>
+        <MeetOurSponsorsTitle />
+        <Box sx={{ height: "250px" }}></Box>
+        <SponsorCreditCards
+          project={{
+            tier: "Platinum",
+            members: [],
+            logos: "",
+          }}
+        />
+        <Box sx={{ height: "300px" }}></Box>
+        <SponsorCreditCards
+          project={{
+            tier: "Gold",
+            members: [],
+            logos: "",
+          }}
+        />
+        <Box sx={{ height: "300px" }}></Box>
+        <SponsorCreditCards
+          project={{
+            tier: "Bronze",
+            members: [],
+            logos: "",
+          }}
+        />
+        <Box sx={{ height: "300px" }}></Box>
 
-      {/* Translucent App Bar, Last Element, On Top of All */}
-      <WebAppBar
-        links={webAppBarLinks}
-        translucent={true}
-        sx={{
-          zIndex: 2,
-          position: "fixed",
-          top: `${translucentAppBarTop}px`,
-          left: "0px",
-        }}
-      />
-    </Box>
+        {/* Translucent App Bar, Last Element, On Top of All */}
+        <WebAppBar
+          links={webAppBarLinks}
+          translucent={true}
+          sx={{
+            zIndex: 2,
+            position: "fixed",
+            top: `${translucentAppBarTop}px`,
+            left: "0px",
+          }}
+        />
+      </Box>
+    </div>
   );
 }
 

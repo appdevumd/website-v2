@@ -4,7 +4,14 @@ import { StatsCounter } from "./interfaces";
 
 const AnimatedTypography = animated(Typography);
 
-function Stats({ end, title, prefix, start, minWidth }: StatsCounter) {
+function Stats({
+  end,
+  title,
+  prefix,
+  start,
+  minWidth,
+  alignSelf,
+}: StatsCounter) {
   const { number } = useSpring({
     from: { number: start || 0 },
     number: end,
@@ -33,7 +40,8 @@ function Stats({ end, title, prefix, start, minWidth }: StatsCounter) {
           sx={{
             display: "flex",
             flex: 1,
-            alignItems: "center",
+            alignItems: "flex-start",
+            alignSelf: alignSelf || "center",
           }}
         >
           <Box
@@ -51,7 +59,6 @@ function Stats({ end, title, prefix, start, minWidth }: StatsCounter) {
             >
               {prefix}
             </Typography>
-
             <AnimatedTypography
               sx={{
                 fontSize: "calc(40px + 2vw)",
@@ -67,7 +74,14 @@ function Stats({ end, title, prefix, start, minWidth }: StatsCounter) {
             </Typography>
           </Box>
         </Box>
-        <Typography sx={{ fontSize: "calc(15px + 0.5vw)" }}>{title}</Typography>
+        <Typography
+          sx={{
+            fontSize: "calc(15px + 0.5vw)",
+            alignSelf: alignSelf || "center",
+          }}
+        >
+          {title}
+        </Typography>
       </Box>
     </Box>
   );
