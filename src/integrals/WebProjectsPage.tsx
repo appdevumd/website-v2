@@ -18,7 +18,7 @@ import { useEffect } from "react";
 export default function WebProjectsPage() {
   const { projectId } = useParams();
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isFetching, error } = useQuery({
     queryKey: ["project"],
     queryFn: async () => {
       return await ProjectAPI.getById(projectId as string);
@@ -29,7 +29,7 @@ export default function WebProjectsPage() {
     window.scrollTo(0, 0);
   }, []);
 
-  if (isLoading) {
+  if (isFetching) {
     return (
       <Box
         sx={{
