@@ -227,6 +227,7 @@ function ProjectMembers(props: { members: Member[] }) {
               variant="subtitle1"
               sx={{
                 fontWeight: "bold",
+                marginTop: "5px",
               }}
             >
               {`${member.memberInfo.firstName} ${member.memberInfo.lastName}`}
