@@ -244,6 +244,7 @@ async function getById(id: string) {
           "role": "Tech Lead"
         }
       ],
+      "demo": "https://www.youtube.com/embed/UFwHEMrSO-M?si=NmlpAyAtZwOLEPiE",
       "cover": null,
       "semester": "Fall 2023",
       "__v": 0
