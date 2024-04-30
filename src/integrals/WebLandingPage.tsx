@@ -22,18 +22,13 @@ import SponsorCreditCards from "../components/SponsorCreditCards";
 import "./stars.css";
 
 const LandingProjectCards = React.forwardRef(
-  (props: { position: string }, ref) => {
-    const { data, isLoading, error } = useQuery({
-      queryKey: ["projects"],
-      queryFn: ProjectAPI.getAll,
-    });
-
-    if (isLoading) {
+  (props: { position: string; isLoading: boolean; error: Error | null; data: LandingProject[] }, ref) => {
+    if (props.isLoading) {
       return "Loading...";
     }
 
-    if (error) {
-      return error.message;
+    if (props.error) {
+      return props.error.message;
     }
 
     return (
@@ -49,7 +44,7 @@ const LandingProjectCards = React.forwardRef(
           top: window.scrollY > 200 ? "120px" : "720px",
         }}
       >
-        {data.map((project: LandingProject) => (
+        {props.data.map((project: LandingProject) => (
           <LandingProjectCard key={project._id} project={project} />
         ))}
       </Box>
@@ -68,6 +63,13 @@ export default function WebLandingPage() {
   const [statsContainerPosition, setStatsContainerPosition] = React.useState<
     "fixed" | "unset"
   >("fixed");
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["projects"],
+    queryFn: async () => {
+      return await ProjectAPI.getAll();
+    },
+  });
 
   /* Define WebAppBar Links */
   const webAppBarLinks: WebAppBarLink[] = [
@@ -197,6 +199,9 @@ export default function WebLandingPage() {
 
         <Box sx={{ height: "1400px" }}></Box>
         <LandingProjectCards
+          data={data}
+          isLoading={isLoading}
+          error={error}
           ref={projectsContainer}
           position={projectsContainerPosition}
         />
