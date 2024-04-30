@@ -67,6 +67,7 @@ function WebAppBar(props: {
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           {props.links.map((link) => (
             <Link
+              href={link.anchor}
               underline="hover"
               key={`${link.title}::${link.anchor}`}
               sx={{

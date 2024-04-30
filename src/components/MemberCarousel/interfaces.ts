@@ -1,0 +1,5 @@
+export interface CarouselMember {
+    firstName: string,
+    lastName: string,
+    leadership: string[],
+};

@@ -74,9 +74,9 @@ export default function WebLandingPage() {
   /* Define WebAppBar Links */
   const webAppBarLinks: WebAppBarLink[] = [
     { title: "About", anchor: "" },
-    { title: "Sponsors", anchor: "" },
     { title: "Projects", anchor: "" },
-    { title: "Our Team", anchor: "" },
+    { title: "Our Team", anchor: "#team" },
+    { title: "Sponsors", anchor: "" },
     { title: "Highlights", anchor: "" },
     { title: "Contact Us", anchor: "" },
   ];
@@ -207,7 +207,7 @@ export default function WebLandingPage() {
         />
 
         <Box sx={{ height: "700px" }}></Box>
-        <MemberCarousel />
+        <MemberCarousel id="team" />
         <Box sx={{ height: "300px" }}></Box>
         <MeetOurSponsorsTitle />
         <Box sx={{ height: "250px" }}></Box>
