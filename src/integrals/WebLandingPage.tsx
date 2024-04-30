@@ -111,9 +111,9 @@ export default function WebLandingPage() {
   }, [projectsContainerHeight]);
 
   return (
-    <div style={{ position: "relative" }}>
-      <div
-        style={{
+    <Box sx={{ position: "relative" }}>
+      <Box
+        sx={{
           position: "absolute",
           top: 0,
           left: 0,
@@ -204,7 +204,7 @@ export default function WebLandingPage() {
           </ScrollPage>
         </ScrollContainer>
 
-        { /* Horizontal Scroll Wrapper Start */ }
+        { /* DO NOT EDIT: Horizontal Scroll Wrapper Start */ }
         <Box sx={{ height: '100vh' }} />
         <Box display={(window.scrollY > window.innerHeight) ? "block": "none"} sx={{ height: `${projectsContainerHeight}px` }}></Box>
         <LandingProjectCards
@@ -216,7 +216,7 @@ export default function WebLandingPage() {
           height={projectsContainerHeight}
         />
         <Box display={(window.scrollY > (projectsContainerHeight + window.innerHeight)) ? "none" : "block"} sx={{ height: '580px' }} />
-        { /* Horizontal Scroll Wrapper End */ }
+        { /* DO NOT EDIT: Horizontal Scroll Wrapper End */ }
 
         <Box sx={{ height: '300px' }} />
         <MemberCarousel id="team" />
@@ -263,7 +263,7 @@ export default function WebLandingPage() {
           }}
         />
       </Box>
-    </div>
+    </Box>
   );
 }
 
