@@ -22,7 +22,7 @@ import SponsorCreditCards from "../components/SponsorCreditCards";
 import "./stars.css";
 
 const LandingProjectCards = React.forwardRef(
-  (props: { position: string; isLoading: boolean; error: Error | null; data: LandingProject[] }, ref) => {
+  (props: { height: number, position: string; isLoading: boolean; error: Error | null; data: LandingProject[] }, ref) => {
     if (props.isLoading) {
       return "Loading...";
     }
@@ -41,7 +41,7 @@ const LandingProjectCards = React.forwardRef(
           maxWidth: "100%",
           overflowX: "hidden",
           position: props.position,
-          top: window.scrollY > 200 ? "120px" : "720px",
+          top: window.scrollY > 200 ? "120px" : "100vh",
         }}
       >
         {props.data.map((project: LandingProject) => (
@@ -53,13 +53,15 @@ const LandingProjectCards = React.forwardRef(
 );
 
 export default function WebLandingPage() {
-  const projectsContainer = React.useRef<HTMLDivElement>();
-  const [liveEvents, setLiveEvents] = React.useState<WebEvent[]>([
-    { title: "General Body Meeting, 3/25 8pm @ Iribe" },
-  ]);
+  /* AppBar and Events State */
   const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
-  const [projectsContainerPosition, setProjectsContainerPosition] =
-    React.useState<string>("fixed");
+  const [liveEvents, setLiveEvents] = React.useState<WebEvent[]>([{ title: "General Body Meeting, 3/25 8pm @ Iribe" }]);
+
+  /* Projects State */
+  const projectsContainer = React.useRef<HTMLDivElement>();
+  const [projectsContainerPosition, setProjectsContainerPosition] = React.useState<string>("fixed");
+  const [projectsContainerHeight, setProjectsContainerHeight] = React.useState(0);
+
   const [statsContainerPosition, setStatsContainerPosition] = React.useState<
     "fixed" | "unset"
   >("fixed");
@@ -67,40 +69,46 @@ export default function WebLandingPage() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["projects"],
     queryFn: async () => {
-      return await ProjectAPI.getAll();
+      let res = await ProjectAPI.getAll();
+      res = res.concat(res).concat(res); //testing)
+      setProjectsContainerHeight(res.length * 500);
+      return res;
     },
   });
 
   /* Define WebAppBar Links */
   const webAppBarLinks: WebAppBarLink[] = [
-    { title: "About", anchor: "" },
-    { title: "Projects", anchor: "" },
+    { title: "About", anchor: "#about" },
+    { title: "Projects", anchor: "#projects" },
     { title: "Our Team", anchor: "#team" },
-    { title: "Sponsors", anchor: "" },
-    { title: "Highlights", anchor: "" },
-    { title: "Contact Us", anchor: "" },
+    { title: "Sponsors", anchor: "#sponsors" },
+    { title: "Highlights", anchor: "#highlights" },
+    { title: "Contact Us", anchor: "#contact" },
   ];
 
   React.useEffect(() => {
-    /* Detect Webpage Scroll */
-    window.addEventListener("scroll", () => {
-      /* Use Minimum Scroll Listeners. Performance is Important. */
-      const scrollY = window.scrollY;
+    if (projectsContainerHeight != 0) {
+      /* Detect Webpage Scroll */
+      window.addEventListener("scroll", () => {
+        /* Use Minimum Scroll Listeners. Performance is Important. */
+        const scrollY = window.scrollY;
+        const projectsComputedHeight = (window.innerHeight + projectsContainerHeight);
 
-      /* Set App Bar to Translucent Mode if Scroll is Over 100 */
-      setTranslucentAppBarTop(Math.min(scrollY - 120, 0));
-      setProjectsContainerPosition(
-        scrollY > 2500 || scrollY < 650 ? "unset" : "fixed"
-      );
+        /* Set App Bar to Translucent Mode if Scroll is Over 100 */
+        setTranslucentAppBarTop(Math.min(scrollY - 120, 0));
+        setProjectsContainerPosition(
+          scrollY > projectsComputedHeight || scrollY < (window.innerHeight) ? "unset" : "fixed"
+        );
 
-      if (projectsContainer.current) {
-        const container = projectsContainer.current;
-        const progress = 1 - (2000 - scrollY + 900) / 2000;
-        const maxScrollLeft = container.scrollWidth - container.clientWidth;
-        container.scrollLeft = (progress + 0.02) * maxScrollLeft;
-      }
-    });
-  }, []);
+        if (projectsContainer.current) {
+          const container = projectsContainer.current;
+          const progress = 1 - (projectsContainerHeight - (scrollY - window.innerHeight - 100)) / projectsContainerHeight;
+          const maxScrollLeft = container.scrollWidth - container.clientWidth;
+          container.scrollLeft = (progress + 0.02) * maxScrollLeft;
+        }
+      });
+    }
+  }, [projectsContainerHeight]);
 
   return (
     <div style={{ position: "relative" }}>
@@ -113,14 +121,13 @@ export default function WebLandingPage() {
           height: "100%",
           background:
             "radial-gradient(55% 55% at -3% 104%, #0F114AFF 13%, #07074178 41%, #00000014 76%, #073AFF00 99%),radial-gradient(25% 25% at 62% 54%, #2324A9C4 0%, #073AFF00 100%),radial-gradient(25% 44% at 83% 33%, #434EA3FF 0%, #44579D29 65%, #073AFF00 93%),radial-gradient(49% 81% at 45% 47%, #0891A245 0%, #073AFF00 100%),radial-gradient(113% 91% at 17% -2%, #6122A6FF 1%, #FF000000 99%),radial-gradient(142% 91% at 83% 7%, #0522A9FF 1%, #FF000000 99%),radial-gradient(142% 91% at -6% 74%, #1C2581FF 1%, #FF000000 99%),radial-gradient(142% 91% at 109% 60%, #131B36FF 0%, #205353FF 99%)",
-          opacity: scrollY > 400 ? 0 : 1,
+          opacity: scrollY > (window.innerHeight - 100) ? 0 : 1,
           transition: "opacity 0.5s ease",
           backgroundAttachment: "fixed",
         }}
       />
       <Box
         sx={{
-          minHeight: "500vh",
           background:
             "radial-gradient(55% 50% at 48% 52%, #234ACCFF 0%, #234ACCFF 0%, #0B1E55FF 72%, #091038FF 100%)",
           backgroundSize: "100% 100%",
@@ -197,16 +204,24 @@ export default function WebLandingPage() {
           </ScrollPage>
         </ScrollContainer>
 
-        <Box sx={{ height: "1400px" }}></Box>
+        { /* Horizontal Scroll Wrapper Start */ }
+        <Box sx={{ height: '100vh' }} />
+        <Box display={(window.scrollY > window.innerHeight) ? "block": "none"} sx={{ height: `${projectsContainerHeight}px` }}></Box>
         <LandingProjectCards
           data={data}
           isLoading={isLoading}
           error={error}
           ref={projectsContainer}
           position={projectsContainerPosition}
+          height={projectsContainerHeight}
         />
+        <Box display={(window.scrollY > (projectsContainerHeight + window.innerHeight)) ? "none" : "block"} sx={{ height: '580px' }} />
+        { /* Horizontal Scroll Wrapper End */ }
 
-        <Box sx={{ height: "700px" }}></Box>
+        <Box sx={{ height: '300px' }} />
+        <MemberCarousel id="team" />
+
+        {/*
         <MemberCarousel id="team" />
         <Box sx={{ height: "300px" }}></Box>
         <MeetOurSponsorsTitle />

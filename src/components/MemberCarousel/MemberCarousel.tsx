@@ -1,6 +1,6 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Paper, Box, Typography } from '@mui/material';
+import { Paper, Box, Typography, SxProps } from '@mui/material';
 import { EffectCoverflow, Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 
@@ -23,7 +23,7 @@ function MemberLeaderString(member: CarouselMember): string {
     return roleList;
 }
 
-function MemberCarousel(props?: { id: string }) {
+function MemberCarousel(props?: { id: string, sx?: SxProps }) {
     const [members, setMembers] = React.useState<CarouselMember[]>([]);
 
     React.useEffect(() => {
@@ -36,6 +36,7 @@ function MemberCarousel(props?: { id: string }) {
         <Box
             {...props}
             sx={{
+                ...props?.sx,
                 borderRadius: "35px",
                 display: "flex",
                 gap: "15px",
