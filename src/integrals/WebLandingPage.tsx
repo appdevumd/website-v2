@@ -20,6 +20,7 @@ import {
 import MeetOurSponsorsTitle from "../components/MeetOurSponsorsTitle";
 import SponsorCreditCards from "../components/SponsorCreditCards";
 import "./stars.css";
+import Footer from "../components/Footer";
 
 const LandingProjectCards = React.forwardRef(
   (props: { height: number, position: string; isLoading: boolean; error: Error | null; data: LandingProject[] }, ref) => {
@@ -252,6 +253,9 @@ export default function WebLandingPage() {
         <Box sx={{ height: "300px" }}></Box>
 
         {/* Translucent App Bar, Last Element, On Top of All */}
+
+
+        <Footer />
         <WebAppBar
           links={webAppBarLinks}
           translucent={true}
