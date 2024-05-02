@@ -205,6 +205,7 @@ export default function WebLandingPage() {
         {/* DO NOT EDIT: Horizontal Scroll Wrapper Start */}
         <Box sx={{ height: "100vh" }} />
         <Box
+          id="projects"
           display={window.scrollY > window.innerHeight ? "block" : "none"}
           sx={{ height: `${projectsContainerHeight}px` }}
         ></Box>
@@ -223,7 +224,7 @@ export default function WebLandingPage() {
         {/* DO NOT EDIT: Horizontal Scroll Wrapper End */}
         <Box
           sx={{
-            paddingTop: "300px",
+            paddingTop: "100px",
             paddingBottom: "300px",
             background:
               "linear-gradient(0deg, #00FFFF00 0%, #000000FF 44%, #000000FF 50%, #000000FF 56%, #073AFF00 100%)",
@@ -239,7 +240,8 @@ export default function WebLandingPage() {
             particleDensity={50}
             particleColor="#FFFFFF"
           />
-          <Box ref={membersRef}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} ref={membersRef}>
+            <Typography sx={{ marginBottom: '70px', fontSize: '3rem', fontWeight: 'bold' }}>Our Team</Typography>
             <MemberCarousel id="team" />
           </Box>
           <Sparkles
