@@ -221,8 +221,6 @@ export default function WebLandingPage() {
         <Box sx={{ height: '300px' }} />
         <MemberCarousel id="team" />
 
-        {/*
-        <MemberCarousel id="team" />
         <Box sx={{ height: "300px" }}></Box>
         <MeetOurSponsorsTitle />
         <Box sx={{ height: "250px" }}></Box>

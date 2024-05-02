@@ -53,7 +53,7 @@ function MemberCarousel(props?: { id: string, sx?: SxProps }) {
                         centeredSlides
                         loop
                         slidesPerView={'auto'}
-                        spaceBetween={1}
+                        spaceBetween={3}
                         coverflowEffect={{
                             rotate: 0,
                             stretch: 0,

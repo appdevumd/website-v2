@@ -15,7 +15,7 @@ function LandingProjectCard(props: { project: LandingProject }) {
       onClick={() => {
         handleCardClick(props.project);
       }}
-      style={{ minWidth: "50vw", height: "480px", cursor: "pointer" }}
+      style={{ minWidth: "800px", height: "60vh", cursor: "pointer" }}
     >
       <Paper
         sx={{
@@ -44,7 +44,7 @@ function LandingProjectCard(props: { project: LandingProject }) {
           />
         </Box>
 
-        {/* Image Goes Here */}
+        {/* Image Goes Here
         <Box
           data-atropos-offset="5"
           sx={{
@@ -54,6 +54,7 @@ function LandingProjectCard(props: { project: LandingProject }) {
             height: "100%",
           }}
         ></Box>
+        */}
       </Paper>
     </Atropos>
   );
