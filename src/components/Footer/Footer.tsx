@@ -2,9 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import {Grid, Stack} from "@mui/material"
 import { Instagram } from "@mui/icons-material";
-import { Facebook } from "@mui/icons-material";
-import { X } from "@mui/icons-material";
-import { YouTube } from "@mui/icons-material";
+import { LinkedIn } from "@mui/icons-material";
+import { GitHub } from "@mui/icons-material";
+import { Email } from "@mui/icons-material";
+import { BiLogoDiscord } from "react-icons/bi";
+
+
 
 const Container = styled.div`
     padding: 20px 60px;
@@ -26,13 +29,15 @@ function Footer (){
     const year = today.getFullYear();
     return (
         <div>
+            
             <Container>
                 <hr style={{width:"100%"}}></hr>
+                <br/>
                 <Wrapper>
-                    <Grid container>
-
-                        {/* ROW 1 /*/}
-                        <Grid container item spacing={26}>
+                    <Grid container spacing={34}>
+                        {/* INITIAL DESIGN WITH MORE INFO CAN BE USED IN FUTURE POTENTIALLY */}
+                        {/*
+                            <Grid container item spacing={26}>
                             <Grid item> 
                                 <p style={{fontWeight:"bold", fontSize:"18px"}}>Students</p>
                                 <Stack spacing={0}>
@@ -72,13 +77,31 @@ function Footer (){
                             
                             
                         </Grid>
+                        */}
+                        <Grid item>
+                            <p style={{fontSize:"18px"}}>&copy; {year} App Dev Club</p>
+                        </Grid>
+                        
+                        <Grid item>
+                            <img src="../public/logo256.png" style={{maxHeight:"50px", verticalAlign:"bottom"}}/>
+
+                        </Grid>
+
+                        <Grid item>
+                            <p style= {{fontWeight:"bold", fontSize:"18px"}}><Instagram style={{verticalAlign:"text-bottom", fontSize:"22px"}}></Instagram> &nbsp; <LinkedIn style={{verticalAlign:"text-bottom", fontSize:"22px"}}></LinkedIn> &nbsp; <GitHub style={{verticalAlign:"text-bottom", fontSize:"22px"}}></GitHub> &nbsp; <Email style={{verticalAlign:"text-bottom", fontSize:"22px"}}></Email> &nbsp; <BiLogoDiscord style={{verticalAlign:"text-bottom", fontSize:"22px"}}></BiLogoDiscord></p>
+                        </Grid>
+                            
+                        
+                       
                     </Grid>
                     
                     
                 </Wrapper>
-                <br></br>
-                <hr style={{width:"100%"}}></hr>
-                <p style={{fontSize:"13px"}}>&copy; {year} App Dev Club. All Rights Reserved</p>
+                
+                
+                
+                
+                
 
             </Container>
             
