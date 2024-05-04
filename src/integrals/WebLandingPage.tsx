@@ -123,8 +123,8 @@ export default function WebLandingPage() {
       <Box
         sx={{
           position: "absolute",
-          // To account for Events Bar
-          top: `${liveEvents.length > 0 ? 30 : 0}px`,
+          // Hacky way to account for Events Bar...
+          top: `${JSON.parse(window.localStorage.getItem("events-visible") as string) ? 30 : 0}px`,
           left: 0,
           width: "100%",
           height: "100%",
