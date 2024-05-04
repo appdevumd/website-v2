@@ -11,6 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 import { Close } from "@mui/icons-material";
 import { WebAppBarLink } from "./interfaces";
+import { Link as RouterLink } from "react-router-dom";
 
 function WebAppBar(props: {
   sx?: SxProps;
@@ -18,7 +19,7 @@ function WebAppBar(props: {
   translucent?: boolean;
   links: WebAppBarLink[];
 }) {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
 
   return (
@@ -37,7 +38,7 @@ function WebAppBar(props: {
             ? "rgba(67,86,127, 0.5)"
             : "transparent",
           backdropFilter: props.translucent ? "blur(20px)" : "unset",
-          margin: "25px 0px 0px 0px",
+          margin: "5px 0px",
           borderRadius: "41px",
           paddingLeft: "40px !important",
           paddingRight: "40px !important",
@@ -47,21 +48,35 @@ function WebAppBar(props: {
           userSelect: "none",
         }}
       >
-        <img
-          alt="adc-logo"
-          src="/logo256.png"
-          style={{ maxHeight: "65%", margin: "10px 0px 10px 0px" }}
-        />
-        <Typography
+        <Box
           sx={{
+            height: "65%",
+            display: "flex",
             flexGrow: 1,
-            fontSize: "1.3rem",
-            fontWeight: "bold",
-            marginLeft: "15px",
           }}
         >
-          App Dev Club
-        </Typography>
+          <RouterLink to="/" style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            color: "white",
+          }}>
+            <img
+              alt="adc-logo"
+              src="/logo256.png"
+              style={{ maxHeight: "100%", margin: "10px 0px 10px 0px" }}
+            />
+            <Typography
+              sx={{
+                fontSize: "1.3rem",
+                fontWeight: "bold",
+                marginLeft: "15px",
+              }}
+            >
+              App Dev Club
+            </Typography>
+          </RouterLink>
+        </Box>
 
         {/* Links, Hide In Mobile. Provide Dropdown Instead */}
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
