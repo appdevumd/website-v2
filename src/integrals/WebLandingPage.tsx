@@ -120,6 +120,7 @@ export default function WebLandingPage() {
 
   return (
     <Box sx={{ position: "relative" }}>
+      { /* This box isn't the best way? Prevents children hover without zIndex++ */ }
       <Box
         sx={{
           position: "absolute",
@@ -257,7 +258,6 @@ export default function WebLandingPage() {
           }}
         />
         <Box sx={{ height: "300px" }}></Box>
-
         {/* Translucent App Bar, Last Element, On Top of All */}
 
 

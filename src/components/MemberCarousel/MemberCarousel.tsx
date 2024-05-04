@@ -39,12 +39,15 @@ function MemberCarousel(props?: { id: string, sx?: SxProps }) {
                 ...props?.sx,
                 borderRadius: "35px",
                 display: "flex",
+                flexDirection: 'column',
                 gap: "15px",
-                color: "#000000",
                 width: "100%",
                 height: "100%",
+                alignItems: 'center',
+                justifyContent: 'center'
             }}
         >
+            <Typography sx={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '30px' }}>Our Team</Typography>
             {
                 (members.length < 1) ? <></> :
                     <Swiper
