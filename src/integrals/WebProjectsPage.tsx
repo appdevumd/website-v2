@@ -72,7 +72,7 @@ export default function WebProjectsPage() {
         flexDirection: "column",
         gap: "2rem",
         justifyContent: "center",
-        padding: "20vh 0",
+        padding: "15vh 0",
         alignItems: "center",
         minHeight: "100vh",
       }}

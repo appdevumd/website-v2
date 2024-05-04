@@ -1,1 +1,1 @@
-import { default } from './LandingTitlePage';
+export { default } from './LandingTitlePage';

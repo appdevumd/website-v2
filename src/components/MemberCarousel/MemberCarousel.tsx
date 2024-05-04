@@ -1,7 +1,7 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Paper, Box, Typography, SxProps } from '@mui/material';
-import { EffectCoverflow, Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Box, Typography, SxProps } from '@mui/material';
+import { EffectCoverflow, Autoplay } from 'swiper/modules';
 
 
 import 'swiper/css';
