@@ -251,15 +251,6 @@ export default function WebLandingPage() {
           position={projectsContainerPosition}
           height={projectsContainerHeight}
         />
-        <Box
-          display={
-            window.scrollY > projectsContainerHeight + window.innerHeight
-              ? "none"
-              : "block"
-          }
-          sx={{ height: "580px" }}
-        />
-        {/* DO NOT EDIT: Horizontal Scroll Wrapper End */}
 
         <Box
           display={
