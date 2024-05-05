@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import React, { useRef } from "react";
 import WebEventsBar from "../components/WebEventsBar";
 import { WebEvent } from "../components/WebEventsBar/interfaces";
@@ -23,6 +23,7 @@ import "./stars.css";
 import Footer from "../components/Footer";
 import { useOnScreen } from "../utils/useOnScreen";
 import Sparkles from "../components/Sparkles";
+import AppThemeController from "../middleware/AppThemeController";
 
 const LandingProjectCards = React.forwardRef(
   (
@@ -76,6 +77,7 @@ const webAppBarLinks: WebAppBarLink[] = [
 
 export default function WebLandingPage() {
   /* AppBar and Events State */
+  const mobileView = useMediaQuery(AppThemeController.baseTheme.breakpoints.down('md'));
   const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
   const [liveEvents] = React.useState<WebEvent[]>([
     { title: "General Body Meeting, 3/25 8pm @ Iribe" },
@@ -121,10 +123,7 @@ export default function WebLandingPage() {
 
       if (projectsContainer.current) {
         const container = projectsContainer.current;
-        const progress =
-          1 -
-          (projectsContainerHeight - (scrollY - window.innerHeight - 100)) /
-            projectsContainerHeight;
+        const progress = 1 - (projectsContainerHeight - (scrollY - window.innerHeight - 100)) / projectsContainerHeight;
         const maxScrollLeft = container.scrollWidth - container.clientWidth;
         container.scrollLeft = (progress + 0.02) * maxScrollLeft;
       }
@@ -179,16 +178,25 @@ export default function WebLandingPage() {
             position: statsContainerPosition,
             scrollBehavior: "smooth",
             overflow: "visible",
+            width: '100%',
+            height: '100%',
           }}
         >
-          <ScrollPage style={{ overflow: "visible" }}>
+          <ScrollPage style={{
+            width: '100%',
+            overflow: "visible",
+            flexDirection: 'column',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}>
             <Animator
+              style={{ width: "100%", overflow: "visible" }}
               animation={batch(
                 DelayedFadeOut(1, -0.5, 0.0),
                 DelayedZoomOut(3, 1, 0),
                 DelayedMoveOut(0, -400, 0)
               )}
-              style={{ width: "100%", overflow: "visible" }}
             >
               <div id="stars1"></div>
               <div id="stars2"></div>
@@ -198,12 +206,10 @@ export default function WebLandingPage() {
                   flexGrow: 1,
                   fontSize: "4vw",
                   fontWeight: "bold",
-                  marginLeft: 5,
-                  marginRight: 5,
                   textAlign: "center",
                 }}
               >
-                Empower Code. Inspire Design. Drive Innovation.
+                Empower Code. Inspire Design.<br />Drive Innovation.
               </Typography>
               <Box
                 sx={{
@@ -236,31 +242,37 @@ export default function WebLandingPage() {
           </ScrollPage>
         </ScrollContainer>
 
-        {/* DO NOT EDIT: Horizontal Scroll Wrapper Start */}
         <Box sx={{ height: "100vh" }} />
-        <Box
-          id="projects"
-          display={window.scrollY > window.innerHeight ? "block" : "none"}
-          sx={{ height: `${projectsContainerHeight}px` }}
-        ></Box>
-        <LandingProjectCards
-          data={data}
-          isLoading={isLoading}
-          error={error}
-          ref={projectsContainer}
-          position={projectsContainerPosition}
-          height={projectsContainerHeight}
-        />
+        {
+          (mobileView) ? <></> :
+            <>
+              {/* DO NOT EDIT: Horizontal Scroll Wrapper Start */}
+              <Box
+                id="projects"
+                display={window.scrollY > window.innerHeight ? "block" : "none"}
+                sx={{ height: `${projectsContainerHeight}px` }}
+              ></Box>
+              <LandingProjectCards
+                data={data}
+                isLoading={isLoading}
+                error={error}
+                ref={projectsContainer}
+                position={projectsContainerPosition}
+                height={projectsContainerHeight}
+              />
 
-        <Box
-          display={
-            window.scrollY > projectsContainerHeight + window.innerHeight
-              ? "none"
-              : "block"
-          }
-          sx={{ height: "580px" }}
-        />
-        {/* DO NOT EDIT: Horizontal Scroll Wrapper End */}
+              <Box
+                display={
+                  window.scrollY > projectsContainerHeight + window.innerHeight
+                    ? "none"
+                    : "block"
+                }
+                sx={{ height: "580px" }}
+              />
+              {/* DO NOT EDIT: Horizontal Scroll Wrapper End */}
+            </>
+        }
+
         <Box
           sx={{
             paddingTop: "100px",
@@ -300,6 +312,8 @@ export default function WebLandingPage() {
           />
         </Box>
 
+
+        {/*
         <Box sx={{ height: "300px" }}></Box>
         <MeetOurSponsorsTitle />
         <Box sx={{ height: "250px" }}></Box>
@@ -325,7 +339,7 @@ export default function WebLandingPage() {
             members: [],
             logos: "",
           }}
-        />
+        /> */}
         <Box sx={{ height: "300px" }}></Box>
         {/* Translucent App Bar, Last Element, On Top of All */}
 
