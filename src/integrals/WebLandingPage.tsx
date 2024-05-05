@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useRef } from "react";
 import WebEventsBar from "../components/WebEventsBar";
 import { WebEvent } from "../components/WebEventsBar/interfaces";
 import WebAppBar from "../components/WebAppBar";
@@ -21,9 +21,20 @@ import MeetOurSponsorsTitle from "../components/MeetOurSponsorsTitle";
 import SponsorCreditCards from "../components/SponsorCreditCards";
 import "./stars.css";
 import Footer from "../components/Footer";
+import { useOnScreen } from "../utils/useOnScreen";
+import Sparkles from "../components/Sparkles";
 
 const LandingProjectCards = React.forwardRef(
-  (props: { height: number, position: string; isLoading: boolean; error: Error | null; data: LandingProject[] }, ref) => {
+  (
+    props: {
+      height: number;
+      position: string;
+      isLoading: boolean;
+      error: Error | null;
+      data: LandingProject[];
+    },
+    ref
+  ) => {
     if (props.isLoading) {
       return "Loading...";
     }
@@ -66,16 +77,21 @@ const webAppBarLinks: WebAppBarLink[] = [
 export default function WebLandingPage() {
   /* AppBar and Events State */
   const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
-  const [liveEvents,] = React.useState<WebEvent[]>([{ title: "General Body Meeting, 3/25 8pm @ Iribe" }]);
+  const [liveEvents] = React.useState<WebEvent[]>([
+    { title: "General Body Meeting, 3/25 8pm @ Iribe" },
+  ]);
 
   /* Projects State */
   const projectsContainer = React.useRef<HTMLDivElement>();
-  const [projectsContainerPosition, setProjectsContainerPosition] = React.useState<string>("fixed");
-  const [projectsContainerHeight, setProjectsContainerHeight] = React.useState(0);
+  const [projectsContainerPosition, setProjectsContainerPosition] =
+    React.useState<string>("fixed");
+  const [projectsContainerHeight, setProjectsContainerHeight] =
+    React.useState(0);
 
-  const [statsContainerPosition,] = React.useState<
-    "fixed" | "unset"
-  >("fixed");
+  const membersRef = useRef<HTMLDivElement>(null);
+  const membersOnScreen = useOnScreen(membersRef);
+
+  const [statsContainerPosition] = React.useState<"fixed" | "unset">("fixed");
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["projects"],
@@ -91,10 +107,13 @@ export default function WebLandingPage() {
     function handleScroll() {
       /* Use Minimum Scroll Listeners. Performance is Important. */
       const scrollY = window.scrollY;
-      const projectsComputedHeight = (window.innerHeight + projectsContainerHeight);
+      const projectsComputedHeight =
+        window.innerHeight + projectsContainerHeight;
 
       setProjectsContainerPosition(
-        scrollY > projectsComputedHeight || scrollY < (window.innerHeight) ? "unset" : "fixed"
+        scrollY > projectsComputedHeight || scrollY < window.innerHeight
+          ? "unset"
+          : "fixed"
       );
 
       /* Set App Bar to Translucent Mode if Scroll is Over 100 */
@@ -102,7 +121,10 @@ export default function WebLandingPage() {
 
       if (projectsContainer.current) {
         const container = projectsContainer.current;
-        const progress = 1 - (projectsContainerHeight - (scrollY - window.innerHeight - 100)) / projectsContainerHeight;
+        const progress =
+          1 -
+          (projectsContainerHeight - (scrollY - window.innerHeight - 100)) /
+            projectsContainerHeight;
         const maxScrollLeft = container.scrollWidth - container.clientWidth;
         container.scrollLeft = (progress + 0.02) * maxScrollLeft;
       }
@@ -115,12 +137,12 @@ export default function WebLandingPage() {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-    }
+    };
   }, [projectsContainerHeight]);
 
   return (
     <Box sx={{ position: "relative" }}>
-      { /* This box isn't the best way? Prevents children hover without zIndex++ */ }
+      {/* This box isn't the best way? Prevents children hover without zIndex++ */}
       <Box
         sx={{
           position: "absolute",
@@ -131,7 +153,7 @@ export default function WebLandingPage() {
           height: "100%",
           background:
             "radial-gradient(55% 55% at -3% 104%, #0F114AFF 13%, #07074178 41%, #00000014 76%, #073AFF00 99%),radial-gradient(25% 25% at 62% 54%, #2324A9C4 0%, #073AFF00 100%),radial-gradient(25% 44% at 83% 33%, #434EA3FF 0%, #44579D29 65%, #073AFF00 93%),radial-gradient(49% 81% at 45% 47%, #0891A245 0%, #073AFF00 100%),radial-gradient(113% 91% at 17% -2%, #6122A6FF 1%, #FF000000 99%),radial-gradient(142% 91% at 83% 7%, #0522A9FF 1%, #FF000000 99%),radial-gradient(142% 91% at -6% 74%, #1C2581FF 1%, #FF000000 99%),radial-gradient(142% 91% at 109% 60%, #131B36FF 0%, #205353FF 99%)",
-          opacity: scrollY > (window.innerHeight - 100) ? 0 : 1,
+          opacity: scrollY > window.innerHeight - 100 ? 0 : 1,
           transition: "opacity 0.5s ease",
           backgroundAttachment: "fixed",
         }}
@@ -214,9 +236,13 @@ export default function WebLandingPage() {
           </ScrollPage>
         </ScrollContainer>
 
-        { /* DO NOT EDIT: Horizontal Scroll Wrapper Start */ }
-        <Box sx={{ height: '100vh' }} />
-        <Box display={(window.scrollY > window.innerHeight) ? "block": "none"} sx={{ height: `${projectsContainerHeight}px` }}></Box>
+        {/* DO NOT EDIT: Horizontal Scroll Wrapper Start */}
+        <Box sx={{ height: "100vh" }} />
+        <Box
+          id="projects"
+          display={window.scrollY > window.innerHeight ? "block" : "none"}
+          sx={{ height: `${projectsContainerHeight}px` }}
+        ></Box>
         <LandingProjectCards
           data={data}
           isLoading={isLoading}
@@ -225,11 +251,63 @@ export default function WebLandingPage() {
           position={projectsContainerPosition}
           height={projectsContainerHeight}
         />
-        <Box display={(window.scrollY > (projectsContainerHeight + window.innerHeight)) ? "none" : "block"} sx={{ height: '580px' }} />
-        { /* DO NOT EDIT: Horizontal Scroll Wrapper End */ }
+        <Box
+          display={
+            window.scrollY > projectsContainerHeight + window.innerHeight
+              ? "none"
+              : "block"
+          }
+          sx={{ height: "580px" }}
+        />
+        {/* DO NOT EDIT: Horizontal Scroll Wrapper End */}
 
-        <Box sx={{ height: '300px' }} />
-        <MemberCarousel id="team" />
+        <Box
+          display={
+            window.scrollY > projectsContainerHeight + window.innerHeight
+              ? "none"
+              : "block"
+          }
+          sx={{ height: "580px" }}
+        />
+        {/* DO NOT EDIT: Horizontal Scroll Wrapper End */}
+        <Box
+          sx={{
+            paddingTop: "100px",
+            paddingBottom: "300px",
+            background:
+              "linear-gradient(0deg, #00FFFF00 0%, #000000FF 44%, #000000FF 50%, #000000FF 56%, #073AFF00 100%)",
+            transition: "opacity 0.5s ease",
+            opacity: membersOnScreen ? 1 : 0,
+          }}
+        >
+          <Sparkles
+            id="members_sparkles"
+            background="transparent"
+            minSize={0.6}
+            maxSize={1.4}
+            particleDensity={50}
+            particleColor="#FFFFFF"
+          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            ref={membersRef}
+          >
+            <MemberCarousel id="team" />
+          </Box>
+          <Sparkles
+            id="members_sparkles2"
+            background="transparent"
+            minSize={0.6}
+            maxSize={1.4}
+            particleDensity={50}
+            particleColor="#FFFFFF"
+          />
+        </Box>
 
         <Box sx={{ height: "300px" }}></Box>
         <MeetOurSponsorsTitle />
@@ -259,7 +337,6 @@ export default function WebLandingPage() {
         />
         <Box sx={{ height: "300px" }}></Box>
         {/* Translucent App Bar, Last Element, On Top of All */}
-
 
         <Footer />
         <WebAppBar
