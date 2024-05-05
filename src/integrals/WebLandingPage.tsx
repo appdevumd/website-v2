@@ -313,33 +313,35 @@ export default function WebLandingPage() {
         </Box>
 
 
-        {/*
+
         <Box sx={{ height: "300px" }}></Box>
-        <MeetOurSponsorsTitle />
-        <Box sx={{ height: "250px" }}></Box>
-        <SponsorCreditCards
+        <main>
+          <SponsorCreditCards
+            project={{
+              px: 0,
+              tier: "Platinum",
+              members: [],
+              logos: "",
+            }}
+          />
+          <SponsorCreditCards
           project={{
-            tier: "Platinum",
-            members: [],
-            logos: "",
-          }}
-        />
-        <Box sx={{ height: "300px" }}></Box>
-        <SponsorCreditCards
-          project={{
+            px: 25,
             tier: "Gold",
             members: [],
             logos: "",
           }}
-        />
-        <Box sx={{ height: "300px" }}></Box>
-        <SponsorCreditCards
+          />
+          <SponsorCreditCards
           project={{
+            px: 25,
             tier: "Bronze",
             members: [],
             logos: "",
           }}
-        /> */}
+          />
+        </main>
+        
         <Box sx={{ height: "300px" }}></Box>
         {/* Translucent App Bar, Last Element, On Top of All */}
 

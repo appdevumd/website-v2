@@ -1,7 +1,7 @@
 import { SponsorCard  } from "./interfaces";
-import Atropos from "atropos/react";
 import { Box, Grid} from "@mui/material"
-import {motion} from "framer-motion"
+import Atropos from 'atropos/react';
+import "./SponsorCreditCard.css"
 
 import platinumLogo from "./CreditCardLogos/image 2.png"
 import amazonLogo from "./CreditCardLogos/image 3.png"
@@ -15,6 +15,8 @@ function Sponsors(props: {project : SponsorCard}) {
     let tierColor1 = ""
     let tierColor2 = ""
     let ADClogo = ""
+    let px = props.project.px
+    let top = px  + "px"
     
 
     if (props.project.tier == "Platinum"){
@@ -35,65 +37,56 @@ function Sponsors(props: {project : SponsorCard}) {
         
     }
     return (
-        <motion.div 
-            initial={{opacity:0}}
-            whileInView={{opacity:1}}
-            viewport={{
-                margin:"-100px",
-                
-            }}
-            transition={{duration:1}}
-            style={{display:"flex", justifyContent:"center",alignItems:"center"}}
+        <div 
+            className="cardContainer"
+            style={{top:top}}
+            
         >
-                <Atropos
+            {/*<Atropos
                 highlight={false}
                 style={{height: "500px", width: "800px", cursor: "pointer"}}
+    >*/}
+                <Box
+                    height="500px"
+                    width="800px"
+                    borderRadius="20px"
+                    padding="30px"
+                    gap= "15px"
+                    sx={{background: "linear-gradient(90deg," + tierColor1 + ", "+ tierColor2 +")"}}
                 >
-                    
-                    <Box
-                        minHeight="500px"
-                        minWidth="800px"
-                        borderRadius="20px"
-                        padding="30px"
-                        gap= "15px"
-                        height= "100px"
-                        sx={{background: "linear-gradient(90deg," + tierColor1 + ", "+ tierColor2 +")"}}
-                    >
-                        <Grid container spacing={8}>
-                            <Grid container item columns={1}>
-                                <img src={ADClogo}></img>
+                    <Grid container spacing={8}>
+                        <Grid container item columns={1}>
+                            <img src={ADClogo}></img>
+                        </Grid>
+                        <Grid container item spacing={5}>
+                            <Grid item >
+                                <img src={amazonLogo} height={"50px"}></img>
                             </Grid>
-                            <Grid container item spacing={5}>
-                                <Grid item >
-                                    <img src={amazonLogo} height={"50px"}></img>
-                                </Grid>
-                                <Grid item>
-                                    <img src={praxisLogo} height={"50px"}></img>
-                                </Grid>
-                            </Grid>
-                            <Grid container item spacing={5}>
-                                <Grid item >
-                                    <img src={amazonLogo} height={"50px"}></img>
-                                </Grid>
-                                <Grid item>
-                                    <img src={praxisLogo} height={"50px"}></img>
-                                </Grid>
-                                
-                            </Grid>
-                            
-                            <Grid container item spacing={3} justifyContent={"flex-end"}>
-                                <Grid item >
-                                    <text style={{color:"#000000", fontWeight:"bold", fontSize:"50px"}}>{props.project.tier}</text>
-                                </Grid>
-                                
+                            <Grid item>
+                                <img src={praxisLogo} height={"50px"}></img>
                             </Grid>
                         </Grid>
-
+                        <Grid container item spacing={5}>
+                            <Grid item >
+                                <img src={amazonLogo} height={"50px"}></img>
+                            </Grid>
+                            <Grid item>
+                                <img src={praxisLogo} height={"50px"}></img>
+                            </Grid>
+                            
+                        </Grid>
                         
-                        
-                    </Box>
-                </Atropos>
-        </motion.div>
+                        <Grid container item spacing={3} justifyContent={"flex-end"}>
+                            <Grid item >
+                                <text style={{color:"#000000", fontWeight:"bold", fontSize:"50px"}}>{props.project.tier}</text>
+                            </Grid>
+                            
+                        </Grid>
+                    </Grid> 
+                    
+                </Box>
+            {/*</Atropos>*/}
+        </div>
     
         
     );
