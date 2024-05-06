@@ -1,5 +1,4 @@
-export interface SponsorCard{
-    px: number,
+export interface SponsorTier {
     tier: String,
     members: string[],
     logos: string,

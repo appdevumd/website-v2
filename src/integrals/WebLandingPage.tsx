@@ -18,12 +18,13 @@ import {
   Animation,
 } from "react-scroll-motion";
 import MeetOurSponsorsTitle from "../components/MeetOurSponsorsTitle";
-import SponsorCreditCards from "../components/SponsorCreditCards";
+import SponsorCreditCards from "../components/SponsorCreditCard";
 import "./stars.css";
 import Footer from "../components/Footer";
 import { useOnScreen } from "../utils/useOnScreen";
 import Sparkles from "../components/Sparkles";
 import AppThemeController from "../middleware/AppThemeController";
+import SponsorCardsStack from "../components/SponsorCardsStack";
 
 const LandingProjectCards = React.forwardRef(
   (
@@ -312,35 +313,8 @@ export default function WebLandingPage() {
           />
         </Box>
 
-
-
         <Box sx={{ height: "300px" }}></Box>
-        <main>
-          <SponsorCreditCards
-            project={{
-              px: 0,
-              tier: "Platinum",
-              members: [],
-              logos: "",
-            }}
-          />
-          <SponsorCreditCards
-          project={{
-            px: 25,
-            tier: "Gold",
-            members: [],
-            logos: "",
-          }}
-          />
-          <SponsorCreditCards
-          project={{
-            px: 25,
-            tier: "Bronze",
-            members: [],
-            logos: "",
-          }}
-          />
-        </main>
+        <SponsorCardsStack />
         
         <Box sx={{ height: "300px" }}></Box>
         {/* Translucent App Bar, Last Element, On Top of All */}
