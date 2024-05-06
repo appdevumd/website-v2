@@ -277,7 +277,6 @@ export default function WebLandingPage() {
         <Box
           sx={{
             paddingTop: "100px",
-            paddingBottom: "300px",
             background:
               "linear-gradient(0deg, #00FFFF00 0%, #000000FF 44%, #000000FF 50%, #000000FF 56%, #073AFF00 100%)",
             transition: "opacity 0.5s ease",
@@ -313,7 +312,7 @@ export default function WebLandingPage() {
           />
         </Box>
 
-        <Box sx={{ height: "300px" }}></Box>
+        <Box sx={{ height: "150px" }}></Box>
         <SponsorCardsStack />
         
         <Box sx={{ height: "300px" }}></Box>

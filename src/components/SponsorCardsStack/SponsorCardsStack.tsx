@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { useScroll } from "framer-motion";
 import React from "react";
 import { SponsorTier } from "../SponsorCreditCard/interfaces";
@@ -45,16 +45,26 @@ export default function SponsorCardsStack() {
                 flexDirection: 'column', 
                 alignItems: 'center',
                 gap: '50px',
-                minHeight: `${(60 * sponsorData.length) + 50}vh`,
+                minHeight: `${(60 * sponsorData.length) + 70}vh`,
                 transform: `scale(${cardContainerScale})` 
             }}
         >
+            <Typography 
+                sx={{ 
+                    position: 'sticky',
+                    top: '130px',
+                    fontSize: '3rem', 
+                    fontWeight: 'bold', 
+                }}
+            >
+                Meet Our Sponsors
+            </Typography>
             {
                 sponsorData.map((sponsor, index) => (
                     <SponsorCreditCard
                         project={sponsor} 
                         sx={{ 
-                            top: `calc(25vh + ${index * 40}px)`,
+                            top: `calc(30vh + ${index * 40}px)`,
                             transform: `scale(${1 + (index * 0.03)})` 
                         }}
                     />
