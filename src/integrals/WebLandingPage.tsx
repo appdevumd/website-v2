@@ -10,13 +10,7 @@ import Stats from "../components/Stats";
 import { useQuery } from "@tanstack/react-query";
 import ProjectAPI from "../api/projects.api";
 import { LandingProject } from "../components/LandingProjectCard/interfaces";
-import {
-  Animator,
-  ScrollContainer,
-  ScrollPage,
-  batch,
-  Animation,
-} from "react-scroll-motion";
+import { Animator, ScrollContainer, ScrollPage, batch, Animation } from "react-scroll-motion";
 import MeetOurSponsorsTitle from "../components/MeetOurSponsorsTitle";
 import SponsorCreditCards from "../components/SponsorCreditCard";
 import "./stars.css";
@@ -78,21 +72,19 @@ const webAppBarLinks: WebAppBarLink[] = [
 
 export default function WebLandingPage() {
   /* AppBar and Events State */
-  const mobileView = useMediaQuery(AppThemeController.baseTheme.breakpoints.down('md'));
+  const mobileView = useMediaQuery(AppThemeController.baseTheme.breakpoints.down("md"));
   const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
-  const [liveEvents] = React.useState<WebEvent[]>([
-    { title: "General Body Meeting, 3/25 8pm @ Iribe" },
-  ]);
+  const [liveEvents] = React.useState<WebEvent[]>([{ title: "General Body Meeting, 3/25 8pm @ Iribe" }]);
 
   /* Projects State */
   const projectsContainer = React.useRef<HTMLDivElement>();
-  const [projectsContainerPosition, setProjectsContainerPosition] =
-    React.useState<string>("fixed");
-  const [projectsContainerHeight, setProjectsContainerHeight] =
-    React.useState(0);
+  const [projectsContainerPosition, setProjectsContainerPosition] = React.useState<string>("fixed");
+  const [projectsContainerHeight, setProjectsContainerHeight] = React.useState(0);
 
   const membersRef = useRef<HTMLDivElement>(null);
   const membersOnScreen = useOnScreen(membersRef);
+  const sponsorsRef = useRef<HTMLDivElement>(null);
+  const sponsorsOnScreen = useOnScreen(sponsorsRef);
 
   const [statsContainerPosition] = React.useState<"fixed" | "unset">("fixed");
 
@@ -110,13 +102,10 @@ export default function WebLandingPage() {
     function handleScroll() {
       /* Use Minimum Scroll Listeners. Performance is Important. */
       const scrollY = window.scrollY;
-      const projectsComputedHeight =
-        window.innerHeight + projectsContainerHeight;
+      const projectsComputedHeight = window.innerHeight + projectsContainerHeight;
 
       setProjectsContainerPosition(
-        scrollY > projectsComputedHeight || scrollY < window.innerHeight
-          ? "unset"
-          : "fixed"
+        scrollY > projectsComputedHeight || scrollY < window.innerHeight ? "unset" : "fixed"
       );
 
       /* Set App Bar to Translucent Mode if Scroll is Over 100 */
@@ -158,10 +147,26 @@ export default function WebLandingPage() {
           backgroundAttachment: "fixed",
         }}
       />
+      {/* Sponsors gradient below */}
       <Box
         sx={{
+          position: "absolute",
+          // Hacky way to account for Events Bar...
+          top: `${JSON.parse(window.localStorage.getItem("events-visible") as string) ? 30 : 0}px`,
+          left: 0,
+          width: "100%",
+          height: "100%",
           background:
-            "radial-gradient(55% 50% at 48% 52%, #234ACCFF 0%, #234ACCFF 0%, #0B1E55FF 72%, #091038FF 100%)",
+            "linear-gradient(114.95deg, rgba(235, 0, 255, 0.5) 0%, rgba(0, 71, 255, 0) 34.35%), linear-gradient(180deg, #004B5B 0%, #FFA7A7 100%), linear-gradient(244.35deg, #FFB26A 0%, #3676B1 50.58%, #00A3FF 100%), linear-gradient(244.35deg, #FFFFFF 0%, #004A74 49.48%, #FF0000 100%), radial-gradient(100% 233.99% at 0% 100%, #B70000 0%, #AD00FF 100%), linear-gradient(307.27deg, #1DAC92 0.37%, #2800C6 100%), radial-gradient(100% 140% at 100% 0%, #EAFF6B 0%, #006C7A 57.29%, #2200AA 100%)",
+          backgroundBlendMode: "hard-light, overlay, overlay, overlay, difference, difference, normal",
+          opacity: sponsorsOnScreen ? 1 : 0,
+          transition: "opacity 0.5s ease",
+          backgroundAttachment: "fixed",
+        }}
+      />
+      <Box
+        sx={{
+          background: "radial-gradient(55% 50% at 48% 52%, #234ACCFF 0%, #234ACCFF 0%, #0B1E55FF 72%, #091038FF 100%)",
           backgroundSize: "100% 100%",
           backgroundAttachment: "fixed",
         }}
@@ -179,25 +184,23 @@ export default function WebLandingPage() {
             position: statsContainerPosition,
             scrollBehavior: "smooth",
             overflow: "visible",
-            width: '100%',
-            height: '100%',
+            width: "100%",
+            height: "100%",
           }}
         >
-          <ScrollPage style={{
-            width: '100%',
-            overflow: "visible",
-            flexDirection: 'column',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-          }}>
+          <ScrollPage
+            style={{
+              width: "100%",
+              overflow: "visible",
+              flexDirection: "column",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
             <Animator
               style={{ width: "100%", overflow: "visible" }}
-              animation={batch(
-                DelayedFadeOut(1, -0.5, 0.0),
-                DelayedZoomOut(3, 1, 0),
-                DelayedMoveOut(0, -400, 0)
-              )}
+              animation={batch(DelayedFadeOut(1, -0.5, 0.0), DelayedZoomOut(3, 1, 0), DelayedMoveOut(0, -400, 0))}
             >
               <div id="stars1"></div>
               <div id="stars2"></div>
@@ -210,7 +213,9 @@ export default function WebLandingPage() {
                   textAlign: "center",
                 }}
               >
-                Empower Code. Inspire Design.<br />Drive Innovation.
+                Empower Code. Inspire Design.
+                <br />
+                Drive Innovation.
               </Typography>
               <Box
                 sx={{
@@ -244,35 +249,32 @@ export default function WebLandingPage() {
         </ScrollContainer>
 
         <Box sx={{ height: "100vh" }} />
-        {
-          (mobileView) ? <></> :
-            <>
-              {/* DO NOT EDIT: Horizontal Scroll Wrapper Start */}
-              <Box
-                id="projects"
-                display={window.scrollY > window.innerHeight ? "block" : "none"}
-                sx={{ height: `${projectsContainerHeight}px` }}
-              ></Box>
-              <LandingProjectCards
-                data={data}
-                isLoading={isLoading}
-                error={error}
-                ref={projectsContainer}
-                position={projectsContainerPosition}
-                height={projectsContainerHeight}
-              />
+        {mobileView ? (
+          <></>
+        ) : (
+          <>
+            {/* DO NOT EDIT: Horizontal Scroll Wrapper Start */}
+            <Box
+              id="projects"
+              display={window.scrollY > window.innerHeight ? "block" : "none"}
+              sx={{ height: `${projectsContainerHeight}px` }}
+            ></Box>
+            <LandingProjectCards
+              data={data}
+              isLoading={isLoading}
+              error={error}
+              ref={projectsContainer}
+              position={projectsContainerPosition}
+              height={projectsContainerHeight}
+            />
 
-              <Box
-                display={
-                  window.scrollY > projectsContainerHeight + window.innerHeight
-                    ? "none"
-                    : "block"
-                }
-                sx={{ height: "580px" }}
-              />
-              {/* DO NOT EDIT: Horizontal Scroll Wrapper End */}
-            </>
-        }
+            <Box
+              display={window.scrollY > projectsContainerHeight + window.innerHeight ? "none" : "block"}
+              sx={{ height: "580px" }}
+            />
+            {/* DO NOT EDIT: Horizontal Scroll Wrapper End */}
+          </>
+        )}
 
         <Box
           sx={{
@@ -313,8 +315,10 @@ export default function WebLandingPage() {
         </Box>
 
         <Box sx={{ height: "150px" }}></Box>
-        <SponsorCardsStack />
-        
+        <Box ref={sponsorsRef}>
+          <SponsorCardsStack />
+        </Box>
+
         <Box sx={{ height: "300px" }}></Box>
         {/* Translucent App Bar, Last Element, On Top of All */}
 
@@ -335,11 +339,7 @@ export default function WebLandingPage() {
   );
 }
 
-const DelayedZoomOut = (
-  from: number,
-  to: number,
-  delay: number
-): Animation => ({
+const DelayedZoomOut = (from: number, to: number, delay: number): Animation => ({
   out: {
     style: {
       transform: (value: number) => {
@@ -350,11 +350,7 @@ const DelayedZoomOut = (
   },
 });
 
-const DelayedFadeOut = (
-  from: number,
-  to: number,
-  delay: number
-): Animation => ({
+const DelayedFadeOut = (from: number, to: number, delay: number): Animation => ({
   out: {
     style: {
       opacity: (value: number) => {
