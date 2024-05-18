@@ -17,8 +17,6 @@ import {
   batch,
   Animation,
 } from "react-scroll-motion";
-import MeetOurSponsorsTitle from "../components/MeetOurSponsorsTitle";
-import SponsorCreditCards from "../components/SponsorCreditCard";
 import "./stars.css";
 import Footer from "../components/Footer";
 import { useOnScreen } from "../utils/useOnScreen";
@@ -160,8 +158,9 @@ export default function WebLandingPage() {
       />
       <Box
         sx={{
-          background:
-            "radial-gradient(55% 50% at 48% 52%, #234ACCFF 0%, #234ACCFF 0%, #0B1E55FF 72%, #091038FF 100%)",
+          //background:
+          //  "radial-gradient(55% 50% at 48% 52%, #234ACCFF 0%, #234ACCFF 0%, #0B1E55FF 72%, #091038FF 100%)",
+          background: "linear-gradient(312deg, rgba(0,191,255,1) 0%, rgba(74,105,232,1) 35%, rgba(111,62,220,1) 63%, rgba(156,0,255,1) 100%);",
           backgroundSize: "100% 100%",
           backgroundAttachment: "fixed",
         }}
@@ -314,7 +313,7 @@ export default function WebLandingPage() {
 
         <Box sx={{ height: "150px" }}></Box>
         <SponsorCardsStack />
-        
+
         <Box sx={{ height: "300px" }}></Box>
         {/* Translucent App Bar, Last Element, On Top of All */}
 

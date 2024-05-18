@@ -1,10 +1,10 @@
-import { Box, Typography } from "@mui/material"
+import { Box, SxProps, Typography } from "@mui/material"
 import { useScroll } from "framer-motion";
 import React from "react";
 import { SponsorTier } from "../SponsorCreditCard/interfaces";
 import SponsorCreditCard from "../SponsorCreditCard";
 
-export default function SponsorCardsStack() {
+export default function SponsorCardsStack(props?: { sx?: SxProps }) {
     const cardContainer = React.useRef(null);
     const [cardContainerScale, setCardContainerScale] = React.useState(1);
     const [sponsorData, setSponsorData] = React.useState<SponsorTier[]>([]);
@@ -41,6 +41,7 @@ export default function SponsorCardsStack() {
         <Box 
             ref={cardContainer}
             sx={{
+                ...props?.sx,
                 display: 'flex', 
                 flexDirection: 'column', 
                 alignItems: 'center',
@@ -49,6 +50,7 @@ export default function SponsorCardsStack() {
                 transform: `scale(${cardContainerScale})` 
             }}
         >
+            { /* Move this Title to the left to make space? */ }
             <Typography 
                 sx={{ 
                     position: 'sticky',
