@@ -15,7 +15,7 @@ export default function SponsorCardsStack(props?: { sx?: SxProps }) {
 
     React.useEffect(() => {
         scrollYProgress.on('change', (e) => {
-            if (e < 0.9) 
+            if (e < 0.9)
                 setCardContainerScale(Math.abs(1 - ((e * 0.08))));
         });
 
@@ -38,40 +38,51 @@ export default function SponsorCardsStack(props?: { sx?: SxProps }) {
     }, []);
 
     return (
-        <Box 
-            ref={cardContainer}
-            sx={{
-                ...props?.sx,
-                display: 'flex', 
-                flexDirection: 'column', 
-                alignItems: 'center',
-                gap: '50px',
-                minHeight: `${(60 * sponsorData.length) + 70}vh`,
-                transform: `scale(${cardContainerScale})` 
-            }}
-        >
-            { /* Move this Title to the left to make space? */ }
-            <Typography 
-                sx={{ 
+        <Box sx={{
+            display: 'flex',
+            position: 'relative',
+            justifyContent: 'center',
+            padding: '0px 100px 0px 50px'
+        }}>
+            <Typography
+                sx={{
+                    textAlign: 'center',
+                    width: '100%',
+                    height: 'max-content',
                     position: 'sticky',
-                    top: '130px',
-                    fontSize: '3rem', 
-                    fontWeight: 'bold', 
+                    top: '50vh',
+                    left: '0px',
+                    fontSize: '2.5rem',
+                    fontWeight: 'bold',
                 }}
             >
                 Meet Our Sponsors
             </Typography>
-            {
-                sponsorData.map((sponsor, index) => (
-                    <SponsorCreditCard
-                        project={sponsor} 
-                        sx={{ 
-                            top: `calc(30vh + ${index * 40}px)`,
-                            transform: `scale(${1 + (index * 0.03)})` 
-                        }}
-                    />
-                ))
-            }
+            <Box
+                ref={cardContainer}
+                sx={{
+                    ...props?.sx,
+                    flexGrow: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '50px',
+                    minHeight: `${(60 * (sponsorData.length + 1))}vh`,
+                    transform: `scale(${cardContainerScale})`
+                }}
+            >
+                {
+                    sponsorData.map((sponsor, index) => (
+                        <SponsorCreditCard
+                            project={sponsor}
+                            sx={{
+                                top: `calc(20vh + ${index * 40}px)`,
+                                transform: `scale(${1 + (index * 0.03)})`
+                            }}
+                        />
+                    ))
+                }
+            </Box>
         </Box>
     );
 }
