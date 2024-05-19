@@ -1,11 +1,12 @@
-import { Avatar, Box, Chip, Paper, Typography } from "@mui/material";
+import { Avatar, Box, Chip, Paper, SxProps, Typography } from "@mui/material";
 import Atropos from "atropos/react";
 import { useNavigate } from "react-router-dom";
 import { LandingProject, Member } from "./interfaces";
 import stringAvatar from "./utils";
-import "./LandingProjectCard.css";
+import Marquee from "react-fast-marquee";
+import { ReactElement } from "react";
 
-function LandingProjectCard(props: { mobileView: boolean, project: LandingProject }) {
+function LandingProjectCard(props: { sx?: SxProps, mobileView: boolean, project: LandingProject }) {
   const navigate = useNavigate();
   const handleCardClick = (project: LandingProject) =>
     navigate(`/project/${project._id}`);
@@ -21,6 +22,7 @@ function LandingProjectCard(props: { mobileView: boolean, project: LandingProjec
       >
         <Paper
           sx={{
+            ...props?.sx,
             borderRadius: "35px",
             padding: "30px",
             display: "flex",
@@ -45,22 +47,12 @@ function LandingProjectCard(props: { mobileView: boolean, project: LandingProjec
               members={props.project.members}
             />
           </Box>
-
-          {/* Image Goes Here
-        <Box
-          data-atropos-offset="5"
-          sx={{
-            borderRadius: "35px",
-            background: "pink",
-            minWidth: "40%",
-            height: "100%",
-          }}
-        ></Box>
-        */}
         </Paper>
       </Atropos> :
       <Paper
+        elevation={5}
         sx={{
+          ...props?.sx,
           borderRadius: "35px",
           padding: "30px",
           display: "flex",
@@ -93,35 +85,45 @@ function LandingProjectCard(props: { mobileView: boolean, project: LandingProjec
 }
 
 function AvatarChips(props: { autoScroll?: boolean, members: Member[] }) {
+  function AvatarChipsChildren(): ReactElement {
+    return (
+      <>
+        {props.members.map((member: Member, index: number) => (
+          <Chip
+            key={index}
+            label={`${member.memberInfo.firstName} ${member.memberInfo.lastName}`}
+            variant="outlined"
+            sx={{
+              color: "black",
+              margin: '5px'
+            }}
+            avatar={
+              member.memberInfo.profileUrl ? (
+                <Avatar src={member.memberInfo.profileUrl} />
+              ) : (
+                <Avatar {...stringAvatar(`${member.memberInfo.firstName} ${member.memberInfo.lastName}`)} />
+              )
+            }
+          />
+        ))}
+      </>
+    );
+  }
+
   return (
-    <Box
-      className={(props.autoScroll) ? "avatar-chips-autoscroll" : ""}
-      sx={{
-        marginTop: "10px",
-        display: "flex",
-        flexWrap: (props.autoScroll) ? "nowrap" : "wrap",
-        gap: "10px", //need fixes
-        animation: (props.autoScroll) ? `achips-autoscroll ${props.members.length}s linear infinite` : "",
-      }}
-    >
-      {props.members.map((member: Member, index: number) => (
-        <Chip
-          sx={{
-            color: "black",
-          }}
-          key={index}
-          avatar={
-            member.memberInfo.profileUrl ? (
-              <Avatar src={member.memberInfo.profileUrl} />
-            ) : (
-              <Avatar {...stringAvatar(`${member.memberInfo.firstName} ${member.memberInfo.lastName}`)} />
-            )
-          }
-          label={`${member.memberInfo.firstName} ${member.memberInfo.lastName}`}
-          variant="outlined"
-        />
-      ))}
-    </Box>
+    (props.autoScroll) ?
+      <Marquee>
+        <AvatarChipsChildren />
+      </Marquee> :
+      <Box
+        sx={{
+          marginTop: "10px",
+          display: "flex",
+          flexWrap: "wrap",
+        }}
+      >
+        <AvatarChipsChildren />
+      </Box>
   )
 }
 
