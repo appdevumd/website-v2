@@ -32,6 +32,7 @@ const LandingProjectCards = React.forwardRef(
       isLoading: boolean;
       error: Error | null;
       data: LandingProject[];
+      mobileView?: boolean;
     },
     ref
   ) => {
@@ -44,22 +45,39 @@ const LandingProjectCards = React.forwardRef(
     }
 
     return (
-      <Box
-        ref={ref}
-        sx={{
-          display: "flex",
-          gap: "30px",
-          padding: "50px",
-          maxWidth: "100%",
-          overflowX: "hidden",
-          position: props.position,
-          top: window.scrollY > 200 ? "120px" : "100vh",
-        }}
-      >
-        {props.data.map((project: LandingProject) => (
-          <LandingProjectCard key={project._id} project={project} />
-        ))}
-      </Box>
+      (!props.mobileView) ?
+        <Box
+          ref={ref}
+          sx={{
+            display: "flex",
+            gap: "30px",
+            padding: "50px",
+            maxWidth: "100%",
+            overflowX: "hidden",
+            position: props.position,
+            top: window.scrollY > 200 ? "120px" : "100vh",
+          }}
+        >
+          {props.data.map((project: LandingProject) => (
+            <LandingProjectCard mobileView={false} key={project._id} project={project} />
+          ))}
+        </Box> :
+        <Box
+          ref={ref}
+          sx={{
+            display: "flex",
+            flexDirection: 'column',
+            gap: "30px",
+            padding: "30px",
+            width: '100%'
+          }}
+        >
+          {
+            props.data.map((project: LandingProject) => (
+              <LandingProjectCard mobileView key={project._id} project={project} />
+            ))
+          }
+        </Box>
     );
   }
 );
@@ -90,7 +108,7 @@ export default function WebLandingPage() {
     React.useState(0);
 
   const membersRef = useRef<HTMLDivElement>(null);
-  const membersOnScreen = useOnScreen(membersRef);
+  ///const membersOnScreen = useOnScreen(membersRef);
 
   const [statsContainerPosition] = React.useState<"fixed" | "unset">("fixed");
 
@@ -141,6 +159,8 @@ export default function WebLandingPage() {
   return (
     <Box sx={{ position: "relative" }}>
       {/* This box isn't the best way? Prevents children hover without zIndex++ */}
+      
+      { /* THIS THINGY DOES THE GRADIENT SWITCH FOR THE PROJECTS */ }
       <Box
         sx={{
           position: "absolute",
@@ -151,7 +171,7 @@ export default function WebLandingPage() {
           height: "100%",
           background:
             "radial-gradient(55% 55% at -3% 104%, #0F114AFF 13%, #07074178 41%, #00000014 76%, #073AFF00 99%),radial-gradient(25% 25% at 62% 54%, #2324A9C4 0%, #073AFF00 100%),radial-gradient(25% 44% at 83% 33%, #434EA3FF 0%, #44579D29 65%, #073AFF00 93%),radial-gradient(49% 81% at 45% 47%, #0891A245 0%, #073AFF00 100%),radial-gradient(113% 91% at 17% -2%, #6122A6FF 1%, #FF000000 99%),radial-gradient(142% 91% at 83% 7%, #0522A9FF 1%, #FF000000 99%),radial-gradient(142% 91% at -6% 74%, #1C2581FF 1%, #FF000000 99%),radial-gradient(142% 91% at 109% 60%, #131B36FF 0%, #205353FF 99%)",
-          opacity: scrollY > window.innerHeight - 100 ? 0 : 1,
+          opacity: scrollY > window.innerHeight - 700 ? 0 : 1,
           transition: "opacity 0.5s ease",
           backgroundAttachment: "fixed",
         }}
@@ -244,7 +264,18 @@ export default function WebLandingPage() {
 
         <Box sx={{ height: "100vh" }} />
         {
-          (mobileView) ? <></> :
+          (mobileView) ?
+            <Box>
+              <LandingProjectCards
+                mobileView={true}
+                data={data}
+                isLoading={isLoading}
+                error={error}
+                ref={projectsContainer}
+                position={projectsContainerPosition}
+                height={projectsContainerHeight}
+              />
+            </Box> :
             <>
               {/* DO NOT EDIT: Horizontal Scroll Wrapper Start */}
               <Box
@@ -273,46 +304,52 @@ export default function WebLandingPage() {
             </>
         }
 
-        <Box
-          sx={{
-            paddingTop: "100px",
-            background:
-              "linear-gradient(0deg, #00FFFF00 0%, #000000FF 44%, #000000FF 50%, #000000FF 56%, #073AFF00 100%)",
-            transition: "opacity 0.5s ease",
-            opacity: membersOnScreen ? 1 : 0,
-          }}
-        >
-          <Sparkles
-            id="members_sparkles"
-            background="transparent"
-            minSize={0.6}
-            maxSize={1.4}
-            particleDensity={50}
-            particleColor="#FFFFFF"
-          />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            ref={membersRef}
-          >
-            <MemberCarousel id="team" />
-          </Box>
-          <Sparkles
-            id="members_sparkles2"
-            background="transparent"
-            minSize={0.6}
-            maxSize={1.4}
-            particleDensity={50}
-            particleColor="#FFFFFF"
-          />
-        </Box>
+        {
+          (!mobileView) ? <></> :
+            <Box
+              sx={{
+                paddingTop: "100px",
+                background:
+                  "linear-gradient(0deg, #00FFFF00 0%, #000000FF 44%, #000000FF 50%, #000000FF 56%, #073AFF00 100%)",
+                transition: "opacity 0.5s ease",
+                //opacity: membersOnScreen ? 1 : 0,
+              }}
+            >
+              <Sparkles
+                id="members_sparkles"
+                background="transparent"
+                minSize={0.6}
+                maxSize={1.4}
+                particleDensity={50}
+                particleColor="#FFFFFF"
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                ref={membersRef}
+              >
+                <MemberCarousel id="team" />
+              </Box>
+              <Sparkles
+                id="members_sparkles2"
+                background="transparent"
+                minSize={0.6}
+                maxSize={1.4}
+                particleDensity={50}
+                particleColor="#FFFFFF"
+              />
+            </Box>
+        }
 
         <Box sx={{ height: "150px" }}></Box>
-        <SponsorCardsStack />
+        {
+          (mobileView) ? <></> :
+            <SponsorCardsStack />
+        }
 
         <Box sx={{ height: "300px" }}></Box>
         {/* Translucent App Bar, Last Element, On Top of All */}
