@@ -11,7 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 import { Close } from "@mui/icons-material";
 import { WebAppBarLink } from "./interfaces";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function WebAppBar(props: {
   sx?: SxProps;
