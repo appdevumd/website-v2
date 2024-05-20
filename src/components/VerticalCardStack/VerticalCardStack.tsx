@@ -24,7 +24,6 @@ export default function VerticalCardStack(props: { sx?: SxProps, children: React
 
     return (
         <Box
-            ref={cardContainer}
             sx={{
                 ...props?.sx,
                 display: 'flex',

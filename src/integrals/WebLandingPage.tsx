@@ -149,34 +149,7 @@ export default function WebLandingPage() {
   }, [projectsContainerHeight]);
 
   return (
-    <Box sx={{ position: "relative" }}>
-      {/* This box isn't the best way? Prevents children hover without zIndex++ */}
-      
-      { /* THIS THINGY DOES THE GRADIENT SWITCH FOR THE PROJECTS */ }
-      <Box
-        sx={{
-          position: "absolute",
-          // Hacky way to account for Events Bar...
-          top: `${JSON.parse(window.localStorage.getItem("events-visible") as string) ? 30 : 0}px`,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          background:
-            "radial-gradient(55% 55% at -3% 104%, #0F114AFF 13%, #07074178 41%, #00000014 76%, #073AFF00 99%),radial-gradient(25% 25% at 62% 54%, #2324A9C4 0%, #073AFF00 100%),radial-gradient(25% 44% at 83% 33%, #434EA3FF 0%, #44579D29 65%, #073AFF00 93%),radial-gradient(49% 81% at 45% 47%, #0891A245 0%, #073AFF00 100%),radial-gradient(113% 91% at 17% -2%, #6122A6FF 1%, #FF000000 99%),radial-gradient(142% 91% at 83% 7%, #0522A9FF 1%, #FF000000 99%),radial-gradient(142% 91% at -6% 74%, #1C2581FF 1%, #FF000000 99%),radial-gradient(142% 91% at 109% 60%, #131B36FF 0%, #205353FF 99%)",
-          opacity: (scrollY > window.innerHeight - 700) ? 0 : 1,
-          transition: "opacity 0.5s ease",
-          backgroundAttachment: "fixed",
-        }}
-      />
-      <Box
-        sx={{
-          //background:
-          //  "radial-gradient(55% 50% at 48% 52%, #234ACCFF 0%, #234ACCFF 0%, #0B1E55FF 72%, #091038FF 100%)",
-          background: "linear-gradient(312deg, rgba(0,191,255,1) 0%, rgba(74,105,232,1) 35%, rgba(111,62,220,1) 63%, rgba(156,0,255,1) 100%);",
-          backgroundSize: "100% 100%",
-          backgroundAttachment: "fixed",
-        }}
-      >
+    <Box id="maindiv-001" sx={{ position: "relative" }}>
         {
           /* Live Events bar */
           liveEvents.length < 1 ? <></> : <WebEventsBar events={liveEvents} />
@@ -184,7 +157,7 @@ export default function WebLandingPage() {
 
         {/* Fixed App Bar */}
         <WebAppBar links={webAppBarLinks} fullWidth />
-        <Box sx={{ height: "50px" }}></Box>
+        <Box id="paddingdiv-001" sx={{ height: "50px" }}></Box>
         <ScrollContainer
           style={{
             position: statsContainerPosition,
@@ -224,6 +197,7 @@ export default function WebLandingPage() {
                 Empower Code. Inspire Design.<br />Drive Innovation.
               </Typography>
               <Box
+                id="subdiv-001"
                 sx={{
                   display: "flex",
                   flex: 1,
@@ -254,10 +228,10 @@ export default function WebLandingPage() {
           </ScrollPage>
         </ScrollContainer>
 
-        <Box sx={{ height: "100vh" }} />
+        <Box id="paddingdiv-002" sx={{ height: "100vh" }} />
         {
           (mobileView) ?
-            <Box>
+            <Box sx={{ padding: '10px' }} id="subdiv-002">
               <LandingProjectCards
                 mobileView={true}
                 data={data}
@@ -271,7 +245,7 @@ export default function WebLandingPage() {
             <>
               {/* DO NOT EDIT: Horizontal Scroll Wrapper Start */}
               <Box
-                id="projects"
+                id="subdiv-002"
                 display={window.scrollY > window.innerHeight ? "block" : "none"}
                 sx={{ height: `${projectsContainerHeight}px` }}
               ></Box>
@@ -283,8 +257,8 @@ export default function WebLandingPage() {
                 position={projectsContainerPosition}
                 height={projectsContainerHeight}
               />
-
               <Box
+                id="paddingdiv-002.001"
                 display={
                   window.scrollY > projectsContainerHeight + window.innerHeight
                     ? "none"
@@ -301,6 +275,7 @@ export default function WebLandingPage() {
             /* FUTURE: Add Appropriate Case */
             (mobileView && !mobileView) ? <></> :
             <Box
+              id="subdiv-003"
               sx={{
                 paddingTop: "100px",
                 background:
@@ -339,13 +314,13 @@ export default function WebLandingPage() {
             </Box>
         }
 
-        <Box sx={{ height: "150px" }}></Box>
+        <Box id="paddingdiv-003" sx={{ height: "150px" }}></Box>
         {
           (mobileView) ? <></> :
             <SponsorCardsStack />
         }
 
-        <Box sx={{ height: "300px" }}></Box>
+        <Box id="paddingdiv-004" sx={{ height: "300px" }}></Box>
         {/* Translucent App Bar, Last Element, On Top of All */}
 
         <Footer />
@@ -361,7 +336,6 @@ export default function WebLandingPage() {
           }}
         />
       </Box>
-    </Box>
   );
 }
 

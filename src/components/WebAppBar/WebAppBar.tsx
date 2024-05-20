@@ -11,7 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 import { Close } from "@mui/icons-material";
 import { WebAppBarLink } from "./interfaces";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 function WebAppBar(props: {
   sx?: SxProps;
@@ -21,6 +21,7 @@ function WebAppBar(props: {
 }) {
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
+  const nav = useNavigate();
 
   return (
     <Box
@@ -49,33 +50,29 @@ function WebAppBar(props: {
         }}
       >
         <Box
+          onClick={() => { nav("/"); }}
           sx={{
             height: "65%",
             display: "flex",
             flexGrow: 1,
+            alignItems: 'center',
+            cursor: 'pointer'
           }}
         >
-          <RouterLink to="/" style={{
-            display: "flex",
-            alignItems: "center",
-            textDecoration: "none",
-            color: "white",
-          }}>
-            <img
-              alt="adc-logo"
-              src="/logo256.png"
-              style={{ maxHeight: "100%", margin: "10px 0px 10px 0px" }}
-            />
-            <Typography
-              sx={{
-                fontSize: "1.3rem",
-                fontWeight: "bold",
-                marginLeft: "15px",
-              }}
-            >
-              App Dev Club
-            </Typography>
-          </RouterLink>
+          <img
+            alt="adc-logo"
+            src="/logo256.png"
+            style={{ maxHeight: "100%", margin: "10px 0px 10px 0px" }}
+          />
+          <Typography
+            sx={{
+              fontSize: "1.3rem",
+              fontWeight: "bold",
+              marginLeft: "15px",
+            }}
+          >
+            App Dev Club
+          </Typography>
         </Box>
 
         {/* Links, Hide In Mobile. Provide Dropdown Instead */}

@@ -51,8 +51,12 @@ function LandingProjectCard(props: { sx?: SxProps, mobileView: boolean, project:
       </Atropos> :
       <Paper
         elevation={5}
+        onClick={() => {
+          handleCardClick(props.project);
+        }}
         sx={{
           ...props?.sx,
+          cursor: 'pointer',
           borderRadius: "35px",
           padding: "30px",
           display: "flex",

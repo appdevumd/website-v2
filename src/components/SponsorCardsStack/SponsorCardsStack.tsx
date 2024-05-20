@@ -1,4 +1,4 @@
-import { Box, SxProps, Typography } from "@mui/material"
+import { Box, Link, SxProps, Typography } from "@mui/material"
 import { useScroll } from "framer-motion";
 import React from "react";
 import { SponsorTier } from "../SponsorCreditCard/interfaces";
@@ -19,21 +19,26 @@ export default function SponsorCardsStack(props?: { sx?: SxProps }) {
                 setCardContainerScale(Math.abs(1 - ((e * 0.08))));
         });
 
+        /* YOU CAN ALWAYS ADD MORE CARDS IF THE MEMBERS DONT FIT :-) */
         setSponsorData(() => ([{
-            px: 0,
-            tier: "Platinum",
-            members: [],
-            logos: "",
-        }, {
-            px: 25,
             tier: "Gold",
-            members: [],
-            logos: "",
+            members: [
+                'Amazon Project Kuiper',
+                'Fischell Institute',
+                'Children\'s National',
+                'Praxis Engineering'
+            ],
         }, {
-            px: 50,
+            tier: "Silver",
+            members: [
+                'MCERSI',
+                'SECU'
+            ],
+        }, {
             tier: "Bronze",
-            members: [],
-            logos: "",
+            members: [
+                'NSA'
+            ],
         }]));
     }, []);
 
@@ -44,20 +49,25 @@ export default function SponsorCardsStack(props?: { sx?: SxProps }) {
             justifyContent: 'center',
             padding: '0px 100px 0px 50px'
         }}>
-            <Typography
-                sx={{
-                    textAlign: 'center',
-                    width: '100%',
-                    height: 'max-content',
-                    position: 'sticky',
-                    top: '50vh',
-                    left: '0px',
-                    fontSize: '2.5rem',
-                    fontWeight: 'bold',
-                }}
-            >
-                Meet Our Sponsors
-            </Typography>
+            <Box sx={{
+                display: { xs: 'none', md: 'flex'}, flexDirection: 'column', width: '100%',
+                height: 'max-content',
+                position: 'sticky',
+                top: '50vh',
+                left: '0px', textAlign: 'center'
+            }}>
+                <Typography
+                    sx={{
+                        fontSize: '2.5rem',
+                        fontWeight: 'bold',
+                    }}
+                >
+                    Meet Our Sponsors
+                </Typography>
+                <Link href="/sponsor-us" color="text.primary" sx={{ fontWeight: 'bold' }}>
+                    Want to be a part of something amazing? Sponsor us today!
+                </Link>
+            </Box>
             <Box
                 ref={cardContainer}
                 sx={{

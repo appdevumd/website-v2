@@ -1,3 +1,4 @@
+import api from "../../api/axios.config";
 import { SponsorTier } from "./interfaces";
 import { Box, SxProps, Typography } from "@mui/material"
 
@@ -5,7 +6,7 @@ function Sponsors(props: { project: SponsorTier, sx?: SxProps }) {
     let tierColor1 = ""
     let tierColor2 = ""
 
-    if (props.project.tier == "Platinum") {
+    if (props.project.tier == "Silver") {
         tierColor1 = "#E5E4E2"
         tierColor2 = "#9E9E9E"
     }
@@ -19,56 +20,46 @@ function Sponsors(props: { project: SponsorTier, sx?: SxProps }) {
         tierColor1 = "#CA9D85"
         tierColor2 = "#894218"
     }
-    
+
+    function GetSponsorImageURL(sponsorName: string): string {
+        let parsedName = sponsorName.toLowerCase().replaceAll("-", "").replaceAll(" ", "-");
+        return `${api.getUri()}/sponsor-logos/${parsedName}.png`;
+    }
+
     return (
         <Box
             sx={{
                 ...props.sx,
                 boxShadow: 5,
-                position: 'sticky',                
+                position: 'sticky',
                 height: '60vh',
-                width: { xs: "100vw", md: '50vw' },
+                width: { xs: "90%", md: '50vw' },
                 borderRadius: '20px',
                 padding: '30px',
                 background: "linear-gradient(90deg," + tierColor1 + ", " + tierColor2 + ")"
             }}
         >
-            <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', gap: '15px' }}>
                 <img style={{ height: '48px', width: 'max-content', mixBlendMode: 'luminosity' }} src="/logo256.png" />
-                <Box sx={{ flexGrow: 1 }}>Sponsor Name</Box>
+                <Box sx={{
+                    marginTop: '10px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    gap: '30px'
+                }}>
+                    {
+                        props.project.members.map((member) => (
+                            <img
+                                style={{ height: '50px', width: 'max-content' }}
+                                src={GetSponsorImageURL(member)}
+                            />
+                        ))
+                    }
+                </Box>
+                <Box sx={{ flexGrow: 1 }} ></Box>
                 <Typography sx={{ lineHeight: 0.7, fontSize: '2.8rem', fontWeight: 'bold', color: 'black', textAlign: 'end' }}>{props.project.tier}</Typography>
             </Box>
-            {/*
-            <Grid container spacing={8}>
-                <Grid container item columns={1}>
-                    <img src={ADClogo}></img>
-                </Grid>
-                <Grid container item spacing={5}>
-                    <Grid item >
-                        <img src={amazonLogo} height={"50px"}></img>
-                    </Grid>
-                    <Grid item>
-                        <img src={praxisLogo} height={"50px"}></img>
-                    </Grid>
-                </Grid>
-                <Grid container item spacing={5}>
-                    <Grid item >
-                        <img src={amazonLogo} height={"50px"}></img>
-                    </Grid>
-                    <Grid item>
-                        <img src={praxisLogo} height={"50px"}></img>
-                    </Grid>
-
-                </Grid>
-
-                <Grid container item spacing={3} justifyContent={"flex-end"}>
-                    <Grid item >
-                        <text style={{ color: "#000000", fontWeight: "bold", fontSize: "50px" }}>{props.project.tier}</text>
-                    </Grid>
-
-                </Grid>
-            </Grid>
-        */}
         </Box>
     );
 }
