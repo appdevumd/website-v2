@@ -1,5 +1,5 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
-import React, { useRef } from "react";
+import React, { forwardRef, useRef } from "react";
 import WebEventsBar from "../components/WebEventsBar";
 import { WebEvent } from "../components/WebEventsBar/interfaces";
 import WebAppBar from "../components/WebAppBar";
@@ -19,65 +19,87 @@ import {
 } from "react-scroll-motion";
 import "./stars.css";
 import Footer from "../components/Footer";
-import { useOnScreen } from "../utils/useOnScreen";
 import Sparkles from "../components/Sparkles";
 import AppThemeController from "../middleware/AppThemeController";
 import SponsorCardsStack from "../components/SponsorCardsStack";
 import VerticalCardStack from "../components/VerticalCardStack";
+import { useScroll } from "framer-motion";
+import "./WebLandingPage.css";
 
-const LandingProjectCards = React.forwardRef(
-  (
-    props: {
-      height: number;
-      position: string;
-      isLoading: boolean;
-      error: Error | null;
-      data: LandingProject[];
-      mobileView?: boolean;
-    },
-    ref
-  ) => {
-    if (props.isLoading) {
-      return "Loading...";
-    }
-
-    if (props.error) {
-      return props.error.message;
-    }
-
-    return (
-      (!props.mobileView) ?
-        <Box
-          ref={ref}
-          sx={{
-            display: "flex",
-            gap: "30px",
-            padding: "50px",
-            maxWidth: "100%",
-            overflowX: "hidden",
-            position: props.position,
-            top: window.scrollY > 200 ? "120px" : "100vh",
-          }}
-        >
-          {props.data.map((project: LandingProject) => (
-            <LandingProjectCard mobileView={false} key={project._id} project={project} />
-          ))}
-        </Box> :
-        <VerticalCardStack title="Projects" sx={{ padding: '20px' }}>
-          {
-            props.data.map((project: LandingProject) => (
-              <LandingProjectCard mobileView key={project._id} project={project} />
-            ))
-          }
-        </VerticalCardStack>
-    );
+const LandingProjectCards = forwardRef((props: {
+  id?: string,
+  sx: any,
+  isLoading: boolean,
+  error: Error | null,
+  data: LandingProject[],
+  mobileView?: boolean,
+}, ref) => {
+  if (props.isLoading) {
+    return "Loading...";
   }
-);
+
+  if (props.error) {
+    return props.error.message;
+  }
+
+  const cardContainer = React.useRef<HTMLDivElement>(null);
+  const cardsRef = React.useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardContainer,
+    offset: ['start start', 'end end']
+  });
+
+  React.useEffect(() => {
+    scrollYProgress.on("change", (e) => {
+      if (cardsRef.current)
+        cardsRef.current.scrollLeft = (cardsRef.current.scrollWidth - cardsRef.current.clientWidth) * e;
+    });
+  }, []);
+
+  return (
+    <Box ref={ref}>
+      {
+        (!props.mobileView) ?
+          <Box
+            ref={cardContainer}
+            sx={{
+              height: `${props.data.length * 600}px`
+            }}
+          >
+            <Box
+              id={props.id}
+              ref={cardsRef}
+              sx={{
+                display: "flex",
+                gap: "30px",
+                padding: "80px 50px 80px 50px",
+                maxWidth: "100%",
+                overflowX: "hidden",
+                top: '100px',
+                position: 'sticky',
+              }}
+            >
+              {props.data.map((project: LandingProject) => (
+                <LandingProjectCard mobileView={false} key={project._id} project={project} />
+              ))}
+            </Box>
+          </Box> :
+          <VerticalCardStack title="Projects" sx={{ padding: '20px' }}>
+            {
+              props.data.map((project: LandingProject) => (
+                <LandingProjectCard mobileView key={project._id} project={project} />
+              ))
+            }
+          </VerticalCardStack>
+      }
+    </Box>
+  );
+});
 
 /* Define WebAppBar Links */
 const webAppBarLinks: WebAppBarLink[] = [
-  { title: "About", anchor: "#about" },
-  { title: "Projects", anchor: "#projects" },
+  { title: "About", anchor: "#maindiv-001" },
+  { title: "Projects", anchor: "#subdiv-002" },
   { title: "Our Team", anchor: "#team" },
   { title: "Sponsors", anchor: "#sponsors" },
   { title: "Highlights", anchor: "#highlights" },
@@ -85,6 +107,15 @@ const webAppBarLinks: WebAppBarLink[] = [
 ];
 
 export default function WebLandingPage() {
+  function GetGradient(variant: number): string {
+    switch (variant) {
+      case 0: return "linear-gradient(to bottom, #000428, #004e92);"
+      case 1: return "linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);"
+      case 2: return "linear-gradient(135deg, #5F0F40, #310E68);";
+      default: return "black";
+    }
+  };
+
   /* AppBar and Events State */
   const mobileView = useMediaQuery(AppThemeController.baseTheme.breakpoints.down('md'));
   const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
@@ -92,15 +123,68 @@ export default function WebLandingPage() {
     { title: "General Body Meeting, 3/25 8pm @ Iribe" },
   ]);
 
-  /* Projects State */
-  const projectsContainer = React.useRef<HTMLDivElement>();
-  const [projectsContainerPosition, setProjectsContainerPosition] =
-    React.useState<string>("fixed");
-  const [projectsContainerHeight, setProjectsContainerHeight] =
-    React.useState(0);
+  /* Background Gradients */
+  const [transitionBackground, setTransitionBackground] = React.useState({ start: 0, end: 0 });
+  const [isTransitioning, setIsTransitioning] = React.useState(false);
+  React.useEffect(() => {
+    if (isTransitioning) {
+      setTimeout(() => {
+        setTransitionBackground((tb) => {
+          setIsTransitioning(false);
+          tb.start = tb.end;
+          return tb;
+        });
+      }, 200);
+    }
+  }, [isTransitioning]);
 
-  const membersRef = useRef<HTMLDivElement>(null);
-  const membersOnScreen = useOnScreen(membersRef);
+  /* Gradient Change */
+  function SetBackgroundMode(variant: number) {
+    setTransitionBackground((tb) => {
+      if (tb.end != variant) {
+        setIsTransitioning(true);
+        tb.start = tb.end;
+        tb.end = variant;
+        console.warn(`Gradient Transition: ${tb.start} -> ${tb.end}`);
+      }
+
+      return tb;
+    });
+  }
+
+  /* Section Refs */
+  const mainBoxRef = useRef<HTMLDivElement>(null);
+  const aboutBoxRef = useRef<HTMLDivElement>(null);
+  const projectsBoxRef = useRef<HTMLDivElement>(null);
+  const sponsorsBoxRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: mainBoxRef,
+    offset: ['start start', 'end end'],
+  });
+
+  React.useEffect(() => {
+    scrollYProgress.on("change", (e) => {
+      /* App Bar Controller */
+      setTranslucentAppBarTop(Math.min(-120 * (1 - (30 * e)), 0));
+
+      /* Gradient Controller */
+      const mainBoxPos = (mainBoxRef.current?.offsetHeight ?? 0) * e;
+      const projectsBoxStart = (projectsBoxRef?.current?.offsetTop ?? 0) - 100;
+      const projectsBoxEnd = projectsBoxStart + (projectsBoxRef?.current?.offsetHeight ?? 0);
+      const sponsorsBoxStart = (sponsorsBoxRef?.current?.offsetTop ?? 0) + 50;
+      const sponsorsBoxEnd = sponsorsBoxStart + (sponsorsBoxRef?.current?.offsetHeight ?? 0);
+
+      if (mainBoxPos > projectsBoxStart && mainBoxPos < projectsBoxEnd)
+        SetBackgroundMode(1)
+
+      else if (mainBoxPos > sponsorsBoxStart && mainBoxPos < sponsorsBoxEnd)
+        SetBackgroundMode(2);
+
+      else
+        SetBackgroundMode(0);
+    
+    });
+  }, []);
 
   const [statsContainerPosition] = React.useState<"fixed" | "unset">("fixed");
 
@@ -108,48 +192,18 @@ export default function WebLandingPage() {
     queryKey: ["projects"],
     queryFn: async () => {
       let res = await ProjectAPI.getAll();
-      res = res.concat(res).concat(res); //testing)
-      setProjectsContainerHeight(res.length * 500);
+      res = res.concat(res).concat(res); //testing
       return res;
     },
   });
 
-  React.useEffect(() => {
-    function handleScroll() {
-      /* Use Minimum Scroll Listeners. Performance is Important. */
-      const scrollY = window.scrollY;
-      const projectsComputedHeight =
-        window.innerHeight + projectsContainerHeight;
-
-      setProjectsContainerPosition(
-        scrollY > projectsComputedHeight || scrollY < window.innerHeight
-          ? "unset"
-          : "fixed"
-      );
-
-      /* Set App Bar to Translucent Mode if Scroll is Over 100 */
-      setTranslucentAppBarTop(Math.min(scrollY - 120, 0));
-
-      if (projectsContainer.current) {
-        const container = projectsContainer.current;
-        const progress = 1 - (projectsContainerHeight - (scrollY - window.innerHeight - 100)) / projectsContainerHeight;
-        const maxScrollLeft = container.scrollWidth - container.clientWidth;
-        container.scrollLeft = (progress + 0.02) * maxScrollLeft;
-      }
-    }
-
-    if (projectsContainerHeight != 0) {
-      /* Detect Webpage Scroll */
-      window.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [projectsContainerHeight]);
-
   return (
-    <Box id="maindiv-001" sx={{ position: "relative" }}>
+    <>
+      <Box
+        ref={mainBoxRef}
+        id="maindiv-001"
+        sx={{ position: "relative" }}
+      >
         {
           /* Live Events bar */
           liveEvents.length < 1 ? <></> : <WebEventsBar events={liveEvents} />
@@ -198,6 +252,7 @@ export default function WebLandingPage() {
               </Typography>
               <Box
                 id="subdiv-001"
+                ref={aboutBoxRef}
                 sx={{
                   display: "flex",
                   flex: 1,
@@ -231,57 +286,36 @@ export default function WebLandingPage() {
         <Box id="paddingdiv-002" sx={{ height: "100vh" }} />
         {
           (mobileView) ?
-            <Box sx={{ padding: '10px' }} id="subdiv-002">
+            <Box ref={projectsBoxRef} sx={{ padding: '10px' }} id="subdiv-002">
               <LandingProjectCards
+                sx={{}}
                 mobileView={true}
                 data={data}
                 isLoading={isLoading}
                 error={error}
-                ref={projectsContainer}
-                position={projectsContainerPosition}
-                height={projectsContainerHeight}
               />
             </Box> :
-            <>
-              {/* DO NOT EDIT: Horizontal Scroll Wrapper Start */}
-              <Box
-                id="subdiv-002"
-                display={window.scrollY > window.innerHeight ? "block" : "none"}
-                sx={{ height: `${projectsContainerHeight}px` }}
-              ></Box>
+            <Box ref={projectsBoxRef} id="subdiv-002">
               <LandingProjectCards
+                sx={{ height: '300vh' }}
                 data={data}
                 isLoading={isLoading}
                 error={error}
-                ref={projectsContainer}
-                position={projectsContainerPosition}
-                height={projectsContainerHeight}
               />
-              <Box
-                id="paddingdiv-002.001"
-                display={
-                  window.scrollY > projectsContainerHeight + window.innerHeight
-                    ? "none"
-                    : "block"
-                }
-                sx={{ height: "580px" }}
-              />
-              {/* DO NOT EDIT: Horizontal Scroll Wrapper End */}
-            </>
+            </Box>
         }
 
         {
 
-            /* FUTURE: Add Appropriate Case */
-            (mobileView && !mobileView) ? <></> :
+          /* FUTURE: Add Appropriate Case */
+          (mobileView && !mobileView) ? <></> :
             <Box
-              id="subdiv-003"
+              id="team"
               sx={{
                 paddingTop: "100px",
                 background:
                   "linear-gradient(0deg, #00FFFF00 0%, #000000FF 44%, #000000FF 50%, #000000FF 56%, #073AFF00 100%)",
                 transition: "opacity 0.5s ease",
-                opacity: membersOnScreen ? 1 : 0,
               }}
             >
               <Sparkles
@@ -299,9 +333,8 @@ export default function WebLandingPage() {
                   alignItems: "center",
                   justifyContent: "center",
                 }}
-                ref={membersRef}
               >
-                <MemberCarousel id="team" />
+                <MemberCarousel id="member-carousel" />
               </Box>
               <Sparkles
                 id="members_sparkles2"
@@ -317,7 +350,9 @@ export default function WebLandingPage() {
         <Box id="paddingdiv-003" sx={{ height: "150px" }}></Box>
         {
           (mobileView) ? <></> :
-            <SponsorCardsStack />
+            <Box id="sponsors" ref={sponsorsBoxRef}>
+              <SponsorCardsStack />
+            </Box>
         }
 
         <Box id="paddingdiv-004" sx={{ height: "300px" }}></Box>
@@ -336,6 +371,43 @@ export default function WebLandingPage() {
           }}
         />
       </Box>
+      <Box
+        id="maindiv-002"
+        sx={{
+          height: '100vh',
+          width: '100vw',
+          position: 'fixed',
+          zIndex: -1,
+          top: '0px',
+          '::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            background: GetGradient(transitionBackground.start),
+            transition: 'opacity 0.4s',
+            animation: 'plasma 6s ease infinite',
+            opacity: isTransitioning ? 0.5 : 1,
+            zIndex: 1,
+          },
+          '::after': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            background: GetGradient(transitionBackground.end),
+            animation: 'plasma 6s ease infinite',
+            transition: 'opacity 0.4s',
+            opacity: isTransitioning ? 1 : 0.5,
+            zIndex: 0,
+          },
+        }}
+      />
+    </>
   );
 }
 

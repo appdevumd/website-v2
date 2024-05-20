@@ -17,8 +17,8 @@ function Sponsors(props: { project: SponsorTier, sx?: SxProps }) {
 
     }
     else {
-        tierColor1 = "#CA9D85"
-        tierColor2 = "#894218"
+        tierColor1 = "#DC8E41"
+        tierColor2 = "#BE7023"
     }
 
     function GetSponsorImageURL(sponsorName: string): string {
