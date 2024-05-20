@@ -109,9 +109,12 @@ const webAppBarLinks: WebAppBarLink[] = [
 export default function WebLandingPage() {
   function GetGradient(variant: number): string {
     switch (variant) {
-      case 0: return "linear-gradient(to bottom, #000428, #004e92);"
-      case 1: return "linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);"
-      case 2: return "linear-gradient(135deg, #5F0F40, #310E68);";
+      case 1: return "linear-gradient(30deg, #1e1e1e, #5626a1);"
+      case 0: return "radial-gradient(55% 55% at -3% 104%, #0F114AFF 13%, #07074178 41%, #00000014 76%, #073AFF00 99%),radial-gradient(25% 25% at 62% 54%, #2324A9C4 0%, #073AFF00 100%),radial-gradient(25% 44% at 83% 33%, #434EA3FF 0%, #44579D29 65%, #073AFF00 93%),radial-gradient(49% 81% at 45% 47%, #0891A245 0%, #073AFF00 100%),radial-gradient(113% 91% at 17% -2%, #6122A6FF 1%, #FF000000 99%),radial-gradient(142% 91% at 83% 7%, #0522A9FF 1%, #FF000000 99%),radial-gradient(142% 91% at -6% 74%, #1C2581FF 1%, #FF000000 99%),radial-gradient(142% 91% at 109% 60%, #131B36FF 0%, #205353FF 99%)0"
+      case -1: return "linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);"
+      case 2: return "linear-gradient(135deg, #000000, #120037, #2e002b, #170018);"
+      case 3: return "radial-gradient(circle at 30% 30%, #5F0F40 0%, #310E68 30%, #5626a1 50%, #1e1e1e 70%, #330136 80%, #560bad 100%), linear-gradient(135deg, #5F0F40, #310E68);";
+      case -2:  return "linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);"
       default: return "black";
     }
   };
@@ -156,6 +159,7 @@ export default function WebLandingPage() {
   const mainBoxRef = useRef<HTMLDivElement>(null);
   const aboutBoxRef = useRef<HTMLDivElement>(null);
   const projectsBoxRef = useRef<HTMLDivElement>(null);
+  const teamBoxRef = useRef<HTMLDivElement>(null);
   const sponsorsBoxRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: mainBoxRef,
@@ -170,12 +174,17 @@ export default function WebLandingPage() {
       /* Gradient Controller */
       const mainBoxPos = (mainBoxRef.current?.offsetHeight ?? 0) * e;
       const projectsBoxStart = (projectsBoxRef?.current?.offsetTop ?? 0) - 100;
-      const projectsBoxEnd = projectsBoxStart + (projectsBoxRef?.current?.offsetHeight ?? 0);
-      const sponsorsBoxStart = (sponsorsBoxRef?.current?.offsetTop ?? 0) + 50;
-      const sponsorsBoxEnd = sponsorsBoxStart + (sponsorsBoxRef?.current?.offsetHeight ?? 0);
+      const projectsBoxEnd = projectsBoxStart + (projectsBoxRef?.current?.offsetHeight ?? 0) + 50;
+      const teamBoxStart = (teamBoxRef?.current?.offsetTop ?? 0) - 50;
+      const teamBoxEnd = teamBoxStart + (teamBoxRef?.current?.offsetHeight ?? 0) + 100;
+      const sponsorsBoxStart = (sponsorsBoxRef?.current?.offsetTop ?? 0) - 100;
+      const sponsorsBoxEnd = sponsorsBoxStart + (sponsorsBoxRef?.current?.offsetHeight ?? 0) + 100;
 
       if (mainBoxPos > projectsBoxStart && mainBoxPos < projectsBoxEnd)
-        SetBackgroundMode(1)
+        SetBackgroundMode(1);
+
+      else if (mainBoxPos > teamBoxStart && mainBoxPos < teamBoxEnd)
+        SetBackgroundMode(2);
 
       else if (mainBoxPos > sponsorsBoxStart && mainBoxPos < sponsorsBoxEnd)
         SetBackgroundMode(2);
@@ -311,6 +320,7 @@ export default function WebLandingPage() {
           (mobileView && !mobileView) ? <></> :
             <Box
               id="team"
+              ref={teamBoxRef}
               sx={{
                 paddingTop: "100px",
                 background:
@@ -389,6 +399,7 @@ export default function WebLandingPage() {
             background: GetGradient(transitionBackground.start),
             transition: 'opacity 0.4s',
             animation: 'plasma 6s ease infinite',
+            backgroundBlendMode: transitionBackground.start == 3 ? 'color-dodge' : 'unset',
             opacity: isTransitioning ? 0.5 : 1,
             zIndex: 1,
           },

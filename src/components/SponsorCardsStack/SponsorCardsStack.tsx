@@ -53,7 +53,7 @@ export default function SponsorCardsStack(props?: { sx?: SxProps }) {
                 display: { xs: 'none', md: 'flex'}, flexDirection: 'column', width: '100%',
                 height: 'max-content',
                 position: 'sticky',
-                top: '50vh',
+                top: '45vh',
                 left: '0px', textAlign: 'center'
             }}>
                 <Typography
