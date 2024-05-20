@@ -33,7 +33,7 @@ function Sponsors(props: { project: SponsorTier, sx?: SxProps }) {
                 boxShadow: 5,
                 position: 'sticky',
                 height: '60vh',
-                width: { xs: "90%", md: '50vw' },
+                width: { xs: "100%", md: '50vw' },
                 borderRadius: '20px',
                 padding: '30px',
                 background: "linear-gradient(90deg," + tierColor1 + ", " + tierColor2 + ")"
@@ -46,12 +46,13 @@ function Sponsors(props: { project: SponsorTier, sx?: SxProps }) {
                     display: 'flex',
                     flexDirection: 'row',
                     flexWrap: 'wrap',
-                    gap: '30px'
+                    gap: '30px',
+                    maxWidth: '100%'
                 }}>
                     {
                         props.project.members.map((member) => (
                             <img
-                                style={{ height: '50px', width: 'max-content' }}
+                                style={{ maxHeight: '50px', width: 'max-content', maxWidth: '100%' }}
                                 src={GetSponsorImageURL(member)}
                             />
                         ))

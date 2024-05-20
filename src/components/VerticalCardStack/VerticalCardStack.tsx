@@ -4,7 +4,7 @@ import { useScroll } from "framer-motion";
 import React from "react";
 
 
-export default function VerticalCardStack(props: { sx?: SxProps, children: ReactElement[], title?: String }): ReactElement {
+export default function VerticalCardStack(props: { sx?: SxProps, stickyPosition?: string, children: ReactElement[], title?: String }): ReactElement {
     const cardContainer = React.useRef(null);
     const [cardContainerScale, setCardContainerScale] = React.useState(1);
     const [topBuffer, setTopBuffer] = React.useState(0);
@@ -37,9 +37,10 @@ export default function VerticalCardStack(props: { sx?: SxProps, children: React
             <Typography 
                 sx={{ 
                     position: 'sticky',
-                    top: `calc(130px - ${topBuffer}px)`,
+                    top: `calc(${props.stickyPosition ? "33vh" : "130px"} - ${topBuffer}px)`,
                     fontSize: '2.3rem', 
                     fontWeight: 'bold', 
+                    lineHeight: props.stickyPosition ? 0.4 : 'unset',
                 }}
             >
                 {props.title}
@@ -48,7 +49,7 @@ export default function VerticalCardStack(props: { sx?: SxProps, children: React
                 props.children.map((ChildElement: JSX.Element, index) => (
                     React.cloneElement(ChildElement, { sx: {
                         position: 'sticky',
-                        top: `calc(25vh + ${index * 40}px - ${topBuffer}px)`,
+                        top: `calc(${props.stickyPosition ?? "25vh"} + ${index * 40}px - ${topBuffer}px)`,
                         transform: `scale(${1 + (index * 0.03)})` 
                     } })
                 ))

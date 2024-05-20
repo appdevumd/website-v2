@@ -114,7 +114,7 @@ export default function WebLandingPage() {
       case -1: return "linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);"
       case 2: return "linear-gradient(135deg, #000000, #120037, #2e002b, #170018);"
       case 3: return "radial-gradient(circle at 30% 30%, #5F0F40 0%, #310E68 30%, #5626a1 50%, #1e1e1e 70%, #330136 80%, #560bad 100%), linear-gradient(135deg, #5F0F40, #310E68);";
-      case -2:  return "linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);"
+      case -2: return "linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);"
       default: return "black";
     }
   };
@@ -191,7 +191,7 @@ export default function WebLandingPage() {
 
       else
         SetBackgroundMode(0);
-    
+
     });
   }, []);
 
@@ -358,12 +358,9 @@ export default function WebLandingPage() {
         }
 
         <Box id="paddingdiv-003" sx={{ height: "150px" }}></Box>
-        {
-          (mobileView) ? <></> :
-            <Box id="sponsors" ref={sponsorsBoxRef}>
-              <SponsorCardsStack />
-            </Box>
-        }
+        <Box id="sponsors" ref={sponsorsBoxRef}>
+          <SponsorCardsStack mobileView={mobileView} />
+        </Box>
 
         <Box id="paddingdiv-004" sx={{ height: "300px" }}></Box>
         {/* Translucent App Bar, Last Element, On Top of All */}
