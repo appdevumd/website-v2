@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import SponsorshipCard from "../components/SponsorshipCard";
 
-export default function WebSponsorTiers(props?: {}) {
+export default function WebSponsorTiers() {
     return (
         <Box
             sx={{
