@@ -201,7 +201,6 @@ export default function WebLandingPage() {
     queryKey: ["projects"],
     queryFn: async () => {
       let res = await ProjectAPI.getAll();
-      res = res.concat(res).concat(res); //testing
       return res;
     },
   });

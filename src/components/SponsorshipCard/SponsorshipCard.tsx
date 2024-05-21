@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, SxProps, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function SponsorshipCard(props: {
@@ -7,21 +7,22 @@ function SponsorshipCard(props: {
   price: number;
   benefits: string[];
   prereq?: string;
-  width: string;
-  aspectRatio: string;
+  width?: string;
+  aspectRatio?: string;
+  sx?: SxProps
 }) {
   return (
     <Box
       sx={{
+        ...props?.sx,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "center",
         width: props.width,
-        aspectRatio: props.aspectRatio,
         backgroundColor: "white",
         borderRadius: "5px",
-        boxShadow: "-5px 5px 10px gray",
+        boxShadow: 5,
         color: "black",
         wordBreak: "break-word", // To avoid overflow
       }}
@@ -85,7 +86,7 @@ function DetailsButton(props: { tier: string; backgroundColor: string }) {
       sx={{
         marginTop: "0.75rem",
         padding: "0.5rem 1rem",
-        boxShadow: "-5px 5px 10px gray",
+        boxShadow: 1,
         backgroundColor: props.backgroundColor,
         borderRadius: "5px",
         width: "80%",
@@ -114,8 +115,8 @@ function TierDescription(props: {
         backgroundColor: props.backgroundColor,
         borderRadius: "5px",
         padding: "1.5rem",
-        boxShadow: "-5px 5px 10px gray",
-        width: "103.5%",
+        boxShadow: 12,
+        width: "105.5%",
         height: "40%",
         boxSizing: "border-box" // To make width and height include padding
       }}
