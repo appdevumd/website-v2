@@ -9,11 +9,10 @@ import Footer from "./components/Footer";
 
 /* Define WebAppBar Links */
 const webAppBarLinks: WebAppBarLink[] = [
-  { title: "About", anchor: "#about" },
-  { title: "Projects", anchor: "#projects" },
-  { title: "Our Team", anchor: "#team" },
-  { title: "Sponsors", anchor: "#sponsors" },
-  { title: "Highlights", anchor: "#highlights" },
+  { title: "Home", anchor: "/#maindiv-001" },
+  { title: "Projects", anchor: "/#subdiv-002" },
+  { title: "Our Team", anchor: "/#team" },
+  { title: "Sponsors", anchor: "/#sponsors" },
   { title: "Contact Us", anchor: "#contact" },
 ];
 

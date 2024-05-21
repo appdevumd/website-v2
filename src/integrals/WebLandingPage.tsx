@@ -98,12 +98,12 @@ const LandingProjectCards = forwardRef((props: {
 
 /* Define WebAppBar Links */
 const webAppBarLinks: WebAppBarLink[] = [
-  { title: "About", anchor: "#maindiv-001" },
-  { title: "Projects", anchor: "#subdiv-002" },
-  { title: "Our Team", anchor: "#team" },
-  { title: "Sponsors", anchor: "#sponsors" },
-  { title: "Highlights", anchor: "#highlights" },
-  { title: "Contact Us", anchor: "#contact" },
+  { title: "About", anchor: "/#maindiv-001" },
+  { title: "Projects", anchor: "/#subdiv-002" },
+  { title: "Our Team", anchor: "/#team" },
+  { title: "Sponsors", anchor: "/#sponsors" },
+  { title: "Highlights", anchor: "/#highlights" },
+  { title: "Contact Us", anchor: "/#contact" },
 ];
 
 export default function WebLandingPage() {

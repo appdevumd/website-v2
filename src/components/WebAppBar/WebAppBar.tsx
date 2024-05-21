@@ -141,6 +141,8 @@ function WebAppBar(props: {
           </IconButton>
           {props.links.map((link: WebAppBarLink, index: number) => (
             <Link
+              onClick={() => { setDrawerOpen(false); }}
+              href={link.anchor}
               key={index}
               underline="hover"
               color="inherit"
