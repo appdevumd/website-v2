@@ -40,7 +40,7 @@ function Sponsors(props: { project: SponsorTier, sx?: SxProps }) {
             }}
         >
             <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', gap: '15px' }}>
-                <img style={{ height: '48px', width: 'max-content', mixBlendMode: 'luminosity' }} src="/logo256.png" />
+                <img style={{ maxWidth: '48px', mixBlendMode: 'luminosity' }} src="/logo256.png" />
                 <Box sx={{
                     marginTop: '10px',
                     display: 'flex',
@@ -52,7 +52,7 @@ function Sponsors(props: { project: SponsorTier, sx?: SxProps }) {
                     {
                         props.project.members.map((member) => (
                             <img
-                                style={{ maxHeight: '50px', width: 'max-content', maxWidth: '100%' }}
+                                style={{ maxHeight: '50px', maxWidth: '100%' }}
                                 src={GetSponsorImageURL(member)}
                             />
                         ))
