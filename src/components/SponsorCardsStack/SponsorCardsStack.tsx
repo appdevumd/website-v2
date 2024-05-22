@@ -26,7 +26,7 @@ export default function SponsorCardsStack(props?: { sx?: SxProps, mobileView?: b
             members: [
                 'Amazon Project Kuiper',
                 'Fischell Institute',
-                'Children\'s National',
+                'Children\'s National Hospital',
                 'Praxis Engineering'
             ],
         }, {

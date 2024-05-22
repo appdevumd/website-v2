@@ -5,6 +5,12 @@ import { LandingProject, Member } from "./interfaces";
 import stringAvatar from "./utils";
 import Marquee from "react-fast-marquee";
 import { ReactElement } from "react";
+import api from "../../api/axios.config";
+
+function GetSponsorImageURL(sponsorName: string): string {
+  let parsedName = sponsorName.toLowerCase().replaceAll("-", "").replaceAll(" ", "-");
+  return `${api.getUri()}/sponsor-logos/${parsedName}.png`;
+}
 
 function LandingProjectCard(props: { sx?: SxProps, mobileView: boolean, project: LandingProject }) {
   const navigate = useNavigate();
@@ -33,14 +39,19 @@ function LandingProjectCard(props: { sx?: SxProps, mobileView: boolean, project:
             height: "100%",
           }}
         >
-          <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-            <Typography sx={{ fontSize: "1.5rem", fontWeight: 700 }}>
-              {props.project.name}
-            </Typography>
-            <Typography sx={{ fontSize: "1.3rem", fontWeight: 500 }}>
-              {props.project.organization}
-            </Typography>
-            <Typography sx={{ marginTop: "10px" }} variant="body1">
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                <Typography sx={{ fontSize: "1.5rem", fontWeight: 700 }}>
+                  {props.project.name}
+                </Typography>
+                <Typography sx={{ fontSize: "1.3rem", fontWeight: 500 }}>
+                  {props.project.organization}
+                </Typography>
+              </Box>
+              <img style={{ maxHeight: '36px' }} src={GetSponsorImageURL(props.project.organization)} />
+            </Box>
+            <Typography sx={{ marginTop: "15px" }} variant="body1">
               {props.project.description}
             </Typography>
             <AvatarChips
