@@ -21,6 +21,12 @@ body {
   overflow-x: hidden;
 }
 
+/* Sparkles */
+#tsparticles {
+  width: 100%;
+  height: 100%;
+}
+
 /* Custom Scrollbar */
 /* Firefox */
 * {

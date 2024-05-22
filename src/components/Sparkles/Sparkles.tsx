@@ -16,6 +16,7 @@ type ParticlesProps = {
   speed?: number;
   particleColor?: string;
   particleDensity?: number;
+  sx?: any;
 };
 const Sparkles = (props: ParticlesProps) => {
   const { id, className, background, minSize, maxSize, speed, particleColor, particleDensity } = props;
@@ -42,11 +43,10 @@ const Sparkles = (props: ParticlesProps) => {
   };
 
   return (
-    <motion.div animate={controls} className={cn("opacity-0", className)}>
+    <motion.div style={{...props.sx}} animate={controls} className={cn("opacity-0", className)}>
       {init && (
         <Particles
           id={id || "tsparticles"}
-          className={cn("h-full w-full")}
           particlesLoaded={particlesLoaded}
           options={{
             background: {

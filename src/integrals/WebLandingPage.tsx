@@ -25,6 +25,8 @@ import SponsorCardsStack from "../components/SponsorCardsStack";
 import VerticalCardStack from "../components/VerticalCardStack";
 import { useScroll } from "framer-motion";
 import "./WebLandingPage.css";
+import HighlightsContainer from "../components/HighlightsContainer";
+import StayConnectedContainer from "../components/StayConnectedContainer";
 
 const LandingProjectCards = forwardRef((props: {
   id?: string,
@@ -114,6 +116,7 @@ export default function WebLandingPage() {
       case -1: return "linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);"
       case 2: return "linear-gradient(135deg, #000000, #120037, #2e002b, #170018);"
       case 3: return "radial-gradient(circle at 30% 30%, #5F0F40 0%, #310E68 30%, #5626a1 50%, #1e1e1e 70%, #330136 80%, #560bad 100%), linear-gradient(135deg, #5F0F40, #310E68);";
+      case 4: return "linear-gradient(135deg, #060101, #0e0202, #160303, #1e0404);"
       case -2: return "linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);"
       default: return "black";
     }
@@ -178,7 +181,10 @@ export default function WebLandingPage() {
       const teamBoxStart = (teamBoxRef?.current?.offsetTop ?? 0) - 50;
       const teamBoxEnd = teamBoxStart + (teamBoxRef?.current?.offsetHeight ?? 0) + 100;
       const sponsorsBoxStart = (sponsorsBoxRef?.current?.offsetTop ?? 0) - 100;
-      const sponsorsBoxEnd = sponsorsBoxStart + (sponsorsBoxRef?.current?.offsetHeight ?? 0) + 100;
+      const sponsorsBoxEnd = sponsorsBoxStart + (sponsorsBoxRef?.current?.offsetHeight ?? 0) + 400;
+      const highlightsBoxStart = sponsorsBoxEnd;
+      //const highlightsBoxEnd = highlightsBoxStart + 1000;
+
 
       if (mainBoxPos > projectsBoxStart && mainBoxPos < projectsBoxEnd)
         SetBackgroundMode(1);
@@ -188,6 +194,9 @@ export default function WebLandingPage() {
 
       else if (mainBoxPos > sponsorsBoxStart && mainBoxPos < sponsorsBoxEnd)
         SetBackgroundMode(2);
+
+      else if (mainBoxPos > highlightsBoxStart)
+        SetBackgroundMode(4);
 
       else
         SetBackgroundMode(0);
@@ -362,7 +371,14 @@ export default function WebLandingPage() {
         </Box>
 
         <Box id="paddingdiv-004" sx={{ height: "300px" }}></Box>
-        {/* Translucent App Bar, Last Element, On Top of All */}
+        <Typography id="highlights" sx={{ fontSize: '3rem', fontWeight: 'bold', textAlign: 'center' }}>Highlights</Typography>
+        <HighlightsContainer />
+       
+        <Box id="paddingdiv-006" sx={{ height: "200px" }}></Box>
+        <StayConnectedContainer id="contact" />
+        
+        {/* Translucent App Bar, Last Eleme,nt, On Top of All */}
+        <Box id="paddingdiv-006" sx={{ height: "200px" }}></Box>
 
         <Footer />
         <WebAppBar
@@ -370,7 +386,7 @@ export default function WebLandingPage() {
           translucent={true}
           sx={{
             marginTop: "25px",
-            zIndex: 2,
+            zIndex: 5,
             position: "fixed",
             top: `${translucentAppBarTop}px`,
             left: "0px",
