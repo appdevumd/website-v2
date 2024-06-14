@@ -30,6 +30,13 @@ export default function SponsorCardsStack(props?: { sx?: SxProps, mobileView?: b
                 'Praxis Engineering'
             ],
         }, {
+            tier: "Gold",
+            members: [
+                'US News',
+                'General Dynamics IT',
+                'MITRE',
+            ],
+        }, {
             tier: "Silver",
             members: [
                 'MCERSI',

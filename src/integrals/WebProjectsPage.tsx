@@ -70,9 +70,8 @@ export default function WebProjectsPage() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: "2rem",
+        gap: "20px",
         justifyContent: "center",
-        padding: "15vh 0",
         alignItems: "center",
         minHeight: "100vh",
       }}

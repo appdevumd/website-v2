@@ -25,7 +25,7 @@ import SponsorCardsStack from "../components/SponsorCardsStack";
 import VerticalCardStack from "../components/VerticalCardStack";
 import { useScroll } from "framer-motion";
 import "./WebLandingPage.css";
-import HighlightsContainer from "../components/HighlightsContainer";
+//import HighlightsContainer from "../components/HighlightsContainer";
 import StayConnectedContainer from "../components/StayConnectedContainer";
 
 const LandingProjectCards = forwardRef((props: {
@@ -370,9 +370,9 @@ export default function WebLandingPage() {
           <SponsorCardsStack mobileView={mobileView} />
         </Box>
 
-        <Box id="paddingdiv-004" sx={{ height: "300px" }}></Box>
+        {/* <Box id="paddingdiv-004" sx={{ height: "300px" }}></Box>
         <Typography id="highlights" sx={{ fontSize: '3rem', fontWeight: 'bold', textAlign: 'center' }}>Highlights</Typography>
-        <HighlightsContainer />
+        <HighlightsContainer /> */}
        
         <Box id="paddingdiv-006" sx={{ height: "200px" }}></Box>
         <StayConnectedContainer id="contact" />
