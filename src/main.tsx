@@ -4,7 +4,7 @@ import "./index.css";
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import AppThemeController from './middleware/AppThemeController'
 import WebLandingPage from './integrals/WebLandingPage'
-import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import WebProjectsPage from './integrals/WebProjectsPage'
 import WebTierPage from './integrals/WebTierPage'
 import 'atropos/css'
