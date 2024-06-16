@@ -2,16 +2,17 @@ import {
   Box,
   Drawer,
   IconButton,
-  Link,
   SxProps,
   Toolbar,
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
+import './WebAppBar.css'
 import { Close } from "@mui/icons-material";
 import { WebAppBarLink } from "./interfaces";
 import { useNavigate } from "react-router-dom";
+import { NavHashLink } from 'react-router-hash-link';
 
 function WebAppBar(props: {
   sx?: SxProps;
@@ -78,23 +79,13 @@ function WebAppBar(props: {
         {/* Links, Hide In Mobile. Provide Dropdown Instead */}
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           {props.links.map((link) => (
-            <Link
-              href={link.anchor}
-              underline="hover"
-              key={`${link.title}::${link.anchor}`}
-              sx={{
-                fontSize: "1rem",
-                fontWeight: 600,
-                marginLeft: "15px",
-                marginRight: "10px",
-                color: "inherit",
-                ":hover": {
-                  cursor: "pointer",
-                },
-              }}
+            <NavHashLink
+              smooth
+              to={link.anchor}
+              className="webv2-nhashlink"
             >
               {link.title}
-            </Link>
+            </NavHashLink>
           ))}
         </Box>
 
@@ -139,21 +130,15 @@ function WebAppBar(props: {
           >
             <Close />
           </IconButton>
-          {props.links.map((link: WebAppBarLink, index: number) => (
-            <Link
+          {props.links.map((link: WebAppBarLink) => (
+            <NavHashLink
+              smooth
+              to={link.anchor}
               onClick={() => { setDrawerOpen(false); }}
-              href={link.anchor}
-              key={index}
-              underline="hover"
-              color="inherit"
-              sx={{
-                fontSize: "1.3rem",
-                marginTop: "7px",
-                marginBottom: "7px",
-              }}
+              className="webv2-nhashlink-mobile"
             >
               {link.title}
-            </Link>
+            </NavHashLink>
           ))}
         </Drawer>
       </Toolbar>

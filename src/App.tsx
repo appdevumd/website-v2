@@ -13,7 +13,7 @@ const webAppBarLinks: WebAppBarLink[] = [
   { title: "Projects", anchor: "/#subdiv-002" },
   { title: "Our Team", anchor: "/#team" },
   { title: "Sponsors", anchor: "/#sponsors" },
-  { title: "Contact Us", anchor: "#contact" },
+  { title: "Contact Us", anchor: "/#contact" },
 ];
 
 function App() {

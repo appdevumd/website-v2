@@ -1,0 +1,21 @@
+.webv2-nhashlink {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 15px;
+    margin-right: 10px;
+    color: inherit;
+    text-decoration-line: none;
+}
+
+.webv2-nhashlink-mobile {
+    font-size: 1.3rem;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    color: inherit;
+    text-decoration-line: none;
+}
+
+.webv2-nhashlink:hover, .webv2-nhashlink-mobile:hover {
+    cursor: pointer;
+    text-decoration-line: underline;
+}
