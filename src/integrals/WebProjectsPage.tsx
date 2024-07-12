@@ -153,7 +153,9 @@ function ProjectDemo(props: { demo: string }) {
           color: "black",
         }}
       >
-        <CardMedia
+        {
+          (props.demo) ?
+          <CardMedia
           component="iframe"
           image={props.demo}
           sx={{
@@ -161,7 +163,11 @@ function ProjectDemo(props: { demo: string }) {
             aspectRatio: "16/9",
             border: "none",
           }}
-        />
+        />:
+        <Typography sx={{ padding: '15px' }}>
+          To see a demo of this product, please contact us at umdappdev@gmail.com
+        </Typography>
+        }
       </Card>
     </Box>
   );
