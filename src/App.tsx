@@ -20,7 +20,7 @@ function App() {
   /* AppBar and Events State */
   const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
   const [liveEvents,] = React.useState<WebEvent[]>([
-    { title: "General Body Meeting, 3/25 8pm @ Iribe" },
+    // { title: "General Body Meeting, 3/25 8pm @ Iribe" },
   ]);
 
   React.useEffect(() => {

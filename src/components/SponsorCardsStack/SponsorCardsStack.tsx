@@ -24,28 +24,26 @@ export default function SponsorCardsStack(props?: { sx?: SxProps, mobileView?: b
         setSponsorData(() => ([{
             tier: "Gold",
             members: [
+                'IONQ',
                 'Amazon Project Kuiper',
                 'Fischell Institute',
-                'Children\'s National Hospital',
-                'Praxis Engineering'
-            ],
-        }, {
-            tier: "Gold",
-            members: [
                 'US News',
-                'General Dynamics IT',
                 'MITRE',
             ],
         }, {
             tier: "Silver",
             members: [
-                'MCERSI',
-                'SECU'
+                'Lockheed Martin',
+                'Booz Allen Hamilton',
+                'Children\'s National Hospital',
+                'SECU',
+                'Accenture',
             ],
         }, {
             tier: "Bronze",
             members: [
-                'NSA'
+                'NSA',
+                'General Dynamics IT',
             ],
         }]));
     }, []);
@@ -74,7 +72,7 @@ export default function SponsorCardsStack(props?: { sx?: SxProps, mobileView?: b
                 >
                     Our Sponsors
                 </Typography>
-                <Link href="/sponsor-us" color="text.primary" sx={{ fontWeight: 'bold' }}>
+                <Link href="/#/sponsor-us" color="text.primary" sx={{ fontWeight: 'bold' }}>
                     Want to be a part of something amazing? Sponsor us today!
                 </Link>
             </Box>
