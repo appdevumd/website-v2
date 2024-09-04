@@ -126,7 +126,7 @@ export default function WebLandingPage() {
   const mobileView = useMediaQuery(AppThemeController.baseTheme.breakpoints.down('md'));
   const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
   const [liveEvents] = React.useState<WebEvent[]>([
-    // { title: "General Body Meeting, 3/25 8pm @ Iribe" },
+    { title: "Fall 2024 Applications Open! Apply now at https://inside.appdevclub.com", href: 'https://inside.appdevclub.com' },
   ]);
 
   /* Background Gradients */

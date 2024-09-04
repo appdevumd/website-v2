@@ -1,7 +1,5 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { WebEvent } from "./components/WebEventsBar/interfaces";
-import WebEventsBar from "./components/WebEventsBar";
 import WebAppBar from "./components/WebAppBar";
 import { WebAppBarLink } from "./components/WebAppBar/interfaces";
 import { Box } from "@mui/material";
@@ -19,9 +17,6 @@ const webAppBarLinks: WebAppBarLink[] = [
 function App() {
   /* AppBar and Events State */
   const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
-  const [liveEvents,] = React.useState<WebEvent[]>([
-    { title: "Fall 2024 Applications Open! Apply at https://inside.appdevclub.com", href: "https://inside.appdevclub.com" },
-  ]);
 
   React.useEffect(() => {
     function handleScrollWebAppBar() {
@@ -43,11 +38,6 @@ function App() {
 
   return (
     <>
-      {
-        /* Live Events bar */
-        liveEvents.length < 1 ? <></> : <WebEventsBar events={liveEvents} />
-      }
-
       {/* Fixed App Bar */}
       <WebAppBar links={webAppBarLinks} fullWidth sx={{ backgroundColor: "transparent" }} />
 
