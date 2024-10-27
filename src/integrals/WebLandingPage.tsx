@@ -27,6 +27,7 @@ import { useScroll } from "framer-motion";
 import "./WebLandingPage.css";
 //import HighlightsContainer from "../components/HighlightsContainer";
 import StayConnectedContainer from "../components/StayConnectedContainer";
+import HighlightsContainer from "../components/HighlightsContainer";
 
 const LandingProjectCards = forwardRef((props: {
   id?: string,
@@ -125,9 +126,7 @@ export default function WebLandingPage() {
   /* AppBar and Events State */
   const mobileView = useMediaQuery(AppThemeController.baseTheme.breakpoints.down('md'));
   const [translucentAppBarTop, setTranslucentAppBarTop] = React.useState(-120);
-  const [liveEvents] = React.useState<WebEvent[]>([
-    { title: "Fall 2024 Applications Open! Apply now at https://inside.appdevclub.com", href: 'https://inside.appdevclub.com' },
-  ]);
+  const [liveEvents] = React.useState<WebEvent[]>([]);
 
   /* Background Gradients */
   const [transitionBackground, setTransitionBackground] = React.useState({ start: 0, end: 0 });
@@ -282,13 +281,13 @@ export default function WebLandingPage() {
                 }}
               >
                 <Stats
-                  end={500000}
+                  end={1000000}
                   title={"Dollars Saved"}
                   prefix={"$"}
                   minWidth={336}
                   alignSelf={{ xs: "center", md: "flex-start" }}
                 />
-                <Stats end={170} title={"Members"} minWidth={81} />
+                <Stats end={300} title={"Members"} minWidth={81} />
                 <Stats
                   end={50000}
                   title={"Lines of Code"}
@@ -370,9 +369,9 @@ export default function WebLandingPage() {
           <SponsorCardsStack mobileView={mobileView} />
         </Box>
 
-        {/* <Box id="paddingdiv-004" sx={{ height: "300px" }}></Box>
+        <Box id="paddingdiv-004" sx={{ height: "300px" }}></Box>
         <Typography id="highlights" sx={{ fontSize: '3rem', fontWeight: 'bold', textAlign: 'center' }}>Highlights</Typography>
-        <HighlightsContainer /> */}
+        <HighlightsContainer />
        
         <Box id="paddingdiv-006" sx={{ height: "200px" }}></Box>
         <StayConnectedContainer id="contact" />
