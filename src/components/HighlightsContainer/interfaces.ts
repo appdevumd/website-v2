@@ -1,5 +1,5 @@
 export interface Highlight {
-    imageURL: string,
+    img: string,
     redirect: string,
     description: string
 };

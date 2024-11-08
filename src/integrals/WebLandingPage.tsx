@@ -289,7 +289,7 @@ export default function WebLandingPage() {
                 />
                 <Stats end={300} title={"Members"} minWidth={81} />
                 <Stats
-                  end={50000}
+                  end={90000}
                   title={"Lines of Code"}
                   minWidth={267}
                   alignSelf={{ xs: "center", md: "flex-end" }}

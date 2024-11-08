@@ -3,6 +3,7 @@ import React from "react";
 import { Highlight } from "./interfaces";
 import Marquee from "react-fast-marquee";
 import Sparkles from "../Sparkles";
+import api from "../../api/axios.config";
 
 const RandomizeArray = (array: any[]) => {
     /* Uses the Fisher-Yates (Knuth) Shuffle algorithm */
@@ -47,7 +48,7 @@ const HighlightsCarousel = (props: {
                             }}
                         >
                             <img
-                                src={highlight.imageURL}
+                                src={highlight.img}
                                 style={{
                                     maxWidth: '400px',
                                     maxHeight: '300px'
@@ -62,39 +63,21 @@ const HighlightsCarousel = (props: {
 }
 
 export default function HighlightsContainer() {
+    /* Highlights State */
     const [highlights, setHighlights] = React.useState<Highlight[]>([]);
 
     React.useEffect(() => {
-        setHighlights([
-            {
-                imageURL: 'https://picsum.photos/800/500',
-                redirect: '',
-                description: 'a'
-            },
-            {
-                imageURL: 'https://picsum.photos/600/700',
-                redirect: '',
-                description: 'a'
-            },
-            {
-                imageURL: 'https://picsum.photos/400/600',
-                redirect: '',
-                description: 'a'
-            },
-            {
-                imageURL: 'https://picsum.photos/600/300',
-                redirect: '',
-                description: 'a'
-            },
-            {
-                imageURL: 'https://picsum.photos/900/500',
-                redirect: '',
-                description: 'a'
-            }
-        ]);
+        api.get('/api/highlights').then((res) => {
+            if (res.status != 200)
+                return null;
+
+            /* We Fetched Highlights Sucessfully! Set 'em */
+            setHighlights(res.data);
+        });
     }, []);
 
     return (
+        (highlights.length < 1) ? <p><center>Check us out on Instagram @appdev_umd</center></p> : 
         <Box
             sx={{
                 width: '100%',
@@ -120,7 +103,7 @@ export default function HighlightsContainer() {
             <HighlightsCarousel
                 id="bg01-highlightscontainer"
                 marquee={{ direction: "left", speed: 70 }}
-                highlights={highlights}
+                highlights={highlights.slice(0, 4)}
                 scale="0.6"
                 sx={{ filter: 'blur(6px)', opacity: '0.4', zIndex: 1 }}
             />
@@ -139,21 +122,21 @@ export default function HighlightsContainer() {
             <HighlightsCarousel
                 id="bg02-highlightscontainer"
                 marquee={{ direction: "left", speed: 90 }}
-                highlights={highlights}
+                highlights={highlights.slice(0, 4)}
                 scale="0.6"
                 sx={{ filter: 'blur(6px)', marginTop: '-170px', zIndex: 3, opacity: '0.4' }}
             />
             <HighlightsCarousel
                 id="bg03-highlightscontainer"
                 marquee={{ direction: "left", speed: 110 }}
-                highlights={highlights}
+                highlights={highlights.slice(0, 4)}
                 scale="0.6"
                 sx={{ filter: 'blur(6px)', marginTop: '-140px', opacity: '0.4', zIndex: 2 }}
             />
             <HighlightsCarousel
                 id="bg04-highlightscontainer"
                 marquee={{ direction: "left", speed: 40 }}
-                highlights={highlights}
+                highlights={highlights.slice(0, 4)}
                 scale="0.6"
                 sx={{ filter: 'blur(6px)', marginTop: '-170px', opacity: '0.4', zIndex: 1 }}
             />
