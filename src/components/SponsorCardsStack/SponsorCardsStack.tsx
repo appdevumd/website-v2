@@ -33,8 +33,8 @@ export default function SponsorCardsStack(props?: { sx?: SxProps, mobileView?: b
         }, {
             tier: "Silver",
             members: [
-                'Lockheed Martin',
                 'Booz Allen Hamilton',
+                'NOAA',
                 'Children\'s National Hospital',
                 'SECU',
                 'Accenture',
