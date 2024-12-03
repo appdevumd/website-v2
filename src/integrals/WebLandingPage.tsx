@@ -107,6 +107,7 @@ const webAppBarLinks: WebAppBarLink[] = [
   { title: "Sponsors", anchor: "/#sponsors" },
   { title: "Highlights", anchor: "/#highlights" },
   { title: "Contact Us", anchor: "/#contact" },
+  { title: "Donate Now!", anchor: "/donate" },
 ];
 
 export default function WebLandingPage() {
