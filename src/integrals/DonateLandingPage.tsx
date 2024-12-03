@@ -2,7 +2,7 @@ import { Container, Divider, Typography, Box, Button, LinearProgress } from "@mu
 import WebAppBar from "../components/WebAppBar";
 import { WebAppBarLink } from "../components/WebAppBar/interfaces";
 
-export default (_props: any) => {
+export default (props: any) => {
     // Dynamic variables
     const amountRaised = 750; // Amount raised so far
     const goalAmount = 10000; // Goal amount
@@ -34,12 +34,6 @@ export default (_props: any) => {
                         The App Dev Club supports its members by fostering talent and bridging the gap between academia and professional opportunities. The club's mission is to empower students to innovate, collaborate, and excel in software engineering, preparing them for top-tier tech careers.
                     </Typography>
 
-                    {/* Why You Should Support Us */}
-                    <Typography variant="h5" sx={{ marginBottom: '10px' }}>Why You Should Support Us</Typography>
-                    <Typography paragraph>
-                        The App Dev Club empowers students to bridge the gap between classroom learning and real-world applications. By supporting the club, you contribute to an environment where members gain hands-on experience in app development, mentorship from industry professionals, and opportunities to collaborate on cutting-edge projects. Your support enables students to sharpen their technical and professional skills, helping them stand out in the competitive tech job market. Together, we can nurture future tech leaders and create pathways for students to achieve their career aspirations.
-                    </Typography>
-
                     {/* Where Your Donation Goes */}
                     <Typography variant="h5" sx={{ marginBottom: '10px' }}>Where Your Donation Goes</Typography>
                     <Typography paragraph>
@@ -52,6 +46,21 @@ export default (_props: any) => {
                         <li>Provide networking opportunities, including hosting guest speakers and career fairs.</li>
                         <li>Offset costs for club operations, ensuring we can continue to grow and support our members effectively.</li>
                     </Typography>
+
+                    {/* FALL 2024 Section */}
+                    <Typography variant="h5" sx={{ marginBottom: '10px' }}>Fall 2024 Projects</Typography>
+                    <Typography component="ul" paragraph>
+                        <li><strong>Amazon:</strong> Developing an automated ML pipeline for detecting anomalous satellite behavior.</li>
+                        <li><strong>Booz Allen Hamilton:</strong> Creating an application that automates the tedious process of auditing Children's Health Insurance Program and Medicaid claims.</li>
+                        <li><strong>Children’s National Hospital - TrachSense:</strong> Developing a medical app that monitors tracheostomy tube placement in children by analyzing CO₂ waveforms to trigger emergency alerts.</li>
+                        <li><strong>Children’s National Hospital - X-ray analysis:</strong> Developing an ML training pipeline for chest disease detection.</li>
+                        <li><strong>General Dynamics Information Technology:</strong> Continuing development on last semester’s application.</li>
+                        <li><strong>MITRE:</strong> Creating an internal cybersecurity engineer onboarding tool for MITRE employees.</li>
+                        <li><strong>National Ocean and Atmospheric Administration:</strong> Developed workflows that made fetching state-of-the-art NOAA space weather predictions systematic and easier for the space industry, thereby preventing weather-induced rocket launch failures.</li>
+                        <li><strong>U.S News and World Report:</strong> Implementing a backend component with data heuristics and analysis capabilities to identify anomalies within internal API data and email real-time reports of those findings.</li>
+                        <li><strong>Warriors Legacy Care:</strong> Developing a mobile application to increase veteran access to local healthcare options.</li>
+                    </Typography>
+
                     <Typography paragraph>
                         Every dollar you contribute helps students gain invaluable skills and experiences, bringing us closer to our mission of preparing the next generation of tech leaders. Thank you for making a difference!
                     </Typography>
