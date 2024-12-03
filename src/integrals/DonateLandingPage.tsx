@@ -2,7 +2,7 @@ import { Container, Divider, Typography, Box, Button, LinearProgress } from "@mu
 import WebAppBar from "../components/WebAppBar";
 import { WebAppBarLink } from "../components/WebAppBar/interfaces";
 
-export default (props: any) => {
+export default (_props: any) => {
     // Dynamic variables
     const amountRaised = 750; // Amount raised so far
     const goalAmount = 10000; // Goal amount
