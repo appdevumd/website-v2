@@ -23,21 +23,37 @@ export default (props: any) => {
             <Container sx={{ display: 'flex', gap: '15px', paddingTop: '20px' }}>
                 {/* Main Content */}
                 <Box sx={{ flex: 1 }}>
-                    <Typography variant="h4" sx={{ marginBottom: '20px' }}>Who You're Supporting</Typography>
+                    <Typography variant="h4" sx={{ marginBottom: '20px' }}>University of Maryland's App Dev Club Helps Students Gain Hands-On Experience for a Career in Tech</Typography>
                     <Typography paragraph>
-                        We're a team of undergraduate students spending our free time designing and building a car to compete. Why? We want to become better engineers. Our Terps get their hands dirty with hands-on experience that sets us up to land internships and become engineering leaders.
+                        The App Dev Club at the University of Maryland's Department of Computer Science has grown rapidly since its inception, establishing itself as a leading student organization for app development and career preparation in the tech industry. With over <strong>200 members</strong>, the club provides a platform for students to develop technical and professional skills while building meaningful connections.
+                    </Typography>
+
+                    {/* Mission Section */}
+                    <Typography variant="h5" sx={{ marginBottom: '10px' }}>Our Mission</Typography>
+                    <Typography paragraph>
+                        The App Dev Club supports its members by fostering talent and bridging the gap between academia and professional opportunities. The club's mission is to empower students to innovate, collaborate, and excel in software engineering, preparing them for top-tier tech careers.
+                    </Typography>
+
+                    {/* Why You Should Support Us */}
+                    <Typography variant="h5" sx={{ marginBottom: '10px' }}>Why You Should Support Us</Typography>
+                    <Typography paragraph>
+                        The App Dev Club empowers students to bridge the gap between classroom learning and real-world applications. By supporting the club, you contribute to an environment where members gain hands-on experience in app development, mentorship from industry professionals, and opportunities to collaborate on cutting-edge projects. Your support enables students to sharpen their technical and professional skills, helping them stand out in the competitive tech job market. Together, we can nurture future tech leaders and create pathways for students to achieve their career aspirations.
+                    </Typography>
+
+                    {/* Where Your Donation Goes */}
+                    <Typography variant="h5" sx={{ marginBottom: '10px' }}>Where Your Donation Goes</Typography>
+                    <Typography paragraph>
+                        Your donation will directly support initiatives that make a tangible impact on our members' growth and success. Funds will be used to:
+                    </Typography>
+                    <Typography component="ul" paragraph>
+                        <li>Purchase essential software licenses and development tools.</li>
+                        <li>Organize workshops and hackathons for skill-building and innovation.</li>
+                        <li>Facilitate collaborative projects with industry partners.</li>
+                        <li>Provide networking opportunities, including hosting guest speakers and career fairs.</li>
+                        <li>Offset costs for club operations, ensuring we can continue to grow and support our members effectively.</li>
                     </Typography>
                     <Typography paragraph>
-                        <strong>Our Accomplishments & the Competition</strong><br />
-                        Last season, we built our first-ever working car! In our third year as a team, we placed Top 10 in Engineering Design at the Formula Hybrid+Electric Competition amongst well-established teams that have been winning for years. To keep up this momentum, we need your help.
-                    </Typography>
-                    <Typography paragraph>
-                        <strong>Why Support Us?</strong><br />
-                        This year, funding cuts have left us unable to afford to attend the Formula Hybrid+Electric competition in April. We know that we can deliver even better competition results this year: we're on track to have a fully-built car in March, months ahead of last year, giving us time for testing and tuning. Without your support, we risk not affording competition this year. Let's keep up the momentum. Donate to help us place even stronger this year!
-                    </Typography>
-                    <Typography paragraph>
-                        <strong>Where Your Donation Goes</strong><br />
-                        Donations will fund registration fees ($2,500), travel, tools, and car parts. So you know exactly how much we appreciate your donation, we're keeping a running list of everything we pay for with donations posted on our website.
+                        Every dollar you contribute helps students gain invaluable skills and experiences, bringing us closer to our mission of preparing the next generation of tech leaders. Thank you for making a difference!
                     </Typography>
                 </Box>
                 
