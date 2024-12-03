@@ -18,14 +18,14 @@ export default (props: any) => {
     ];
 
     return (
-        <Box sx={{ bgcolor: 'white', color: 'black', height: '100%' }}>
+        <Box sx={{ bgcolor: 'white', color: 'black', minHeight: '100%' }}>
             <WebAppBar links={webAppBarLinks} />
-            <Container sx={{ display: 'flex', gap: '15px', paddingTop: '20px' }}>
+            <Container sx={{ display: 'flex', gap: '15px', marginTop: '30px', paddingBottom: '30px' }}>
                 {/* Main Content */}
                 <Box sx={{ flex: 1 }}>
                     <Typography variant="h4" sx={{ marginBottom: '20px' }}>University of Maryland's App Dev Club Helps Students Gain Hands-On Experience for a Career in Tech</Typography>
                     <Typography paragraph>
-                        The App Dev Club at the University of Maryland's Department of Computer Science has grown rapidly since its inception, establishing itself as a leading student organization for app development and career preparation in the tech industry. With over <strong>200 members</strong>, the club provides a platform for students to develop technical and professional skills while building meaningful connections.
+                        The App Dev Club at the University of Maryland's Department of Computer Science has grown rapidly since its inception, establishing itself as a leading student organization for app development and career preparation in the tech industry. With over <strong>300 members</strong>, the club provides a platform for students to develop technical and professional skills while building meaningful connections.
                     </Typography>
 
                     {/* Mission Section */}
@@ -60,7 +60,7 @@ export default (props: any) => {
                 <Divider sx={{ borderColor: 'rgba(0,0,0,0.18)' }} flexItem orientation="vertical" />
                 
                 {/* Sidebar */}
-                <Box sx={{ minWidth: "30%", padding: '15px', bgcolor: '#f9f9f9', borderRadius: '8px' }}>
+                <Box sx={{ minWidth: "30%", padding: '15px', bgcolor: '#f9f9f9', borderRadius: '16px' }}>
                     <Typography variant="h5" sx={{ marginBottom: '15px' }}>
                         <strong>${amountRaised.toLocaleString()}</strong>
                     </Typography>
