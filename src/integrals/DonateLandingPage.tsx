@@ -2,7 +2,7 @@ import { Container, Divider, Typography, Box, Button, LinearProgress } from "@mu
 import WebAppBar from "../components/WebAppBar";
 import { WebAppBarLink } from "../components/WebAppBar/interfaces";
 
-export default (props: any) => {
+export default (_props: any) => {
     // Dynamic variables
     const amountRaised = 750; // Amount raised so far
     const goalAmount = 10000; // Goal amount
@@ -99,6 +99,7 @@ export default (props: any) => {
                         Project ends on {endDate}
                     </Typography>
                     <Button
+                        onClick={() => { window.location.href = "https://buy.stripe.com/aEUg2G8Xe1Kl0Ja3cc" }}
                         variant="contained"
                         fullWidth
                         sx={{
