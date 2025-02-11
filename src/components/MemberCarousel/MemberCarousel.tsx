@@ -28,6 +28,10 @@ function MemberCarousel(props?: { id: string, sx?: SxProps }) {
 
     React.useEffect(() => {
         api.get('members/leaders/').then((res) => {
+            if (res.data.length > 0)
+                res.data.sort((a: CarouselMember, b: CarouselMember) => ((a.execorder ?? 0) - (b.execorder ?? 0)))
+            
+            /* Set Sorted Stuff */
             setMembers(() => (res.data));
         });
     }, []);
